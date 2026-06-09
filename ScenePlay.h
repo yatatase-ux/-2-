@@ -1,8 +1,11 @@
 #pragma once
 #include "SceneBase.h"
+#include "MonsterData.h"
 
 class ScenePlay : public SceneBase
 {
+	MonsterData mons;
+
 
 public:
 

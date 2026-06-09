@@ -18,6 +18,8 @@ void ScenePlay::Update()
 void ScenePlay::Draw()
 {
 	// プレイシーンの描画処理
+
+	mons.ShowData();
 }
 
 void ScenePlay::Sound()

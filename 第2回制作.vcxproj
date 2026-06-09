@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MonstaerData.cpp" />
     <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneOP.cpp" />
@@ -137,7 +138,10 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicState.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="MonsterData.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEnd.h" />
     <ClInclude Include="SceneManager.h" />
