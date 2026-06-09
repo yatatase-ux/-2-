@@ -1,5 +1,10 @@
 #include "ScenePlay.h"
 
+ScenePlay::ScenePlay()
+{
+	// プレイシーンの初期化処理
+}
+
 void ScenePlay::Input()
 {
 	// プレイシーンの入力処理

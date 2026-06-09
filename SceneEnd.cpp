@@ -1,5 +1,10 @@
 #include "SceneEnd.h"
 
+SceneEnd::SceneEnd()
+{
+	// エンディングシーンの初期化処理
+}
+
 void SceneEnd::Input()
 {
 	// エンディングシーンの入力処理
