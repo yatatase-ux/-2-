@@ -5,6 +5,7 @@
 class MonsterData
 {
 protected:
+
 	static const BasicState monster[];
 	static const int MonsterSize;
 
