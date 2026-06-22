@@ -13,57 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\シーン管理">
+      <UniqueIdentifier>{0b0aa213-94f4-4cac-91dc-98e81e420347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Main＆Game">
+      <UniqueIdentifier>{bc75f800-fd3e-46ab-bdc0-0d9eec166c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\シーン管理">
+      <UniqueIdentifier>{61b11537-ec96-41f1-8e57-8f9ed3ccd869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\怪獣データ">
+      <UniqueIdentifier>{93cb69e8-08a9-4ad9-ba15-c333ae5d9748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Main＆Game">
+      <UniqueIdentifier>{64b281b6-200e-4936-ac6e-ce5f74235beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\怪獣データ">
+      <UniqueIdentifier>{59c563fb-7175-46b0-beee-a3d59f70cd3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="SceneEnd.cpp">
+      <Filter>ソース ファイル\シーン管理</Filter>
     </ClCompile>
     <ClCompile Include="SceneOP.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\シーン管理</Filter>
     </ClCompile>
     <ClCompile Include="ScenePlay.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneEnd.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\シーン管理</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\シーン管理</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>ソース ファイル\Main＆Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル\Main＆Game</Filter>
     </ClCompile>
     <ClCompile Include="MonstaerData.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\怪獣データ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ヘッダー ファイル\シーン管理</Filter>
     </ClInclude>
     <ClInclude Include="SceneOP.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\シーン管理</Filter>
     </ClInclude>
     <ClInclude Include="ScenePlay.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\シーン管理</Filter>
     </ClInclude>
     <ClInclude Include="SceneEnd.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\シーン管理</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\シーン管理</Filter>
     </ClInclude>
     <ClInclude Include="BasicState.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
     <ClInclude Include="Element.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
     <ClInclude Include="MonsterData.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\怪獣データ</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
