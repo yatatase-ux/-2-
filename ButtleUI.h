@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "Structure.h"
 #include "Cursor.h"
+#include "KeyAction.h"
 
 const int BUTTOM_MAX = 2;
 
@@ -17,6 +18,8 @@ protected:
 	FloatCircle buttom[BUTTOM_MAX];
 
 	Cursor* cursor = nullptr;
+
+	MouseAct mouse_act;
 
 	bool mouse_input = false;
 

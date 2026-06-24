@@ -1,9 +1,7 @@
 #include "MonsterData.h"
 
 const BasicState MonsterData::monster[] = {
-	{ 1, "モンスター", {Element::Fire, Element::NONE}, 108, 130, 95, 80, 85, 102 },
-	{ 2, "創造神", {Element::Fire, Element::NONE}, 120, 120, 120, 120, 120, 120 },
-	{ 3, "ひわまり", {Element::Holy, Element::Earth}, 30, 30, 30, 30, 30, 30}
+	{ 1, "モンスター", {Element::NORMAL, Element::NONE}, 80, 80, 80, 80, 80, 80, {Tackle, NONE, NONE, NONE }}
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(BasicState);
 

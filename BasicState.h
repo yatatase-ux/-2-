@@ -1,5 +1,22 @@
 #pragma once
-#include "Element.h"
+
+enum Element
+{
+	NONE, 	// –³
+	NORMAL,	// –³‘®«
+	Fire,	// ‰Î
+	Water,	// …
+	Wind,	// •—
+	Earth,	// “y
+	Holy,	// Œõ
+	Dark,	// ˆÅ
+};
+
+enum Move
+{
+	NONE,
+	Tackle
+};
 
 struct BasicState
 {
@@ -12,4 +29,5 @@ struct BasicState
 	int MATK;
 	int MDEF;
 	int SPD;
+	Move move[4];
 };
