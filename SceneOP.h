@@ -1,8 +1,12 @@
 #pragma once
 #include "SceneBase.h"
 
+
 class SceneOP : public SceneBase
 {
+protected:
+
+	KeyAct key;
 
 public:
 

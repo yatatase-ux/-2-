@@ -18,9 +18,13 @@ protected:
 
 	Cursor* cursor = nullptr;
 
+	bool mouse_input = false;
+
 public:
 
 	ButtleUI(Cursor* arg_cursor = nullptr);
+
+	void Input();
 
 	void Update();
 

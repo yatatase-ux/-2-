@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+#include "KeyAction.h"
 
 class SceneBase
 {

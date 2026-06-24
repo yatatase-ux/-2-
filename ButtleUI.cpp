@@ -7,6 +7,26 @@ ButtleUI::ButtleUI(Cursor* arg_cursor)
 	buttom[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 }
 
+void ButtleUI::Input()
+{
+	for (int in = 0; in < BUTTOM_MAX; in++)
+	{
+		if (CursorInButtom(in))
+		{
+			if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
+			{
+				mouse_input = true;
+				buttom[in].r = 50.0f;
+			} 
+			else
+			{
+				mouse_input = false;
+				buttom[in].r = 75.0f;
+			}
+		}
+	}
+}
+
 void ButtleUI::Update()
 {
 	for (int in = 0; in < BUTTOM_MAX; in++)
@@ -28,6 +48,8 @@ void ButtleUI::Draw()
 	{
 		DrawCircleAA(buttom[draw].pos.x, buttom[draw].pos.y, buttom[draw].r, 100, buttom[draw].color, 1);
 	}
+
+	DrawFormatString(20, 20, GetColor(255, 255, 255), "%d", mouse_input);
 }
 
 bool ButtleUI::CursorInButtom(int type)

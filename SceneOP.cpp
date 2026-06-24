@@ -8,6 +8,8 @@ SceneOP::SceneOP()
 void SceneOP::Input()
 {
 	// OPƒV[ƒ“‚Ì“ü—Íˆ—
+
+
 }
 
 void SceneOP::Update()

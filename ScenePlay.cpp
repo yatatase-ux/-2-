@@ -10,6 +10,8 @@ ScenePlay::ScenePlay()
 void ScenePlay::Input()
 {
 	// プレイシーンの入力処理
+	ui->Input();
+
 }
 
 void ScenePlay::Update()
