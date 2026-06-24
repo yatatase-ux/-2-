@@ -1,11 +1,16 @@
 #pragma once
 #include "SceneBase.h"
 #include "MonsterData.h"
+#include "Player.h"
+#include "ButtleUI.h"
 
 class ScenePlay : public SceneBase
 {
 	MonsterData mons;
 
+	std::unique_ptr<Player> player;
+
+	std::unique_ptr<ButtleUI> ui;
 
 public:
 

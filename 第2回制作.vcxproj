@@ -129,8 +129,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ButtleUI.cpp" />
+    <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Function.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MonstaerData.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneOP.cpp" />
@@ -139,14 +143,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicState.h" />
+    <ClInclude Include="ButtleUI.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="Element.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="KeyAction.h" />
     <ClInclude Include="MonsterData.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEnd.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneOP.h" />
     <ClInclude Include="ScenePlay.h" />
+    <ClInclude Include="Structure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

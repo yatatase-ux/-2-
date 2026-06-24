@@ -31,6 +31,18 @@
     <Filter Include="ソース ファイル\怪獣データ">
       <UniqueIdentifier>{59c563fb-7175-46b0-beee-a3d59f70cd3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\UI">
+      <UniqueIdentifier>{01d0411f-1515-42b0-9754-02b8e25b45cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\プレイヤー">
+      <UniqueIdentifier>{36f152d3-1887-4e6e-8fa2-f8a33422bc78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\プレイヤー">
+      <UniqueIdentifier>{1ea023c3-80ce-4706-ae67-9f0474699f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{cfaae39b-5a7d-4063-ba91-b1976665a436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -53,6 +65,18 @@
     </ClCompile>
     <ClCompile Include="MonstaerData.cpp">
       <Filter>ソース ファイル\怪獣データ</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\プレイヤー</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtleUI.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>ソース ファイル\Main＆Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +106,24 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyAction.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Structure.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtleUI.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
