@@ -1,13 +1,14 @@
 #pragma once
 #include "BasicState.h"
+#include "MoveData.h"
 
-class Buttle
+class ButtleManager
 {
 protected:
 
 public:
 
-	Buttle();
+	ButtleManager();
 
 	int CalcDamage(
 		const BasicState& attacker,

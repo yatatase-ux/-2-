@@ -1,19 +1,29 @@
 #include "ButtleManager.h"
 
-Buttle::Buttle()
+ButtleManager::ButtleManager()
 {
 
 }
 
-int Buttle::CalcDamage(
+int ButtleManager::CalcDamage(
     const BasicState& attacker,
     const BasicState& defender,
     int moveID)
 {
+    if (moveID < 0)
+    {
+        return 0;
+    }
+
     const MoveData& move = MoveTable[moveID];
 
     int atk = attacker.PATK;
     int def = defender.PDEF;
+
+    if (def <= 0)
+    {
+        def = 1;
+    }
 
     int damage =
         (move.Power * atk) / def;
@@ -21,12 +31,12 @@ int Buttle::CalcDamage(
     return damage;
 }
 
-bool Buttle::CheckHit()
+bool ButtleManager::CheckHit()
 {
     return false;
 }
 
-void Buttle::ApplyDamage()
+void ButtleManager::ApplyDamage()
 {
 
 }
