@@ -134,6 +134,7 @@
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MonstaerData.cpp" />
+    <ClCompile Include="MoveData.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicState.h" />
+    <ClInclude Include="Buttle.h" />
     <ClInclude Include="ButtleUI.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Element.h" />
@@ -150,6 +152,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="KeyAction.h" />
     <ClInclude Include="MonsterData.h" />
+    <ClInclude Include="MoveData.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEnd.h" />

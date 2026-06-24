@@ -1,27 +1,13 @@
 #pragma once
+#include "Element.h"
+#include "MoveData.h"
 
-enum Element
-{
-	NONE, 	// –³
-	NORMAL,	// –³‘®«
-	Fire,	// ‰Î
-	Water,	// …
-	Wind,	// •—
-	Earth,	// “y
-	Holy,	// Œõ
-	Dark,	// ˆÅ
-};
-
-enum Move
-{
-	NONE,
-	Tackle
-};
+enum Move;
 
 struct BasicState
 {
 	int ID;
-	const char Name[256];
+	const char* Name;
 	Element element[2];
 	int HP;
 	int PATK;
@@ -29,5 +15,5 @@ struct BasicState
 	int MATK;
 	int MDEF;
 	int SPD;
-	Move move[4];
+	int MoveID[4];
 };

@@ -78,6 +78,9 @@
     <ClCompile Include="Function.cpp">
       <Filter>ソース ファイル\Main＆Game</Filter>
     </ClCompile>
+    <ClCompile Include="MoveData.cpp">
+      <Filter>ソース ファイル\怪獣データ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -124,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveData.h">
+      <Filter>ヘッダー ファイル\怪獣データ</Filter>
+    </ClInclude>
+    <ClInclude Include="Buttle.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
