@@ -6,8 +6,8 @@ ButtleManager::ButtleManager()
 }
 
 int ButtleManager::CalcDamage(
-    const BasicState& attacker,
-    const BasicState& defender,
+    const MonsterBaseData& attacker,
+    const MonsterBaseData& defender,
     int moveID)
 {
     if (moveID < 0)

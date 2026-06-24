@@ -107,7 +107,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>ヘッダー ファイル\シーン管理</Filter>
     </ClInclude>
-    <ClInclude Include="BasicState.h">
+    <ClInclude Include="MonsterBaseData.h">
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
     <ClInclude Include="Element.h">
@@ -141,6 +141,9 @@
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
     <ClInclude Include="ButtleManager.h">
+      <Filter>ヘッダー ファイル\バトル</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtleMonster.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
   </ItemGroup>

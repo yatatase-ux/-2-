@@ -19,6 +19,7 @@ void ScenePlay::Update()
 	// プレイシーンの更新処理
 	ui->Update();
 	player->Update();
+	
 }
 
 void ScenePlay::Draw()
@@ -26,6 +27,18 @@ void ScenePlay::Draw()
 	// プレイシーンの描画処理
 	ui->Draw();
 	player->Draw();
+
+	int damage =
+		BM.CalcDamage(
+			attacker,
+			defender,
+			0);
+	DrawFormatString(
+		100,
+		300,
+		GetColor(255, 255, 255),
+		"Damage : %d",
+		damage);
 }
 
 void ScenePlay::Sound()

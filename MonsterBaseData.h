@@ -4,7 +4,7 @@
 
 enum Move;
 
-struct BasicState
+struct MonsterBaseData
 {
 	int ID;
 	const char* Name;

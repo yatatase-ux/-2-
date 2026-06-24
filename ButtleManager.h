@@ -1,5 +1,5 @@
 #pragma once
-#include "BasicState.h"
+#include "MonsterBaseData.h"
 #include "MoveData.h"
 
 class ButtleManager
@@ -11,8 +11,8 @@ public:
 	ButtleManager();
 
 	int CalcDamage(
-		const BasicState& attacker,
-		const BasicState& defender,
+		const MonsterBaseData& attacker,
+		const MonsterBaseData& defender,
 		int moveID);
 
 	bool CheckHit();

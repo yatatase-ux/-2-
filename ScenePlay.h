@@ -3,6 +3,7 @@
 #include "MonsterData.h"
 #include "Player.h"
 #include "ButtleUI.h"
+#include "ButtleManager.h"
 
 class ScenePlay : public SceneBase
 {
@@ -11,6 +12,26 @@ class ScenePlay : public SceneBase
 	std::unique_ptr<Player> player;
 
 	std::unique_ptr<ButtleUI> ui;
+
+	ButtleManager BM;
+
+	MonsterBaseData attacker =
+	{
+		1,
+		"ÉÇÉìÉXÉ^Å[",
+		{Element::NORMAL, Element::NONE},
+		80,80,80,80,80,80,
+		{0,-1,-1,-1}
+	};
+
+	MonsterBaseData defender =
+	{
+		2,
+		"éGãõ",
+		{Element::NORMAL, Element::NONE},
+		30,30,30,30,30,30,
+		{0,-1,-1,-1}
+	};
 
 public:
 
