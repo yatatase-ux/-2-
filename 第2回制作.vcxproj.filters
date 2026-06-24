@@ -43,6 +43,12 @@
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{cfaae39b-5a7d-4063-ba91-b1976665a436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\バトル">
+      <UniqueIdentifier>{51fbd763-33a0-4aa7-8e4c-cbbf556e0a00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\バトル">
+      <UniqueIdentifier>{ccf59725-fc90-41ed-ba21-18f578eb3bb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -80,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="MoveData.cpp">
       <Filter>ソース ファイル\怪獣データ</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtleManager.cpp">
+      <Filter>ソース ファイル\バトル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,8 +140,8 @@
     <ClInclude Include="MoveData.h">
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
-    <ClInclude Include="Buttle.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="ButtleManager.h">
+      <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

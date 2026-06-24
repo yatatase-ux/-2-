@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ButtleManager.cpp" />
     <ClCompile Include="ButtleUI.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Function.cpp" />
@@ -144,7 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicState.h" />
-    <ClInclude Include="Buttle.h" />
+    <ClInclude Include="ButtleManager.h" />
     <ClInclude Include="ButtleUI.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Element.h" />
