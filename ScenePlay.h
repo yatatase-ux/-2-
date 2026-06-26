@@ -34,7 +34,7 @@ class ScenePlay : public SceneBase
 		{0,-1,-1,-1}
 	};
 
-	BattleMonster Atttack =
+	BattleMonster Attack =
 	{
 		&attacker,
 		attacker.HP,

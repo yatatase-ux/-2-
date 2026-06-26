@@ -6,6 +6,22 @@ BattleManager::BattleManager()
 }
 
 /// <summary>
+/// ƒ_ƒ[ƒWˆ—
+/// </summary>
+/// <param name="attacker">UŒ‚‘¤</param>
+/// <param name="defender">ó‚¯‘¤</param>
+/// <param name="moveID">‹ZID</param>
+void BattleManager::Attack(BattleMonster& attacker, BattleMonster& defender, int moveID)
+{
+    int damage = CalcDamage(*attacker.data, *defender.data, moveID);
+
+    defender.CurrentHP -= damage;
+
+    if (defender.CurrentHP < 0)
+        defender.CurrentHP = 0;
+}
+
+/// <summary>
 /// ƒ_ƒ[ƒWŒvZ
 /// </summary>
 /// <param name="attacker">U‚ß</param>

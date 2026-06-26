@@ -14,13 +14,7 @@ void ScenePlay::Input()
 
 	if (ui->InputButtom(Fight))
 	{
-		int damage =
-			BM.CalcDamage(
-				attacker,
-				defender,
-				0);
-
-		Defense.CurrentHP -= damage;
+		BM.Attack(Attack, Defense, 0);
 
 	}
 
