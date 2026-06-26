@@ -1,9 +1,9 @@
 #pragma once
-#include "BasicState.h"
+#include "MonsterBaseData.h"
 
 struct BattleMonster
 {
-	const BasicState* data;
+	const MonsterBaseData* data;
 
 	int CurrentHP;
 
