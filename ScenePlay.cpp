@@ -38,7 +38,7 @@ void ScenePlay::Draw()
 		100,
 		300,
 		GetColor(255, 255, 255),
-		"Damage : %d",
+		"HP : %d",
 		Defense.CurrentHP);
 }
 
