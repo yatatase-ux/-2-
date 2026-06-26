@@ -1,11 +1,18 @@
-#include "ButtleManager.h"
+#include "BattleManager.h"
 
-ButtleManager::ButtleManager()
+BattleManager::BattleManager()
 {
 
 }
 
-int ButtleManager::CalcDamage(
+/// <summary>
+/// ダメージ計算
+/// </summary>
+/// <param name="attacker">攻め</param>
+/// <param name="defender">受け</param>
+/// <param name="moveID">技の番号</param>
+/// <returns>ダメージ量</returns>
+int BattleManager::CalcDamage(
     const MonsterBaseData& attacker,
     const MonsterBaseData& defender,
     int moveID)
@@ -31,12 +38,12 @@ int ButtleManager::CalcDamage(
     return damage;
 }
 
-bool ButtleManager::CheckHit()
+bool BattleManager::CheckHit()
 {
     return false;
 }
 
-void ButtleManager::ApplyDamage()
+void BattleManager::ApplyDamage()
 {
 
 }

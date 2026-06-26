@@ -78,7 +78,7 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ButtleUI.cpp">
+    <ClCompile Include="BattleUI.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="Function.cpp">
@@ -128,7 +128,7 @@
     <ClInclude Include="Structure.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
-    <ClInclude Include="ButtleUI.h">
+    <ClInclude Include="BattleUI.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
@@ -140,11 +140,14 @@
     <ClInclude Include="MoveData.h">
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
-    <ClInclude Include="ButtleManager.h">
+    <ClInclude Include="BattleManager.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
-    <ClInclude Include="ButtleMonster.h">
+    <ClInclude Include="BattleMonster.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
+    </ClInclude>
+    <ClInclude Include="Enumeration.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

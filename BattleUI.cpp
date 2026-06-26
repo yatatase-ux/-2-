@@ -1,20 +1,20 @@
-#include "ButtleUI.h"
+#include "BattleUI.h"
 
-ButtleUI::ButtleUI(Cursor* arg_cursor)
+BattleUI::BattleUI(Cursor* arg_cursor)
 	: cursor(arg_cursor)
 {
 	buttom[Fight] = { 1150.0f, 425.0f, 75.0f, GetColor(175,0,0) };
 	buttom[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 }
 
-void ButtleUI::Input()
+void BattleUI::Input()
 {
-
+	bool leftPress = mouse_act.Check(MOUSE_LEFT);
 	for (int in = 0; in < BUTTOM_MAX; in++)
 	{
 		buttom[in].r = 75.0f;
 
-		if (mouse_act.Check(MOUSE_LEFT))
+		if (leftPress)
 		{
 			mouse_input = true;
 
@@ -31,7 +31,7 @@ void ButtleUI::Input()
 	}
 }
 
-void ButtleUI::Update()
+void BattleUI::Update()
 {
 	for (int in = 0; in < BUTTOM_MAX; in++)
 	{
@@ -46,7 +46,7 @@ void ButtleUI::Update()
 	}
 }
 
-void ButtleUI::Draw()
+void BattleUI::Draw()
 {
 	for (int draw = 0; draw < BUTTOM_MAX; draw++)
 	{
@@ -56,7 +56,7 @@ void ButtleUI::Draw()
 //	DrawFormatString(20, 20, GetColor(255, 255, 255), "%d", mouse_input);
 }
 
-bool ButtleUI::CursorInButtom(int type)
+bool BattleUI::CursorInButtom(int type)
 {
 	if (CheckCircleHit(buttom[type].pos, 75.0f, cursor->GetPos(), 10.0f))
 	{
@@ -65,7 +65,7 @@ bool ButtleUI::CursorInButtom(int type)
 	return false;
 }
 
-void ButtleUI::ChangeButtomColor(int type, bool InFlag)
+void BattleUI::ChangeButtomColor(int type, bool InFlag)
 {
 	if (InFlag)
 	{
@@ -93,4 +93,17 @@ void ButtleUI::ChangeButtomColor(int type, bool InFlag)
 			break;
 		}
 	}
+}
+
+bool BattleUI::InputButtom(int type)
+{
+	if (mouse_act.Push(MOUSE_LEFT))
+	{
+		if (CursorInButtom(type))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

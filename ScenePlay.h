@@ -2,8 +2,9 @@
 #include "SceneBase.h"
 #include "MonsterData.h"
 #include "Player.h"
-#include "ButtleUI.h"
-#include "ButtleManager.h"
+#include "BattleUI.h"
+#include "BattleManager.h"
+#include "BattleMonster.h"
 
 class ScenePlay : public SceneBase
 {
@@ -11,9 +12,9 @@ class ScenePlay : public SceneBase
 
 	std::unique_ptr<Player> player;
 
-	std::unique_ptr<ButtleUI> ui;
+	std::unique_ptr<BattleUI> ui;
 
-	ButtleManager BM;
+	BattleManager BM;
 
 	MonsterBaseData attacker =
 	{
@@ -31,6 +32,19 @@ class ScenePlay : public SceneBase
 		{Element::NORMAL, Element::NONE},
 		30,30,30,30,30,30,
 		{0,-1,-1,-1}
+	};
+
+	BattleMonster Atttack =
+	{
+		&attacker,
+		attacker.HP,
+		0, 0, 0, 0, 0
+	};
+	BattleMonster Defense =
+	{
+		&defender,
+		defender.HP,
+		0, 0, 0, 0, 0
 	};
 
 public:

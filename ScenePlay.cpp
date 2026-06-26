@@ -4,13 +4,25 @@ ScenePlay::ScenePlay()
 {
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
-	ui = std::make_unique<ButtleUI>(player->GetCursor());
+	ui = std::make_unique<BattleUI>(player->GetCursor());
 }
 
 void ScenePlay::Input()
 {
 	// プレイシーンの入力処理
 	ui->Input();
+
+	if (ui->InputButtom(Fight))
+	{
+		int damage =
+			BM.CalcDamage(
+				attacker,
+				defender,
+				0);
+
+		Defense.CurrentHP -= damage;
+
+	}
 
 }
 
@@ -28,17 +40,13 @@ void ScenePlay::Draw()
 	ui->Draw();
 	player->Draw();
 
-	int damage =
-		BM.CalcDamage(
-			attacker,
-			defender,
-			0);
+	
 	DrawFormatString(
 		100,
 		300,
 		GetColor(255, 255, 255),
 		"Damage : %d",
-		damage);
+		Defense.CurrentHP);
 }
 
 void ScenePlay::Sound()

@@ -3,18 +3,15 @@
 #include "Structure.h"
 #include "Cursor.h"
 #include "KeyAction.h"
+#include "Enumeration.h"
 
 const int BUTTOM_MAX = 2;
 
-class ButtleUI
+class BattleUI
 {
 protected:
 
-	enum
-	{
-		Fight,
-		Change
-	};
+	
 	FloatCircle buttom[BUTTOM_MAX];
 
 	Cursor* cursor = nullptr;
@@ -25,7 +22,7 @@ protected:
 
 public:
 
-	ButtleUI(Cursor* arg_cursor = nullptr);
+	BattleUI(Cursor* arg_cursor = nullptr);
 
 	void Input();
 
@@ -36,6 +33,8 @@ public:
 	bool CursorInButtom(int type);
 
 	void ChangeButtomColor(int type, bool InFlag);
+
+	bool InputButtom(int type);
 };
 
 

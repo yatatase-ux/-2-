@@ -13,7 +13,7 @@ protected:
 
 	int key_type[USE_KEY_MAX] =
 	{
-		KEY_INPUT_UP,
+		KEY_INPUT_SPACE,
 	};
 
 	bool key_sw[USE_KEY_MAX] = { false};
@@ -79,28 +79,28 @@ protected:
 		MOUSE_INPUT_RIGHT
 	};
 
-	bool key_sw[MOUSE_KEY_MAX] = { false, false };
+	bool mouse_sw[MOUSE_KEY_MAX] = { false, false };
 
 public:
 
 	/// <summary>
 	/// 短押し
 	/// </summary>
-	/// <param name="MouseInput">キー</param>
+	/// <param name="MouseInput">マウスボタン</param>
 	/// <returns></returns>
 	int Push(int MouseInput)
 	{
 		if ((GetMouseInput() & key_type[MouseInput]) != 0)
 		{
-			if (key_sw[MouseInput] == false)
+			if (mouse_sw[MouseInput] == false)
 			{
-				key_sw[MouseInput] = true;
+				mouse_sw[MouseInput] = true;
 				return true;
 			}
 		}
 		else
 		{
-			key_sw[MouseInput] = false;
+			mouse_sw[MouseInput] = false;
 		}
 
 		return false;
