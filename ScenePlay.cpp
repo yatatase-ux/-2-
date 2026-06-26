@@ -33,8 +33,7 @@ void ScenePlay::Draw()
 	// プレイシーンの描画処理
 	ui->Draw();
 	player->Draw();
-
-	
+		
 	DrawFormatString(
 		100,
 		300,
