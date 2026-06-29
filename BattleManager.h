@@ -38,4 +38,6 @@ public:
 	void ApplyDamage();
 
 	float TypeBonus(const MonsterBaseData& attacker, const MoveData& move);
+
+	float TypeMatchup(const MonsterBaseData& defender, const MoveData& move);
 };

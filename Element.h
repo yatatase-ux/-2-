@@ -24,11 +24,10 @@ constexpr float TypeTable
 [(int)Type::Type_MAX]
 [(int)Type::Type_MAX] = 
 {
-	//          NONE NORMAL FIRE WATER GRASS
-
-	/* NONE   */ { 1,  1,    1,    1,    1},
-	/* NORMAL */ { 1,  1,    1,    1,    1},
-	/* FIRE   */ { 1,  1,   0.5f, 0.5f, 2.0f},
-	/* WATER  */ { 1,  1,   2.0f, 0.5f, 0.5f},
-	/* GRASS  */ { 1,  1,   0.5f, 2.0f, 0.5f}
+	//            NONE NORMAL FIRE WATER GRASS
+	/* NONE  */ { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f},
+	/* NORMAL*/ { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f},
+	/* FIRE  */ { 1.0f, 1.0f, 0.5f, 0.5f, 2.0f},
+	/* WATER */ { 1.0f, 1.0f, 2.0f, 0.5f, 0.5f},
+	/* GRASS */ { 1.0f, 1.0f, 0.5f, 2.0f, 0.5f}
 };

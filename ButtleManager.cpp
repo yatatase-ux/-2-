@@ -67,9 +67,14 @@ int BattleManager::CalcDamage(
 
     damage *= TypeBonus(attacker, move);
 
-    // damage *= ‘®«‘Š«
+    damage *= TypeMatchup(defender, move);
 
-    return max(1, (int)damage);
+    if (damage <= 0.0f)
+    {
+        return 0;
+    }
+
+    return (int)damage;
 }
 
 bool BattleManager::CheckHit()
@@ -94,4 +99,15 @@ float BattleManager::TypeBonus(const MonsterBaseData& attacker, const MoveData& 
     }
 
     return 1.0f;
+}
+
+float BattleManager::TypeMatchup(const MonsterBaseData& defender, const MoveData& move)
+{
+    float mag = 1.0f;
+    for (int type = 0; type < 2; type++)
+    {
+        mag *= TypeTable[(int)move.element][(int)defender.element[type]];
+    }
+
+    return mag;
 }
