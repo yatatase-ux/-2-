@@ -3,10 +3,12 @@
 
 enum class BattleState
 {
-    COMMAND,
-    MOVE_SELECT,
-    ACTION,
-    END
+    COMMAND,      // 戦う・交代
+    MOVE_SELECT,  // 技選択
+    ACTION,       // 行動実行
+    CHECK_FAINT,  // 戦闘不能判定
+    TURN_END,     // ターン終了
+    GAME_END      // 試合終了
 };
 
 class BattleManager
