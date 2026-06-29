@@ -90,6 +90,9 @@
     <ClCompile Include="DamageCalculator.cpp">
       <Filter>ソース ファイル\バトル</Filter>
     </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
+      <Filter>ソース ファイル\バトル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Enumeration.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
