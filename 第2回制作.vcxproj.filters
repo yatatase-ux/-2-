@@ -87,7 +87,7 @@
     <ClCompile Include="MoveData.cpp">
       <Filter>ソース ファイル\怪獣データ</Filter>
     </ClCompile>
-    <ClCompile Include="ButtleManager.cpp">
+    <ClCompile Include="DamageCalculator.cpp">
       <Filter>ソース ファイル\バトル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,7 +140,7 @@
     <ClInclude Include="MoveData.h">
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
-    <ClInclude Include="BattleManager.h">
+    <ClInclude Include="DamageCalculator.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
     <ClInclude Include="BattleMonster.h">

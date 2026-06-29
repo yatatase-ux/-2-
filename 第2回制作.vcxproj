@@ -129,7 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ButtleManager.cpp" />
+    <ClCompile Include="DamageCalculator.cpp" />
     <ClCompile Include="BattleUI.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Function.cpp" />
@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="MonsterBaseData.h" />
-    <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="DamageCalculator.h" />
     <ClInclude Include="BattleMonster.h" />
     <ClInclude Include="BattleUI.h" />
     <ClInclude Include="Cursor.h" />

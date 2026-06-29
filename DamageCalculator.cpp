@@ -1,7 +1,7 @@
-#include "BattleManager.h"
+#include "DamageCalculator.h"
 #include "DxLib.h"
 
-BattleManager::BattleManager()
+DamageCalculator::DamageCalculator()
 {
 
 }
@@ -12,7 +12,7 @@ BattleManager::BattleManager()
 /// <param name="attacker">UŒ‚‘¤</param>
 /// <param name="defender">ó‚¯‘¤</param>
 /// <param name="moveID">‹ZID</param>
-void BattleManager::Attack(BattleMonster& attacker, BattleMonster& defender, int moveID)
+void DamageCalculator::Attack(BattleMonster& attacker, BattleMonster& defender, int moveID)
 {
     int damage = CalcDamage(*attacker.data, *defender.data, moveID);
 
@@ -29,7 +29,7 @@ void BattleManager::Attack(BattleMonster& attacker, BattleMonster& defender, int
 /// <param name="defender">ó‚¯</param>
 /// <param name="moveID">‹Z‚Ì”Ô†</param>
 /// <returns>ƒ_ƒ[ƒW—Ê</returns>
-int BattleManager::CalcDamage(
+int DamageCalculator::CalcDamage(
     const MonsterBaseData& attacker,
     const MonsterBaseData& defender,
     int moveID)
@@ -76,22 +76,22 @@ int BattleManager::CalcDamage(
     return (int)damage;
 }
 
-bool BattleManager::CheckHit()
+bool DamageCalculator::CheckHit()
 {
     return false;
 }
 
-void BattleManager::ApplyDamage()
+void DamageCalculator::ApplyDamage()
 {
 
 }
 
-float  BattleManager::BaseDamage(int power, int atk, int def)
+float  DamageCalculator::BaseDamage(int power, int atk, int def)
 {
     return (power * atk) / (float)max(def, 1);
 }
 
-float BattleManager::TypeBonus(const MonsterBaseData& attacker, const MoveData& move)
+float DamageCalculator::TypeBonus(const MonsterBaseData& attacker, const MoveData& move)
 {
 
     for (int type = 0; type < 2; type++)
@@ -105,7 +105,7 @@ float BattleManager::TypeBonus(const MonsterBaseData& attacker, const MoveData& 
     return 1.0f;
 }
 
-float BattleManager::TypeMatchup(const MonsterBaseData& defender, const MoveData& move)
+float DamageCalculator::TypeMatchup(const MonsterBaseData& defender, const MoveData& move)
 {
     float mag = 1.0f;
     for (int type = 0; type < 2; type++)

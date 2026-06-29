@@ -3,7 +3,7 @@
 #include "MonsterData.h"
 #include "Player.h"
 #include "BattleUI.h"
-#include "BattleManager.h"
+#include "DamageCalculator.h"
 #include "BattleMonster.h"
 
 class ScenePlay : public SceneBase
@@ -14,7 +14,7 @@ class ScenePlay : public SceneBase
 
 	std::unique_ptr<BattleUI> ui;
 
-	BattleManager BM;
+	DamageCalculator BM;
 
 	MonsterBaseData attacker =
 	{

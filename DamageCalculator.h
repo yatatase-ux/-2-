@@ -3,13 +3,13 @@
 #include "MoveData.h"
 #include "BattleMonster.h"
 
-class BattleManager
+class DamageCalculator
 {
 protected:
 
 public:
 
-	BattleManager();
+	DamageCalculator();
 
 	/// <summary>
 	/// ƒ_ƒ[ƒWˆ—
