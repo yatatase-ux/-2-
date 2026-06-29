@@ -62,8 +62,7 @@ int BattleManager::CalcDamage(
         def = 1;
     }
 
-    float damage =
-        (move.Power * atk) / (float)def;
+    float damage = BaseDamage(move.Power, atk, def);
 
     damage *= TypeBonus(attacker, move);
 
@@ -85,6 +84,11 @@ bool BattleManager::CheckHit()
 void BattleManager::ApplyDamage()
 {
 
+}
+
+float  BattleManager::BaseDamage(int power, int atk, int def)
+{
+    return (power * atk) / (float)max(def, 1);
 }
 
 float BattleManager::TypeBonus(const MonsterBaseData& attacker, const MoveData& move)
