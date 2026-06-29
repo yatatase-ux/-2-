@@ -20,7 +20,7 @@ class ScenePlay : public SceneBase
 	{
 		1,
 		"ÉÇÉìÉXÉ^Å[",
-		{Element::NORMAL, Element::NONE},
+		{Element::Normal, Element::None},
 		80,80,80,80,80,80,
 		{0,-1,-1,-1}
 	};
@@ -29,8 +29,8 @@ class ScenePlay : public SceneBase
 	{
 		2,
 		"éGãõ",
-		{Element::NORMAL, Element::NONE},
-		30,30,30,30,30,30,
+		{Element::Normal, Element::None},
+		300,300,300,300,30,300,
 		{0,-1,-1,-1}
 	};
 

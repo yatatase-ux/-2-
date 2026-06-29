@@ -36,4 +36,6 @@ public:
 	bool CheckHit();
 
 	void ApplyDamage();
+
+	float TypeBonus(const MonsterBaseData& attacker, const MoveData& move);
 };

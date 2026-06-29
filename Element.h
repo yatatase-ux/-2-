@@ -2,8 +2,8 @@
 
 enum class Element
 {
-	NONE, 	// –³
-	NORMAL,	// –³‘®«
+	None, 	// –³
+	Normal,	// –³‘®«
 	Fire,	// ‰Î
 	Water,	// …
 	Grass	// ‘

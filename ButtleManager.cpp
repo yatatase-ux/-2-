@@ -1,4 +1,5 @@
 #include "BattleManager.h"
+#include "DxLib.h"
 
 BattleManager::BattleManager()
 {
@@ -32,26 +33,43 @@ int BattleManager::CalcDamage(
     const MonsterBaseData& attacker,
     const MonsterBaseData& defender,
     int moveID)
-{
-    if (moveID < 0)
+{ 
+    if (moveID < 0 || moveID >= MoveTableSize)
     {
         return 0;
     }
 
     const MoveData& move = MoveTable[moveID];
 
-    int atk = attacker.PATK;
-    int def = defender.PDEF;
+    int atk = 0;
+    int def = 0;
+    switch (move.category)
+    {
+    case PHYSICAL:
+        atk = attacker.PATK;
+        def = defender.PDEF;
+        break;
+    case SPECIAL:
+        atk = attacker.MATK;
+        def = defender.MDEF;
+        break;
+    case STATUS:
+        return 0;
+    }
 
     if (def <= 0)
     {
         def = 1;
     }
 
-    int damage =
-        (move.Power * atk) / def;
+    float damage =
+        (move.Power * atk) / (float)def;
 
-    return damage;
+    damage *= TypeBonus(attacker, move);
+
+    // damage *= ‘®«‘Š«
+
+    return max(1, (int)damage);
 }
 
 bool BattleManager::CheckHit()
@@ -62,4 +80,18 @@ bool BattleManager::CheckHit()
 void BattleManager::ApplyDamage()
 {
 
+}
+
+float BattleManager::TypeBonus(const MonsterBaseData& attacker, const MoveData& move)
+{
+
+    for (int type = 0; type < 2; type++)
+    {
+        if (attacker.element[type] == move.element)
+        {
+            return 1.5f;
+        }
+    }
+
+    return 1.0f;
 }

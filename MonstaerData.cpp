@@ -1,14 +1,11 @@
 #include "MonsterData.h"
 
 const MonsterBaseData MonsterData::monster[] = {
-	{ 1, "モンスター", {Element::NORMAL, Element::NONE}, 80, 80, 80, 80, 80, 80, {0, -1, -1, -1 }},
-	{ 2, "雑魚",       {Element::NORMAL, Element::NONE}, 30, 30, 30, 30, 30, 30, {0, -1, -1, -1 }}
+	{ 1, "モンスター", {Element::Normal, Element::None}, 80, 80, 80, 80, 80, 80, {0, -1, -1, -1 }},
+	{ 2, "雑魚",       {Element::Normal, Element::None}, 30, 30, 30, 30, 30, 30, {0, -1, -1, -1 }}
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);
-
-
-
 
 //void MonsterData::ShowData()
 //{
