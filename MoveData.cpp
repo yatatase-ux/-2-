@@ -5,7 +5,7 @@ MoveData MoveTable[] =
 	{
 		0,
 		"ƒ^ƒbƒNƒ‹",
-		Element::Normal,
+		Type::Normal,
 		PHYSICAL,
 		40,
 		100,

@@ -14,7 +14,7 @@ struct MoveData
 
 	const char* Name;
 
-	Element element;
+	Type element;
 
 	MoveCategory category;
 

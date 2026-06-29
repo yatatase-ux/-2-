@@ -8,7 +8,7 @@ struct MonsterBaseData
 {
 	int ID;
 	const char* Name;
-	Element element[2];
+	Type element[2];
 	int HP;
 	int PATK;
 	int PDEF;
