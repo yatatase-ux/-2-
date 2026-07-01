@@ -15,9 +15,9 @@ class ScenePlay : public SceneBase
 
 	std::unique_ptr<BattleUI> ui;
 
-	std::unique_ptr<BattleManager> battle = std::make_unique<BattleManager>();
+	std::unique_ptr<BattleManager> BM;
 
-	DamageCalculator BM;
+
 
 	MonsterBaseData attacker =
 	{
@@ -27,7 +27,6 @@ class ScenePlay : public SceneBase
 		80,80,80,80,80,80,
 		{0,-1,-1,-1}
 	};
-
 	MonsterBaseData defender =
 	{
 		2,
@@ -36,7 +35,6 @@ class ScenePlay : public SceneBase
 		300,300,300,300,30,300,
 		{0,-1,-1,-1}
 	};
-
 	BattleMonster Attack =
 	{
 		&attacker,

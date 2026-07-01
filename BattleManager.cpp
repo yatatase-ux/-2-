@@ -1,8 +1,8 @@
 #include "BattleManager.h"
 
-BattleManager::BattleManager()
+BattleManager::BattleManager(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender)
 {
-	
+	phase = std::make_unique<CommandPhase>(ui, attacker, defender);
 }
 
 /// <summary>

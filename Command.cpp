@@ -1,6 +1,7 @@
 #include "CommandPhase.h"
 
-CommandPhase::CommandPhase()
+CommandPhase::CommandPhase(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender)
+	: PhaseBase(ui, attacker, defender)
 {
 	
 }
@@ -10,7 +11,13 @@ CommandPhase::CommandPhase()
 /// </summary>
 void CommandPhase::Input()
 {
-	BUI.Input();
+	ui->Input();
+
+	if(ui->InputButton(Fight))
+	{
+		damage.Attack(*attacker, *defender, 0);
+	}
+
 }
 
 /// <summary>
@@ -18,7 +25,7 @@ void CommandPhase::Input()
 /// </summary>
 void CommandPhase::Update()
 {
-	BUI.Update();
+	ui->Update();
 }
 
 /// <summary>
@@ -26,7 +33,7 @@ void CommandPhase::Update()
 /// </summary>
 void CommandPhase::Draw()
 {
-	BUI.Draw();
+	ui->Draw();
 }
 
 /// <summary>
@@ -34,5 +41,10 @@ void CommandPhase::Draw()
 /// </summary>
 void CommandPhase::Sound()
 {
-	BUI.Sound();
+	ui->Sound();
+}
+
+PhaseState CommandPhase::ChangePhase() const
+{
+	return PhaseState::MOVE_SELECT;
 }

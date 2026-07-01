@@ -1,14 +1,17 @@
 #pragma once
 #include "PhaseBase.h"
 #include "BattleUI.h"
+#include "DamageCalculator.h"
 
 class CommandPhase : public PhaseBase
 {
 private:
-	BattleUI BUI;
+
+	DamageCalculator damage;
 
 public:
-	CommandPhase();
+
+	CommandPhase(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender);
 
 	void Input() override;
 
@@ -17,4 +20,6 @@ public:
 	void Draw() override;
 
 	void Sound() override;
+
+	PhaseState ChangePhase() const override;
 };

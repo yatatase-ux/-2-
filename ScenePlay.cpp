@@ -5,6 +5,7 @@ ScenePlay::ScenePlay()
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
 	ui = std::make_unique<BattleUI>(player->GetCursor());
+	BM = std::make_unique<BattleManager>(ui.get(), &Attack, &Defense);
 }
 
 void ScenePlay::Input()
@@ -12,11 +13,7 @@ void ScenePlay::Input()
 	// プレイシーンの入力処理
 	ui->Input();
 
-	if (ui->InputButton(Fight))
-	{
-		BM.Attack(Attack, Defense, 0);
-
-	}
+	BM->Input();
 
 }
 

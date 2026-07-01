@@ -12,7 +12,7 @@ class BattleUI
 protected:
 
 	
-	FloatCircle buttom[BUTTOM_MAX];
+	FloatCircle button[BUTTOM_MAX];
 
 	Cursor* cursor = nullptr;
 
