@@ -5,6 +5,7 @@
 #include "BattleUI.h"
 #include "DamageCalculator.h"
 #include "BattleMonster.h"
+#include "BattleManager.h"
 
 class ScenePlay : public SceneBase
 {
@@ -13,6 +14,8 @@ class ScenePlay : public SceneBase
 	std::unique_ptr<Player> player;
 
 	std::unique_ptr<BattleUI> ui;
+
+	std::unique_ptr<BattleManager> battle = std::make_unique<BattleManager>();
 
 	DamageCalculator BM;
 

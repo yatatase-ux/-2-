@@ -30,11 +30,13 @@ public:
 
 	void Draw();
 
+	void Sound();
+
 	bool CursorInButtom(int type);
 
 	void ChangeButtomColor(int type, bool InFlag);
 
-	bool InputButtom(int type);
+	bool InputButton(int type);
 };
 
 

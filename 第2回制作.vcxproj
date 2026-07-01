@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleManager.cpp" />
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="DamageCalculator.cpp" />
     <ClCompile Include="BattleUI.cpp" />
     <ClCompile Include="Cursor.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="CommandPhase.h" />
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="MonsterBaseData.h" />
     <ClInclude Include="DamageCalculator.h" />
@@ -158,6 +160,7 @@
     <ClInclude Include="KeyAction.h" />
     <ClInclude Include="MonsterData.h" />
     <ClInclude Include="MoveData.h" />
+    <ClInclude Include="PhaseBase.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEnd.h" />

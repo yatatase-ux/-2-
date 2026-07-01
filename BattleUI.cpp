@@ -54,6 +54,12 @@ void BattleUI::Draw()
 	}
 
 //	DrawFormatString(20, 20, GetColor(255, 255, 255), "%d", mouse_input);
+
+}
+
+void BattleUI::Sound()
+{
+
 }
 
 bool BattleUI::CursorInButtom(int type)
@@ -95,7 +101,7 @@ void BattleUI::ChangeButtomColor(int type, bool InFlag)
 	}
 }
 
-bool BattleUI::InputButtom(int type)
+bool BattleUI::InputButton(int type)
 {
 	if (mouse_act.Push(MOUSE_LEFT))
 	{

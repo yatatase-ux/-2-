@@ -1,5 +1,9 @@
 #pragma once
+#include <memory>
 #include "DamageCalculator.h"
+#include "BattleUI.h"
+#include "PhaseBase.h"
+#include "CommandPhase.h"
 
 enum class BattleState
 {
@@ -17,11 +21,32 @@ protected:
 
     BattleState state = BattleState::COMMAND;
 
+	std::unique_ptr<BattleUI> battleUI = std::make_unique<BattleUI>();
+
+	std::unique_ptr<PhaseBase> phase = std::make_unique<CommandPhase>();
+
 public:
 
 	BattleManager();
 
+	/// <summary>
+	/// 入力処理
+	/// </summary>
+	void Input();
 
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update();
 
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	void Draw();
+	
+	/// <summary>
+	/// サウンド処理
+	/// </summary>
+	void Sound();
 };
 

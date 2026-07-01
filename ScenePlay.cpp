@@ -12,7 +12,7 @@ void ScenePlay::Input()
 	// プレイシーンの入力処理
 	ui->Input();
 
-	if (ui->InputButtom(Fight))
+	if (ui->InputButton(Fight))
 	{
 		BM.Attack(Attack, Defense, 0);
 
@@ -44,5 +44,5 @@ void ScenePlay::Draw()
 
 void ScenePlay::Sound()
 {
-	// プレイシーンの音声再生処理
+
 }
