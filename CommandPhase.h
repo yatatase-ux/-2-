@@ -13,13 +13,11 @@ public:
 
 	CommandPhase(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender);
 
-	void Input() override;
+	PhaseState Input() override;
 
 	void Update() override;
 
 	void Draw() override;
 
 	void Sound() override;
-
-	PhaseState ChangePhase() const override;
 };

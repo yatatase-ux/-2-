@@ -138,6 +138,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MonstaerData.cpp" />
     <ClCompile Include="MoveData.cpp" />
+    <ClCompile Include="MoveSelectPhase.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="KeyAction.h" />
     <ClInclude Include="MonsterData.h" />
     <ClInclude Include="MoveData.h" />
+    <ClInclude Include="MoveSelectPhase.h" />
     <ClInclude Include="PhaseBase.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />

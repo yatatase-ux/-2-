@@ -11,8 +11,6 @@ ScenePlay::ScenePlay()
 void ScenePlay::Input()
 {
 	// プレイシーンの入力処理
-	ui->Input();
-
 	BM->Input();
 
 }
@@ -20,15 +18,15 @@ void ScenePlay::Input()
 void ScenePlay::Update()
 {
 	// プレイシーンの更新処理
-	ui->Update();
 	player->Update();
 	
+	BM->Update();
 }
 
 void ScenePlay::Draw()
 {
 	// プレイシーンの描画処理
-	ui->Draw();
+	BM->Draw();
 	player->Draw();
 		
 	DrawFormatString(

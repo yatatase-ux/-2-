@@ -9,15 +9,16 @@ CommandPhase::CommandPhase(BattleUI* ui, BattleMonster* attacker, BattleMonster*
 /// <summary>
 /// “ü—Íˆ—
 /// </summary>
-void CommandPhase::Input()
+PhaseState CommandPhase::Input()
 {
 	ui->Input();
 
 	if(ui->InputButton(Fight))
 	{
-		damage.Attack(*attacker, *defender, 0);
+		return PhaseState::MOVE_SELECT;
 	}
 
+	return PhaseState::NONE;
 }
 
 /// <summary>
@@ -42,9 +43,4 @@ void CommandPhase::Draw()
 void CommandPhase::Sound()
 {
 	ui->Sound();
-}
-
-PhaseState CommandPhase::ChangePhase() const
-{
-	return PhaseState::MOVE_SELECT;
 }

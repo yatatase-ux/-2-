@@ -5,6 +5,7 @@
 
 enum class PhaseState
 {
+	NONE,         // 初期状態
 	COMMAND,      // 戦う・交代
 	MOVE_SELECT,  // 技選択
 	ACTION,       // 行動実行
@@ -28,13 +29,11 @@ public:
 
 	~PhaseBase() {}
 
-	virtual void Input() = 0;
+	virtual PhaseState Input() = 0;
 
 	virtual void Update() = 0;
 
 	virtual void Draw() = 0;
 
 	virtual void Sound() = 0;
-
-	virtual PhaseState ChangePhase() const = 0;
 };

@@ -1,23 +1,30 @@
 #pragma once
 #include <memory>
-#include "DamageCalculator.h"
+
 #include "BattleUI.h"
 #include "BattleMonster.h"
+
+// フェーズクラスのインクルード
 #include "PhaseBase.h"
 #include "CommandPhase.h"
+#include "MoveSelectPhase.h"
 
 
 class BattleManager
 {
 protected:
 
-//   BattleState state = BattleState::COMMAND;
-
 	std::unique_ptr<PhaseBase> phase;
+
+	BattleUI* ui;
+	BattleMonster* attacker;
+	BattleMonster* defender;
+
+	PhaseState currentPhase = PhaseState::NONE;
 
 public:
 
-	BattleManager(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender);
+	BattleManager(BattleUI* arg_ui, BattleMonster* arg_attacker, BattleMonster* arg_defender);
 
 	/// <summary>
 	/// 入力処理
@@ -38,5 +45,11 @@ public:
 	/// サウンド処理
 	/// </summary>
 	void Sound();
+
+	void ChangePhase(PhaseState nextPhase);
+
+	std::unique_ptr<PhaseBase> CreatePhase(PhaseState state);
+
+	void DrawPhaseForDebug(PhaseState);
 };
 
