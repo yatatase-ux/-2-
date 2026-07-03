@@ -13,8 +13,6 @@ class ScenePlay : public SceneBase
 
 	std::unique_ptr<Player> player;
 
-	std::unique_ptr<BattleUI> ui;
-
 	std::unique_ptr<BattleManager> BM;
 
 

@@ -1,9 +1,9 @@
 #include "BattleManager.h"
 
-BattleManager::BattleManager(BattleUI* arg_ui, BattleMonster* arg_attacker, BattleMonster* arg_defender)
-	: ui(arg_ui), attacker(arg_attacker), defender(arg_defender)
+BattleManager::BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
+	: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender)
 {
-	phase = std::make_unique<CommandPhase>(ui, attacker, defender);
+	phase = std::make_unique<CommandPhase>(cursor, attacker, defender);
 }
 
 /// <summary>
@@ -12,7 +12,6 @@ BattleManager::BattleManager(BattleUI* arg_ui, BattleMonster* arg_attacker, Batt
 void BattleManager::Input()
 {
 	PhaseState change_phase = phase->Input();
-	currentPhase = change_phase;
 
 	ChangePhase(change_phase);
 
@@ -57,10 +56,12 @@ std::unique_ptr<PhaseBase> BattleManager::CreatePhase(PhaseState state)
 	switch (state)
 	{
 	case PhaseState::COMMAND:
-		return std::make_unique<CommandPhase>(ui, attacker, defender);
+		currentPhase = PhaseState::COMMAND;
+		return std::make_unique<CommandPhase>(cursor, attacker, defender);
 
 	case PhaseState::MOVE_SELECT:
-		return std::make_unique<MoveSelectPhase>(ui, attacker, defender);
+		currentPhase = PhaseState::MOVE_SELECT;
+		return std::make_unique<MoveSelectPhase>(cursor, attacker, defender);
 	}
 
 	return nullptr;

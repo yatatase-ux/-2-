@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleManager.cpp" />
-    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="CommandPhase.cpp" />
     <ClCompile Include="DamageCalculator.cpp" />
     <ClCompile Include="BattleUI.cpp" />
     <ClCompile Include="Cursor.cpp" />

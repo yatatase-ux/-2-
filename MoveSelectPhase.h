@@ -4,7 +4,7 @@
 class MoveSelectPhase : public PhaseBase
 {
 public:
-	MoveSelectPhase(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender);
+	MoveSelectPhase(Cursor* arg_curosr, BattleMonster* arg_attacker, BattleMonster* arg_defender);
 
 	PhaseState Input() override;
 

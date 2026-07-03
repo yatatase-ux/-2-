@@ -43,11 +43,11 @@
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{cfaae39b-5a7d-4063-ba91-b1976665a436}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\バトル">
-      <UniqueIdentifier>{51fbd763-33a0-4aa7-8e4c-cbbf556e0a00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\バトル">
+    <Filter Include="ソース ファイル\バトル/フェーズ">
       <UniqueIdentifier>{ccf59725-fc90-41ed-ba21-18f578eb3bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\バトル/フェーズ">
+      <UniqueIdentifier>{51fbd763-33a0-4aa7-8e4c-cbbf556e0a00}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,16 +88,16 @@
       <Filter>ソース ファイル\怪獣データ</Filter>
     </ClCompile>
     <ClCompile Include="DamageCalculator.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+      <Filter>ソース ファイル\バトル/フェーズ</Filter>
     </ClCompile>
     <ClCompile Include="BattleManager.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+      <Filter>ソース ファイル\バトル/フェーズ</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+    <ClCompile Include="CommandPhase.cpp">
+      <Filter>ソース ファイル\バトル/フェーズ</Filter>
     </ClCompile>
     <ClCompile Include="MoveSelectPhase.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+      <Filter>ソース ファイル\バトル/フェーズ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,25 +150,25 @@
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
     <ClInclude Include="DamageCalculator.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="BattleMonster.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="Enumeration.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
     <ClInclude Include="BattleManager.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="CommandPhase.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="PhaseBase.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="MoveSelectPhase.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,8 @@
 #pragma once
-#include "DxLib.h"
+#include <DxLib.h>
+#include "Structure.h"
+#include "KeyAction.h"
+#include "Cursor.h"
 #include "BattleMonster.h"
 #include "BattleUI.h"
 
@@ -18,14 +21,14 @@ class PhaseBase
 {
 protected:
 
-	BattleUI* ui;
+	Cursor* cursor;
 	BattleMonster* attacker;
-	BattleMonster* defender;	
+	BattleMonster* defender;
 
 public:
 
-	PhaseBase(BattleUI* ui, BattleMonster* attacker, BattleMonster* defender)
-		: ui(ui), attacker(attacker), defender(defender) {}
+	PhaseBase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
+		: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender) {}
 
 	~PhaseBase() {}
 

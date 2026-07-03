@@ -4,8 +4,8 @@ ScenePlay::ScenePlay()
 {
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
-	ui = std::make_unique<BattleUI>(player->GetCursor());
-	BM = std::make_unique<BattleManager>(ui.get(), &Attack, &Defense);
+//	ui = std::make_unique<BattleUI>(player->GetCursor());
+	BM = std::make_unique<BattleManager>(player->GetCursor(), &Attack, &Defense);
 }
 
 void ScenePlay::Input()

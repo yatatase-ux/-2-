@@ -43,3 +43,17 @@ bool CheckCircleHit(FloatXY circle1, float radius1, FloatXY circle2, float radiu
 	}
 	return false;
 }
+
+void DrawCenterText(float x, float y, const char* text, unsigned int color, float size)
+{
+	SetFontSize(size);
+
+	int GT_s = strlen(text);
+
+	int GT_w = GetDrawStringWidth(text, GT_s);
+
+	float draw_x = x - (float)GT_w / 2.0f;
+	float draw_y = y - (float)size / 2.0f;
+
+	DrawStringF(draw_x, draw_y, text, color);
+}

@@ -16,15 +16,15 @@ protected:
 
 	std::unique_ptr<PhaseBase> phase;
 
-	BattleUI* ui;
+	Cursor* cursor;
 	BattleMonster* attacker;
 	BattleMonster* defender;
 
-	PhaseState currentPhase = PhaseState::NONE;
+	PhaseState currentPhase = PhaseState::COMMAND;
 
 public:
 
-	BattleManager(BattleUI* arg_ui, BattleMonster* arg_attacker, BattleMonster* arg_defender);
+	BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender);
 
 	/// <summary>
 	/// “ü—Íˆ—
