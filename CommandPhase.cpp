@@ -12,30 +12,51 @@ CommandPhase::CommandPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, Batt
 /// </summary>
 PhaseState CommandPhase::Input()
 {
-
-	bool leftPress = mouse_act.Check(MOUSE_LEFT);
-	for (int in = 0; in < BUTTOM_MAX; in++)
+	if (InputButton(Fight))
 	{
-		button[in].r = 75.0f;
+		return PhaseState::MOVE_SELECT;
+	}
 
-		if (leftPress)
-		{
-			mouse_input = true;
-
-			if (CursorInButtom(in))
-			{
-				button[in].r = 50.0f;
-				return PhaseState::MOVE_SELECT;
-			}
-		}
-		else
-		{
-			mouse_input = false;
-			button[in].r = 75.0f;
-		}
+	if (InputButton(Change))
+	{
+		// Œð‘ãˆ—‚ð‚Ü‚¾ŽÀ‘•‚µ‚Ä‚¢‚È‚¢‚½‚ßANONE‚ð•Ô‚·
+		return PhaseState::NONE;
 	}
 
 	return PhaseState::NONE;
+
+	//bool leftPress = mouse_act.Check(MOUSE_LEFT);
+	//for (int in = 0; in < BUTTOM_MAX; in++)
+	//{
+	//	button[in].r = 75.0f;
+
+	//	if (leftPress)
+	//	{
+	//		if (mouse_input) return PhaseState::NONE;
+	//		mouse_input = true;
+
+	//		if (CursorInButtom(in))
+	//		{
+	//			if(in == Fight)
+	//			{
+	//				return PhaseState::MOVE_SELECT;
+	//			}
+	//			else if (in == Change)
+	//			{
+	//				// Œð‘ãˆ—
+	//				// Œ»Ý‚ÍŒð‘ãˆ—‚ª–¢ŽÀ‘•‚Ì‚½‚ßANONE‚ð•Ô‚·
+	//				return PhaseState::NONE;  
+	//			}
+	//		}
+	//	}
+	//	else
+	//	{
+	//		mouse_input = false;
+	//		button[in].r = 75.0f;
+	//	}
+	//}
+
+	//return PhaseState::NONE;
 }
 
 /// <summary>
@@ -76,7 +97,6 @@ void CommandPhase::Sound()
 {
 	
 }
-
 
 bool CommandPhase::CursorInButtom(int type)
 {
