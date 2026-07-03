@@ -1,4 +1,5 @@
 #include "Function.h"
+
 int GetMouseIntX()
 {
 	IntXY pos;
@@ -34,6 +35,42 @@ float GetFloat2Distance(FloatXY pos1, FloatXY pos2)
 	return distance;
 }
 
+
+bool CheckCircleHit(FloatXY circle1, float radius1, FloatXY circle2, float radius2)
+{
+	float distance = GetFloat2Distance(circle1, circle2);
+	float radius = radius1 + radius2;
+	if (distance <= radius) {
+		return true;
+	}
+	return false;
+}
+
+/// <summary>
+/// 中央揃えで文字列を描画する関数
+/// </summary>
+/// <param name="x">X座標</param>
+/// <param name="y">Y座標</param>
+/// <param name="text">描画する文字列</param>
+/// <param name="color">文字色</param>
+/// <param name="size">文字サイズ</param>
+void DrawCenterText(float x, float y, const char* text, unsigned int color, float size)
+{
+	SetFontSize(size);
+
+	int GT_s = strlen(text);
+
+	int GT_w = GetDrawStringWidth(text, GT_s);
+
+	float draw_x = x - (float)GT_w / 2.0f;
+	float draw_y = y - (float)size / 2.0f;
+
+	DrawStringF(draw_x, draw_y, text, color);
+}
+
+//---------------------------------------------------------------------------------
+//	点と円の当たり判定（座標に Float2 を渡すバージョン）
+//---------------------------------------------------------------------------------
 bool CheckPointCircleHit(FloatXY point, FloatXY circle, float radius)
 {
 	float distance = GetFloat2Distance(point, circle);
@@ -42,7 +79,21 @@ bool CheckPointCircleHit(FloatXY point, FloatXY circle, float radius)
 	}
 	return false;
 }
-
+//---------------------------------------------------------------------------------
+//	点と四角の当たり判定（座標と大きさに Float2 を渡すバージョン）
+//---------------------------------------------------------------------------------
+bool CheckPointBoxHit(FloatXY point, FloatXY box_pos, FloatXY box_size)
+{
+	if (point.x >= box_pos.x && point.x <= box_pos.x + box_size.x) {
+		if (point.y >= box_pos.y && point.y <= box_pos.y + box_size.y) {
+			return true;
+		}
+	}
+	return false;
+}
+//---------------------------------------------------------------------------------
+//	円と四角の当たり判定（座標と大きさに Float2 を渡すバージョン）
+//---------------------------------------------------------------------------------
 bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY box_size)
 {
 	FloatXY near_pos;
@@ -60,28 +111,4 @@ bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY bo
 	}
 
 	return false;
-}
-
-bool CheckCircleHit(FloatXY circle1, float radius1, FloatXY circle2, float radius2)
-{
-	float distance = GetFloat2Distance(circle1, circle2);
-	float radius = radius1 + radius2;
-	if (distance <= radius) {
-		return true;
-	}
-	return false;
-}
-
-void DrawCenterText(float x, float y, const char* text, unsigned int color, float size)
-{
-	SetFontSize(size);
-
-	int GT_s = strlen(text);
-
-	int GT_w = GetDrawStringWidth(text, GT_s);
-
-	float draw_x = x - (float)GT_w / 2.0f;
-	float draw_y = y - (float)size / 2.0f;
-
-	DrawStringF(draw_x, draw_y, text, color);
 }
