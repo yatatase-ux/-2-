@@ -4,7 +4,6 @@
 #include "KeyAction.h"
 #include "Cursor.h"
 #include "BattleMonster.h"
-#include "BattleUI.h"
 
 enum class PhaseState
 {

@@ -132,7 +132,6 @@
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
     <ClCompile Include="DamageCalculator.cpp" />
-    <ClCompile Include="BattleUI.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -153,7 +152,6 @@
     <ClInclude Include="MonsterBaseData.h" />
     <ClInclude Include="DamageCalculator.h" />
     <ClInclude Include="BattleMonster.h" />
-    <ClInclude Include="BattleUI.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="Function.h" />

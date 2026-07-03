@@ -1,7 +1,5 @@
 #pragma once
 #include <memory>
-
-#include "BattleUI.h"
 #include "BattleMonster.h"
 
 // フェーズクラスのインクルード

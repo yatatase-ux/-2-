@@ -31,17 +31,11 @@
     <Filter Include="ソース ファイル\怪獣データ">
       <UniqueIdentifier>{59c563fb-7175-46b0-beee-a3d59f70cd3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\UI">
-      <UniqueIdentifier>{01d0411f-1515-42b0-9754-02b8e25b45cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\プレイヤー">
       <UniqueIdentifier>{36f152d3-1887-4e6e-8fa2-f8a33422bc78}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\プレイヤー">
       <UniqueIdentifier>{1ea023c3-80ce-4706-ae67-9f0474699f58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\UI">
-      <UniqueIdentifier>{cfaae39b-5a7d-4063-ba91-b1976665a436}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\バトル/フェーズ">
       <UniqueIdentifier>{ccf59725-fc90-41ed-ba21-18f578eb3bb9}</UniqueIdentifier>
@@ -75,12 +69,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\プレイヤー</Filter>
     </ClCompile>
-    <ClCompile Include="Cursor.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="BattleUI.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Function.cpp">
       <Filter>ソース ファイル\Main＆Game</Filter>
     </ClCompile>
@@ -98,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="MoveSelectPhase.cpp">
       <Filter>ソース ファイル\バトル/フェーズ</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>ソース ファイル\プレイヤー</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +128,6 @@
     <ClInclude Include="Structure.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
-    <ClInclude Include="BattleUI.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
@@ -169,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="MoveSelectPhase.h">
       <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
