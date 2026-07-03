@@ -24,6 +24,9 @@ protected:
 	BattleMonster* attacker;
 	BattleMonster* defender;
 
+	MouseAct mouse_act;
+	bool mouse_input = false;
+
 public:
 
 	PhaseBase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
