@@ -76,7 +76,7 @@ void MoveSelectPhase::Sound()
 
 bool MoveSelectPhase::CursorInMoveButton(int moveID)
 {
-	if (CheckCircleBoxHit(cursor->GetPos(), 10.0f, moveButtons[moveID].pos, { 250.0f, 75.0f }))
+	if (CheckPointBoxHit(cursor->GetPos(), moveButtons[moveID].pos, { 250.0f, 75.0f }))
 	{
 		return true;
 	}
