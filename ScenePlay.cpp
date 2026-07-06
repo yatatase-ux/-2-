@@ -4,14 +4,14 @@ ScenePlay::ScenePlay()
 {
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
-//	ui = std::make_unique<BattleUI>(player->GetCursor());
-	BM = std::make_unique<BattleManager>(player->GetCursor(), &Attack, &Defense);
+	m_Input = std::make_unique<InputManager>();
+	m_Battle = std::make_unique<BattleManager>(player->GetCursor(), &Attack, &Defense, m_Input.get());
 }
 
 void ScenePlay::Input()
 {
 	// プレイシーンの入力処理
-	BM->Input();
+	m_Battle->Input();
 
 }
 
@@ -20,13 +20,13 @@ void ScenePlay::Update()
 	// プレイシーンの更新処理
 	player->Update();
 	
-	BM->Update();
+	m_Battle->Update();
 }
 
 void ScenePlay::Draw()
 {
 	// プレイシーンの描画処理
-	BM->Draw();
+	m_Battle->Draw();
 	player->Draw();
 		
 	DrawFormatString(

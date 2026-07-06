@@ -1,12 +1,13 @@
 #pragma once
 #include <memory>
 #include "BattleMonster.h"
+#include "InputManager.h"
 
 // フェーズクラスのインクルード
 #include "PhaseBase.h"
 #include "CommandPhase.h"
 #include "MoveSelectPhase.h"
-
+#include "ActionPhase.h"
 
 class BattleManager
 {
@@ -17,12 +18,13 @@ protected:
 	Cursor* cursor;
 	BattleMonster* attacker;
 	BattleMonster* defender;
+	InputManager* input;
 
 	PhaseState currentPhase = PhaseState::COMMAND;
 
 public:
 
-	BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender);
+	BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input);
 
 	/// <summary>
 	/// 入力処理

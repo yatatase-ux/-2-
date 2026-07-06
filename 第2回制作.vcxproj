@@ -129,12 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
     <ClCompile Include="DamageCalculator.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MonstaerData.cpp" />
     <ClCompile Include="MoveData.cpp" />
     <ClCompile Include="MoveSelectPhase.cpp" />
@@ -146,9 +148,11 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="CommandPhase.h" />
     <ClInclude Include="Enumeration.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="MonsterBaseData.h" />
     <ClInclude Include="DamageCalculator.h" />
     <ClInclude Include="BattleMonster.h" />

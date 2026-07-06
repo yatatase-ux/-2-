@@ -5,16 +5,15 @@
 #include "DamageCalculator.h"
 #include "BattleMonster.h"
 #include "BattleManager.h"
+#include "InputManager.h"
 
 class ScenePlay : public SceneBase
 {
 	MonsterData mons;
 
 	std::unique_ptr<Player> player;
-
-	std::unique_ptr<BattleManager> BM;
-
-
+	std::unique_ptr<InputManager> m_Input;
+	std::unique_ptr<BattleManager> m_Battle;
 
 	MonsterBaseData attacker =
 	{

@@ -4,6 +4,7 @@
 #include "KeyAction.h"
 #include "Cursor.h"
 #include "BattleMonster.h"
+#include "InputManager.h"
 
 enum class PhaseState
 {
@@ -23,20 +24,21 @@ protected:
 	Cursor* cursor;
 	BattleMonster* attacker;
 	BattleMonster* defender;
+	InputManager* input;
 
-	MouseAct mouse_act;
+//	MouseAct mouse_act;
 	bool mouse_input = false;
 
 public:
 
-	PhaseBase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
-		: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender) {}
+	PhaseBase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
+		: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender), input(arg_input) {}
 
 	~PhaseBase() {}
 
 	virtual PhaseState Input() = 0;
 
-	virtual void Update() = 0;
+	virtual PhaseState Update() = 0;
 
 	virtual void Draw() = 0;
 

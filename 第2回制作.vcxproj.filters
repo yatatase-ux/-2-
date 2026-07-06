@@ -90,6 +90,12 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>ソース ファイル\プレイヤー</Filter>
     </ClCompile>
+    <ClCompile Include="ActionPhase.cpp">
+      <Filter>ソース ファイル\バトル/フェーズ</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>ソース ファイル\プレイヤー</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -156,6 +162,12 @@
       <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
+      <Filter>ヘッダー ファイル\プレイヤー</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionPhase.h">
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
   </ItemGroup>

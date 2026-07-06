@@ -19,11 +19,11 @@ private:
 
 public:
 
-	CommandPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender);
+	CommandPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input);
 
 	PhaseState Input() override;
 
-	void Update() override;
+	PhaseState Update() override;
 
 	void Draw() override;
 

@@ -1,9 +1,9 @@
 #include "BattleManager.h"
 
-BattleManager::BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
-	: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender)
+BattleManager::BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
+	: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender), input(arg_input)
 {
-	phase = std::make_unique<CommandPhase>(cursor, attacker, defender);
+	phase = std::make_unique<CommandPhase>(cursor, attacker, defender, input);
 }
 
 /// <summary>
@@ -23,7 +23,11 @@ void BattleManager::Input()
 /// </summary>
 void BattleManager::Update()
 {
-	phase->Update();
+	//phase->Update();
+
+	PhaseState change_phase = phase->Update();
+
+	ChangePhase(change_phase);
 }
 
 /// <summary>
@@ -57,11 +61,15 @@ std::unique_ptr<PhaseBase> BattleManager::CreatePhase(PhaseState state)
 	{
 	case PhaseState::COMMAND:
 		currentPhase = PhaseState::COMMAND;
-		return std::make_unique<CommandPhase>(cursor, attacker, defender);
+		return std::make_unique<CommandPhase>(cursor, attacker, defender, input);
 
 	case PhaseState::MOVE_SELECT:
 		currentPhase = PhaseState::MOVE_SELECT;
-		return std::make_unique<MoveSelectPhase>(cursor, attacker, defender);
+		return std::make_unique<MoveSelectPhase>(cursor, attacker, defender, input);
+
+	case PhaseState::ACTION:
+		currentPhase = PhaseState::ACTION;
+		return std::make_unique<ActionPhase>(cursor, attacker, defender, input);
 	}
 
 	return nullptr;
@@ -79,6 +87,9 @@ void BattleManager::DrawPhaseForDebug(PhaseState phase)
 		break;
 	case PhaseState::MOVE_SELECT:
 		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: MOVE_SELECT");
+		break;
+	case PhaseState::ACTION:
+		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: ACTION");
 		break;
 	}
 }

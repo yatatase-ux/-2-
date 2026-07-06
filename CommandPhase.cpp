@@ -1,7 +1,7 @@
 #include "CommandPhase.h"
 
-CommandPhase::CommandPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
-	: PhaseBase(arg_cursor, arg_attacker, arg_defender)
+CommandPhase::CommandPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_attacker, arg_defender, arg_input)
 {
 	button[Fight] = { 1150.0f, 425.0f, 75.0f, GetColor(175,0,0) };
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
@@ -62,7 +62,7 @@ PhaseState CommandPhase::Input()
 /// <summary>
 /// XVˆ—
 /// </summary>
-void CommandPhase::Update()
+PhaseState CommandPhase::Update()
 {
 	for (int in = 0; in < BUTTOM_MAX; in++)
 	{
@@ -75,6 +75,8 @@ void CommandPhase::Update()
 			ChangeButtomColor(in, false);
 		}
 	}
+
+	return PhaseState::NONE;
 }
 
 /// <summary>
@@ -139,7 +141,7 @@ void CommandPhase::ChangeButtomColor(int type, bool InFlag)
 
 bool CommandPhase::InputButton(int type)
 {
-	if (mouse_act.Push(MOUSE_LEFT))
+	if (input->Mouse().Push(MOUSE_LEFT))
 	{
 		if (CursorInButtom(type))
 		{

@@ -1,8 +1,8 @@
 #include "MoveSelectPhase.h"
 #include "Function.h"
 
-MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender)
-	: PhaseBase(arg_cursor, arg_attacker, arg_defender)
+MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_attacker, arg_defender, arg_input)
 {
 	for(int init = 0; init < 4; init++)
 	{
@@ -15,21 +15,21 @@ MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, BattleMonster* arg_attacker
 
 PhaseState MoveSelectPhase::Input()
 {
-	if (mouse_act.Push(MOUSE_RIGHT)) return PhaseState::COMMAND;
+	if (input->Mouse().Push(MOUSE_RIGHT)) return PhaseState::COMMAND;
 
 	for (int colorChange = 0; colorChange < 4; colorChange++)
 	{
 		if (CursorInMoveButton(colorChange))
 		{
-			//if (mouse_act.Push(MOUSE_LEFT))
-			//{
-			//	int moveID = attacker->data->MoveID[colorChange];
-			//	if (moveID >= 0)
-			//	{
-			//		// 技選択が有効な場合、次のフェーズに進む
-			//		return PhaseState::ACTION;
-			//	}
-			//}
+			if (input->Mouse().Push(MOUSE_LEFT))
+			{
+				int moveID = attacker->data->MoveID[colorChange];
+				if (moveID >= 0)
+				{
+					// 技選択が有効な場合、次のフェーズに進む
+					return PhaseState::ACTION;
+				}
+			}
 		}
 	}
 
@@ -37,7 +37,7 @@ PhaseState MoveSelectPhase::Input()
 	return PhaseState::NONE;
 }
 
-void MoveSelectPhase::Update()
+PhaseState MoveSelectPhase::Update()
 {
 	for(int colorChange = 0; colorChange < 4; colorChange++)
 	{
@@ -50,6 +50,8 @@ void MoveSelectPhase::Update()
 			moveButtons[colorChange].color = GetColor(0, 200, 255);
 		}
 	}
+
+	return PhaseState::NONE;
 }
 
 void MoveSelectPhase::Draw()
