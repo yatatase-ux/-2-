@@ -10,7 +10,8 @@
 
 class ScenePlay : public SceneBase
 {
-	MonsterData mons;
+	BattleMonster pMonster;
+	BattleMonster eMonster;	
 
 	std::unique_ptr<Player> player;
 	std::unique_ptr<InputManager> m_Input;

@@ -1,8 +1,8 @@
 #include "MonsterData.h"
 
 const MonsterBaseData MonsterData::monster[] = {
-	{ 1, "モンスター", {Type::Normal, Type::None}, 80, 80, 80, 80, 80, 80, {0, -1, -1, -1 }},
-	{ 2, "雑魚",       {Type::Normal, Type::None}, 30, 30, 30, 30, 30, 30, {0, -1, -1, -1 }}
+	{ 1, "モンスター", {Type::Normal, Type::None}, 80, 80, 80, 80, 80, 80, {0, 1, 2, 3 }},
+	{ 2, "雑魚",       {Type::Fire, Type::Normal}, 300, 30, 300, 30, 300, 30, {0, -1, -1, -1 }}
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);
@@ -18,3 +18,16 @@ const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);
 //		DrawFormatString(20 * (i + 1) * 10, 120, GetColor(0, 0, 0), "SPD  : %d", monster[i].SPD);
 //	}
 //}
+
+const MonsterBaseData* MonsterData::FindByID(int id)
+{
+    for (int i = 0; i < MonsterSize; i++)
+    {
+        if (monster[i].ID == id)
+        {
+            return &monster[i];
+        }
+    }
+
+    return nullptr;
+}

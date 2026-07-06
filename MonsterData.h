@@ -13,4 +13,6 @@ public:
 
 	//void ShowData();
 
+	static const MonsterBaseData* FindByID(int id);
+
 };

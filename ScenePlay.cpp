@@ -2,8 +2,17 @@
 
 ScenePlay::ScenePlay()
 {
-	context.player = &Attack;
-	context.enemy = &Defense;
+
+	const MonsterBaseData* pData = MonsterData::FindByID(1);
+	pMonster.data = pData;
+	pMonster.CurrentHP = pData->HP;
+
+	const MonsterBaseData* eData = MonsterData::FindByID(2);
+	eMonster.data = eData;
+	eMonster.CurrentHP = eData->HP;
+
+	context.player = &pMonster;
+	context.enemy = &eMonster;
 
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
@@ -37,7 +46,7 @@ void ScenePlay::Draw()
 		300,
 		GetColor(255, 255, 255),
 		"HP : %d",
-		Defense.CurrentHP);
+		context.enemy->CurrentHP);
 }
 
 void ScenePlay::Sound()

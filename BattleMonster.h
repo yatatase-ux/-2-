@@ -7,9 +7,9 @@ struct BattleMonster
 
 	int CurrentHP;
 
-	int PATKRank;
-	int PDEFRank;
-	int MATKRank;
-	int MDEFRank;
-	int SPDRank;
+	int PATKRank = 0;
+	int PDEFRank = 0;
+	int MATKRank = 0;
+	int MDEFRank = 0;
+	int SPDRank = 0;
 };

@@ -4,13 +4,41 @@ MoveData MoveTable[] =
 {
 	{
 		0,
-		"É^ÉbÉNÉã",
+		"ñ¬Ç´ê∫",
 		Type::Normal,
-		PHYSICAL,
+		SPECIAL,
 		40,
 		100,
 		0
 	},
+	{
+		1,
+		"Ç–ÇÃÇ±",
+		Type::Fire,
+		SPECIAL,
+		40,
+		100,
+		0
+	},
+	{
+		2,
+		"Ç›Ç∏Ç≈Ç¡Ç€Ç§",
+		Type::Water,
+		SPECIAL,
+		40,
+		100,
+		0
+	},
+	{
+		3,
+		"Ç±ÇÃÇÕ",
+		Type::Grass,
+		SPECIAL,
+		40,
+		100,
+		0
+	}
+
 };
 
 const int MoveTableSize = sizeof(MoveTable) / sizeof(MoveData);
