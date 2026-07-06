@@ -5,6 +5,7 @@
 #include "DamageCalculator.h"
 #include "BattleMonster.h"
 #include "BattleManager.h"
+#include "BattleContext.h"
 #include "InputManager.h"
 
 class ScenePlay : public SceneBase
@@ -14,6 +15,7 @@ class ScenePlay : public SceneBase
 	std::unique_ptr<Player> player;
 	std::unique_ptr<InputManager> m_Input;
 	std::unique_ptr<BattleManager> m_Battle;
+	BattleContext context;
 
 	MonsterBaseData attacker =
 	{

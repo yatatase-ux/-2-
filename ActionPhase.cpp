@@ -1,7 +1,7 @@
 #include "ActionPhase.h"
 
-ActionPhase::ActionPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_attacker, arg_defender, arg_input)
+ActionPhase::ActionPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_context, arg_input)
 {
 }
 
@@ -14,7 +14,7 @@ PhaseState ActionPhase::Input()
 PhaseState ActionPhase::Update()
 {
 	// 行動フェーズの更新処理を実装
-	damage.Attack(*attacker, *defender, attacker->data->MoveID[0]); // 仮に最初の技を使用する
+	damage.Attack(*context->player, *context->enemy, context->selectedMoveID); // 仮に最初の技を使用する
 	return PhaseState::COMMAND;
 }
 

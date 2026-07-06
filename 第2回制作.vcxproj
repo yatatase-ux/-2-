@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionPhase.h" />
+    <ClInclude Include="BattleContext.h" />
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="CommandPhase.h" />
     <ClInclude Include="Enumeration.h" />

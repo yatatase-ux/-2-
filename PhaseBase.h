@@ -4,6 +4,7 @@
 #include "KeyAction.h"
 #include "Cursor.h"
 #include "BattleMonster.h"
+#include "BattleContext.h"
 #include "InputManager.h"
 
 enum class PhaseState
@@ -22,17 +23,20 @@ class PhaseBase
 protected:
 
 	Cursor* cursor;
-	BattleMonster* attacker;
-	BattleMonster* defender;
+	/*BattleMonster* attacker;
+	BattleMonster* enemy;*/
+	BattleContext* context;
 	InputManager* input;
 
 //	MouseAct mouse_act;
 	bool mouse_input = false;
 
+	int Selected_MoveID = -1;
+
 public:
 
-	PhaseBase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
-		: cursor(arg_cursor), attacker(arg_attacker), defender(arg_defender), input(arg_input) {}
+	PhaseBase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
+		: cursor(arg_cursor), context(arg_context), input(arg_input) {}
 
 	~PhaseBase() {}
 

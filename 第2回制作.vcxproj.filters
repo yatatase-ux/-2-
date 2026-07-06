@@ -170,5 +170,8 @@
     <ClInclude Include="InputManager.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
+    <ClInclude Include="BattleContext.h">
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

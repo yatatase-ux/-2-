@@ -1,15 +1,15 @@
 #include "MoveSelectPhase.h"
 #include "Function.h"
 
-MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_attacker, arg_defender, arg_input)
+MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_context, arg_input)
 {
 	for(int init = 0; init < 4; init++)
 	{
 		moveButtons[init].pos.x = 1000.0f;
 		moveButtons[init].pos.y = 350.0f + init * 85.0f;
 		moveButtons[init].color = GetColor(0, 200, 255);
-		moveButtons[init].moveID = attacker->data->MoveID[init];
+		moveButtons[init].moveID = context->player->data->MoveID[init];
 	}
 }
 
@@ -23,8 +23,8 @@ PhaseState MoveSelectPhase::Input()
 		{
 			if (input->Mouse().Push(MOUSE_LEFT))
 			{
-				int moveID = attacker->data->MoveID[colorChange];
-				if (moveID >= 0)
+				context->selectedMoveID = context->player->data->MoveID[colorChange];
+				if (context->selectedMoveID >= 0)
 				{
 					// 技選択が有効な場合、次のフェーズに進む
 					return PhaseState::ACTION;
@@ -58,9 +58,11 @@ void MoveSelectPhase::Draw()
 {
 	for (int move = 0; move < 4; move++)
 	{
-		DrawFillBox(moveButtons[move].pos.x, moveButtons[move].pos.y, moveButtons[move].pos.x + 250.0f, moveButtons[move].pos.y + 75.0f, moveButtons[move].color);
+		DrawFillBox(moveButtons[move].pos.x, moveButtons[move].pos.y, 
+					moveButtons[move].pos.x + 250.0f, moveButtons[move].pos.y + 75.0f, 
+					moveButtons[move].color);
 
-		int moveID = attacker->data->MoveID[move];
+		int moveID = context->player->data->MoveID[move];
 
 		if (moveID >= 0)
 		{

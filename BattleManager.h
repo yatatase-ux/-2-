@@ -2,6 +2,7 @@
 #include <memory>
 #include "BattleMonster.h"
 #include "InputManager.h"
+#include "BattleContext.h"
 
 // フェーズクラスのインクルード
 #include "PhaseBase.h"
@@ -18,13 +19,14 @@ protected:
 	Cursor* cursor;
 	BattleMonster* attacker;
 	BattleMonster* defender;
+	BattleContext* context;
 	InputManager* input;
 
 	PhaseState currentPhase = PhaseState::COMMAND;
 
 public:
 
-	BattleManager(Cursor* arg_cursor, BattleMonster* arg_attacker, BattleMonster* arg_defender, InputManager* arg_input);
+	BattleManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
 
 	/// <summary>
 	/// 入力処理
