@@ -18,35 +18,6 @@ class ScenePlay : public SceneBase
 	std::unique_ptr<BattleManager> m_Battle;
 	BattleContext context;
 
-	MonsterBaseData attacker =
-	{
-		1,
-		"ƒ‚ƒ“ƒXƒ^[",
-		{Type::Normal, Type::None},
-		80,80,80,80,80,80,
-		{0,-1,-1,-1}
-	};
-	MonsterBaseData defender =
-	{
-		2,
-		"G‹›",
-		{Type::Normal, Type::None},
-		300,300,300,300,30,300,
-		{0,-1,-1,-1}
-	};
-	BattleMonster Attack =
-	{
-		&attacker,
-		attacker.HP,
-		0, 0, 0, 0, 0
-	};
-	BattleMonster Defense =
-	{
-		&defender,
-		defender.HP,
-		0, 0, 0, 0, 0
-	};
-
 public:
 
 	ScenePlay();
