@@ -2,7 +2,6 @@
 #include "SceneBase.h"
 #include "MonsterData.h"
 #include "Player.h"
-#include "DamageCalculator.h"
 #include "BattleMonster.h"
 #include "BattleManager.h"
 #include "BattleContext.h"
