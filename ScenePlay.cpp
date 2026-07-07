@@ -42,8 +42,8 @@ void ScenePlay::Draw()
 	player->Draw();
 		
 	DrawFormatString(
+		1100,
 		100,
-		300,
 		GetColor(255, 255, 255),
 		"HP : %d",
 		context.enemy->CurrentHP);
