@@ -4,7 +4,7 @@ SceneManager::SceneManager()
 {
 	nowScene = std::make_unique<ScenePlay>();	// 最初のシーンをOPシーンに設定
 
-	scene = OP;
+	scene = Scene::OP;
 }
 
 void SceneManager::Input()
@@ -31,19 +31,19 @@ void SceneManager::SceneChange(Scene now_scene)
 {
 	switch (now_scene)
 	{
-	case OP:
+	case Scene::OP:
 		nowScene = std::make_unique<ScenePlay>();
-		scene = Play;
+		scene = Scene::Play;
 		break;
 
-	case Play:
+	case Scene::Play:
 		nowScene = std::make_unique<SceneEnd>();
-		scene = End;
+		scene = Scene::End;
 		break;
 
-	case End:
+	case Scene::End:
 		nowScene = std::make_unique<SceneOP>();
-		scene = OP;
+		scene = Scene::OP;
 		break;
 	}
 }

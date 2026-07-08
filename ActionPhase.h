@@ -2,11 +2,30 @@
 #include "PhaseBase.h"
 #include "DamageCalculator.h"
 
+enum
+{
+	Earlyer,
+	Later,
+
+	ActionMax
+};
+
+
 class ActionPhase : public PhaseBase
 {
 public:
 
 	DamageCalculator damage;
+
+	BattleMonster* Mons[ActionMax];
+	int moveID[ActionMax];
+
+	int time;
+
+	int turn;
+
+	bool turnEnd;
+
 
 public:
 	ActionPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
@@ -18,4 +37,8 @@ public:
 	void Draw() override;
 
 	void Sound() override;
+
+	void DecideActionOrder();
+
+	void DamageAction();
 };

@@ -1,15 +1,18 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include "SceneOP.h"
 #include "ScenePlay.h"
 #include "SceneEnd.h"
 #include "KeyAction.h"
 
-enum Scene
+enum class Scene
 {
 	OP,
 	Play,
 	End,
+
+	Max
 };
 
 class SceneManager

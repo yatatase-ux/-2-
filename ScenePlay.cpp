@@ -47,6 +47,13 @@ void ScenePlay::Draw()
 		GetColor(255, 255, 255),
 		"HP : %d",
 		context.enemy->CurrentHP);
+
+	DrawFormatString(
+		100,
+		400,
+		GetColor(255, 255, 255),
+		"HP : %d",
+		context.player->CurrentHP);
 }
 
 void ScenePlay::Sound()
