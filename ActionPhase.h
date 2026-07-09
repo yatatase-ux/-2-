@@ -21,11 +21,9 @@ public:
 	int moveID[ActionMax];
 
 	int time;
-
 	int turn;
-
 	bool turnEnd;
-
+	bool monsDying;
 
 public:
 	ActionPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
@@ -41,4 +39,6 @@ public:
 	void DecideActionOrder();
 
 	void DamageAction();
+
+	void CheckFaint(int after_hp);
 };

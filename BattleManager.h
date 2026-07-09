@@ -9,6 +9,7 @@
 #include "CommandPhase.h"
 #include "MoveSelectPhase.h"
 #include "ActionPhase.h"
+#include "CheckWLPhase.h"
 
 class BattleManager
 {
@@ -17,8 +18,6 @@ protected:
 	std::unique_ptr<PhaseBase> phase;
 
 	Cursor* cursor;
-	BattleMonster* attacker;
-	BattleMonster* defender;
 	BattleContext* context;
 	InputManager* input;
 

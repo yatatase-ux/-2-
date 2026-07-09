@@ -6,10 +6,9 @@ ActionPhase::ActionPhase(Cursor* arg_cursor, BattleContext* arg_context, InputMa
 	DecideActionOrder();
 
 	time = 120;
-
 	turn = Earlyer;
-
 	turnEnd = false;
+	monsDying = false;
 }
 
 PhaseState ActionPhase::Input()
@@ -24,6 +23,8 @@ PhaseState ActionPhase::Update()
 	DamageAction();
 
 	if (turnEnd) return PhaseState::COMMAND;
+
+	if (monsDying) return PhaseState::CHECK_FAINT;
 
 	return PhaseState::NONE;
 }
@@ -66,11 +67,14 @@ void ActionPhase::DamageAction()
 	{
 		if (time > 0)
 		{
+			int d = damage.CalcDamage(*Mons[Earlyer]->data, *Mons[Later]->data, moveID[Earlyer]);
 			DrawString(500, 250, Mons[Earlyer]->data->Name, GetColor(255, 255, 255));
+			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
 		}
 		else
 		{
 			damage.Attack(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
+			CheckFaint(Mons[Later]->CurrentHP);
 
 			time = 120;
 			turn = Later;
@@ -84,13 +88,24 @@ void ActionPhase::DamageAction()
 	{
 		if (time > 0)
 		{
+			int d = damage.CalcDamage( *Mons[Later]->data, *Mons[Earlyer]->data, moveID[Later]);
 			DrawString(500, 250, Mons[Later]->data->Name, GetColor(255, 255, 255));
+			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
 		}
 		else
 		{
 			damage.Attack(*Mons[Later], *Mons[Earlyer], moveID[Later]);
+			CheckFaint(Mons[Earlyer]->CurrentHP);
 
 			turnEnd = true;
 		}
+	}
+}
+
+void ActionPhase::CheckFaint(int after_hp)
+{
+	if (after_hp <= 0)
+	{
+		monsDying = true;
 	}
 }

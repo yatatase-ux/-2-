@@ -70,6 +70,9 @@ std::unique_ptr<PhaseBase> BattleManager::CreatePhase(PhaseState state)
 	case PhaseState::ACTION:
 		currentPhase = PhaseState::ACTION;
 		return std::make_unique<ActionPhase>(cursor, context, input);
+		
+	case PhaseState::CHECK_FAINT:
+		return std::make_unique<CheckWLPhase>(cursor, context, input);
 	}
 
 	return nullptr;
@@ -90,6 +93,9 @@ void BattleManager::DrawPhaseForDebug(PhaseState phase)
 		break;
 	case PhaseState::ACTION:
 		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: ACTION");
+		break;
+	case PhaseState::CHECK_FAINT:
+		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: CehckWin-Lose");
 		break;
 	}
 }

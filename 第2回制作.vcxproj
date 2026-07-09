@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="BattleManager.cpp" />
+    <ClCompile Include="CheckWLPhase.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
     <ClCompile Include="DamageCalculator.cpp" />
     <ClCompile Include="Cursor.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="CheckWLPhase.h" />
     <ClInclude Include="CommandPhase.h" />
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="InputManager.h" />
