@@ -25,6 +25,8 @@ public:
 	bool turnEnd;
 	bool monsDying;
 
+	const char* debugText[ActionMax] = {"", ""};
+
 public:
 	ActionPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
 
@@ -37,6 +39,8 @@ public:
 	void Sound() override;
 
 	void DecideActionOrder();
+
+	void SetActionOrder(bool playerFirst);
 
 	void DamageAction();
 

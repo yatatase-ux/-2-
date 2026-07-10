@@ -13,6 +13,15 @@ MoveData MoveTable[] =
 	},
 	{
 		1,
+		"‚±‚Ì‚Í",
+		Type::Grass,
+		SPECIAL,
+		40,
+		100,
+		0
+	},
+	{
+		2,
 		"‚Ð‚Ì‚±",
 		Type::Fire,
 		SPECIAL,
@@ -21,18 +30,9 @@ MoveData MoveTable[] =
 		0
 	},
 	{
-		2,
+		3,
 		"‚Ý‚¸‚Å‚Á‚Û‚¤",
 		Type::Water,
-		SPECIAL,
-		40,
-		100,
-		0
-	},
-	{
-		3,
-		"‚±‚Ì‚Í",
-		Type::Grass,
 		SPECIAL,
 		40,
 		100,

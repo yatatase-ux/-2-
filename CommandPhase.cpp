@@ -12,15 +12,15 @@ CommandPhase::CommandPhase(Cursor* arg_cursor, BattleContext* arg_context, Input
 /// </summary>
 PhaseState CommandPhase::Input()
 {
-	if (InputButton(Fight))
-	{
-		return PhaseState::MOVE_SELECT;
-	}
+	bool click = input->Mouse().Push(MOUSE_LEFT);
 
-	if (InputButton(Change))
+	if (click)
 	{
-		// Œğ‘ãˆ—‚ğ‚Ü‚¾À‘•‚µ‚Ä‚¢‚È‚¢‚½‚ßANONE‚ğ•Ô‚·
-		return PhaseState::NONE;
+		if (CursorInButtom(Fight))
+			return PhaseState::MOVE_SELECT;
+
+		if (CursorInButtom(Change))
+			return PhaseState::CHANGE_MONS;
 	}
 
 	return PhaseState::NONE;

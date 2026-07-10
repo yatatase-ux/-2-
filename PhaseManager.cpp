@@ -52,6 +52,9 @@ void PhaseManager::ChangePhase(PhaseState nextPhase)
 	{
 		return;
 	}
+
+	DrawFormatString(20, 100, GetColor(255, 255, 0), "Change!");
+
 	phase = CreatePhase(nextPhase);
 }
 
@@ -66,6 +69,10 @@ std::unique_ptr<PhaseBase> PhaseManager::CreatePhase(PhaseState state)
 	case PhaseState::MOVE_SELECT:
 		currentPhase = PhaseState::MOVE_SELECT;
 		return std::make_unique<MoveSelectPhase>(cursor, context, input);
+
+	case PhaseState::CHANGE_MONS:
+		currentPhase = PhaseState::CHANGE_MONS;
+		return std::make_unique<ChangeMonsPhase>(cursor, context, input);
 
 	case PhaseState::ACTION:
 		currentPhase = PhaseState::ACTION;
@@ -90,6 +97,9 @@ void PhaseManager::DrawPhaseForDebug(PhaseState phase)
 		break;
 	case PhaseState::MOVE_SELECT:
 		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: MOVE_SELECT");
+		break;
+	case PhaseState::CHANGE_MONS:
+		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: CHANGE_MONS");
 		break;
 	case PhaseState::ACTION:
 		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: ACTION");

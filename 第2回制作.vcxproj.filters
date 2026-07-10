@@ -105,6 +105,9 @@
     <ClCompile Include="DamageCalculator.cpp">
       <Filter>ソース ファイル\バトル</Filter>
     </ClCompile>
+    <ClCompile Include="ChangeMonsPhase.cpp">
+      <Filter>ソース ファイル\バトル/フェーズ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="DamageCalculator.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeMonsPhase.h">
+      <Filter>ヘッダー ファイル\バトル/フェーズ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

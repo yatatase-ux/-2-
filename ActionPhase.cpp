@@ -39,47 +39,65 @@ void ActionPhase::Sound()
 	// 行動フェーズの音声処理を実装
 }
 
+/// <summary>
+/// 行動順決定処理
+/// </summary>
 void ActionPhase::DecideActionOrder()
 {
 	if (context->player->data->SPD > context->enemy->data->SPD)
 	{
+		SetActionOrder(TRUE);
+	}
+	else if(context->player->data->SPD < context->enemy->data->SPD)
+	{
+		SetActionOrder(FALSE);
+	}
+	else if(context->player->data->SPD == context->enemy->data->SPD)
+	{
+		if (GetRand(1) == 0)
+		{
+			SetActionOrder(TRUE);
+		}
+		else
+		{
+			SetActionOrder(FALSE);
+		}
+	}
+}
+
+/// <summary>
+/// 行動順設定
+/// </summary>
+/// <param name="playerFirst">プレイヤーが先行かどうか</param>
+void ActionPhase::SetActionOrder(bool playerFirst)
+{
+	if (playerFirst)
+	{
+		debugText[Earlyer] = "プレイヤーのターン";
+		debugText[Later] = "CPUのターン";
+
 		Mons[Earlyer] = context->player;
 		Mons[Later] = context->enemy;
 
 		moveID[Earlyer] = context->selectedMoveID;
 		moveID[Later] = context->enemy->data->MoveID[0];
 	}
-	else if(context->player->data->SPD < context->enemy->data->SPD)
+	else
 	{
-		Mons[Later] = context->player;
+		debugText[Earlyer] = "CPUのターン";
+		debugText[Later] = "プレイヤーのターン";
+
 		Mons[Earlyer] = context->enemy;
+		Mons[Later] = context->player;
 
-		moveID[Later] = context->selectedMoveID;
 		moveID[Earlyer] = context->enemy->data->MoveID[0];
-	}
-	else if(context->player->data->SPD == context->enemy->data->SPD)
-	{
-		int rand = GetRand(100) % 2;
-
-		switch (rand)
-		{
-		case Earlyer:
-			Mons[Earlyer] = context->player;
-			Mons[Later] = context->enemy;
-			moveID[Earlyer] = context->selectedMoveID;
-			moveID[Later] = context->enemy->data->MoveID[0];
-			break;
-
-		case Later:
-			Mons[Later] = context->player;
-			Mons[Earlyer] = context->enemy;
-			moveID[Later] = context->selectedMoveID;
-			moveID[Earlyer] = context->enemy->data->MoveID[0];
-			break;
-		}
+		moveID[Later] = context->selectedMoveID;
 	}
 }
 
+/// <summary>
+/// ダメージ処理
+/// </summary>
 void ActionPhase::DamageAction()
 {
 	time--;
@@ -90,6 +108,7 @@ void ActionPhase::DamageAction()
 		if (time > 0)
 		{
 			int d = damage.CalcDamage(*Mons[Earlyer]->data, *Mons[Later]->data, moveID[Earlyer]);
+			DrawString(500, 220, debugText[Earlyer ], GetColor(255, 255, 255));
 			DrawString(500, 250, Mons[Earlyer]->data->Name, GetColor(255, 255, 255));
 			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
 		}
@@ -111,6 +130,7 @@ void ActionPhase::DamageAction()
 		if (time > 0)
 		{
 			int d = damage.CalcDamage( *Mons[Later]->data, *Mons[Earlyer]->data, moveID[Later]);
+			DrawString(500, 220, debugText[Later], GetColor(255, 255, 255));
 			DrawString(500, 250, Mons[Later]->data->Name, GetColor(255, 255, 255));
 			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
 		}
@@ -124,6 +144,10 @@ void ActionPhase::DamageAction()
 	}
 }
 
+/// <summary>
+/// 瀕死チェック
+/// </summary>
+/// <param name="after_hp">ダメージ処理後の残りHP</param>
 void ActionPhase::CheckFaint(int after_hp)
 {
 	if (after_hp <= 0)

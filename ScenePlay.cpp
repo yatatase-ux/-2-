@@ -47,6 +47,7 @@ void ScenePlay::Draw()
 		GetColor(255, 255, 255),
 		"HP : %d",
 		context.enemy->CurrentHP);
+	DrawString(1100, 70, context.enemy->data->Name, GetColor(255,255,255));
 
 	DrawFormatString(
 		100,
@@ -54,6 +55,7 @@ void ScenePlay::Draw()
 		GetColor(255, 255, 255),
 		"HP : %d",
 		context.player->CurrentHP);
+	DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
 }
 
 void ScenePlay::Sound()

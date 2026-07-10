@@ -5,9 +5,9 @@
 enum
 {
 	Fight,
-	Change
+	Change,
+	BUTTOM_MAX
 };
-const int BUTTOM_MAX = 2;
 
 class CommandPhase : public PhaseBase
 {

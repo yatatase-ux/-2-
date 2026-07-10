@@ -62,7 +62,6 @@ public:
 };
 
 const int MOUSE_KEY_MAX = 2;
-
 enum {
 	MOUSE_LEFT,
 	MOUSE_RIGHT

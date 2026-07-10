@@ -1,8 +1,10 @@
 #include "MonsterData.h"
 
 const MonsterBaseData MonsterData::monster[] = {
-	{ 1, "ƒvƒŒƒCƒ„[", {Type::Normal, Type::None}, 100, 10, 100, 10, 100, 100, {0, 1, 2, 3 }},
-	{ 2, "CPU",       {Type::Fire, Type::Normal}, 100, 10, 100, 10, 100, 100, {0, -1, -1, -1 }}
+	{ 1, "•’Ê‚ÌŒ¢", {Type::Normal, Type::None}, 100, 10, 100, 10, 100, 100, {0, -1, -1, -1 }},
+	{ 2, "‘Œ´‚ÌŒ¢", {Type::Grass,  Type::None}, 100, 10, 100, 10, 100, 100, {1, -1, -1, -1 }},
+	{ 3, "Ä‚«Œ¢",   {Type::Fire,   Type::None}, 100, 10, 100, 10, 100, 100, {2, -1, -1, -1 }},
+	{ 4, "”G‚êŒ¢",   {Type::Water,  Type::None}, 100, 10, 100, 10, 100, 100, {3, -1, -1, -1 }},
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);

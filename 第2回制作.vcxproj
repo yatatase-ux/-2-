@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
+    <ClCompile Include="ChangeMonsPhase.cpp" />
     <ClCompile Include="PhaseManager.cpp" />
     <ClCompile Include="CheckWLPhase.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleContext.h" />
+    <ClInclude Include="ChangeMonsPhase.h" />
     <ClInclude Include="PhaseManager.h" />
     <ClInclude Include="CheckWLPhase.h" />
     <ClInclude Include="CommandPhase.h" />

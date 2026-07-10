@@ -12,6 +12,7 @@ enum class PhaseState
 	NONE,         // 初期状態
 	COMMAND,      // 戦う・交代
 	MOVE_SELECT,  // 技選択
+	CHANGE_MONS,  // 怪獣チェンジ
 	ACTION,       // 行動実行
 	CHECK_FAINT,  // 戦闘不能判定
 	TURN_END,     // ターン終了
@@ -23,13 +24,8 @@ class PhaseBase
 protected:
 
 	Cursor* cursor;
-	/*BattleMonster* attacker;
-	BattleMonster* enemy;*/
 	BattleContext* context;
 	InputManager* input;
-
-//	MouseAct mouse_act;
-	bool mouse_input = false;
 
 	int Selected_MoveID = -1;
 

@@ -8,6 +8,7 @@
 #include "PhaseBase.h"
 #include "CommandPhase.h"
 #include "MoveSelectPhase.h"
+#include "ChangeMonsPhase.h"
 #include "ActionPhase.h"
 #include "CheckWLPhase.h"
 
