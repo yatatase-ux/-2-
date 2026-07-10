@@ -1,6 +1,6 @@
-#include "BattleManager.h"
+#include "PhaseManager.h"
 
-BattleManager::BattleManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
+PhaseManager::PhaseManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
 	: cursor(arg_cursor), context(arg_context), input(arg_input)
 {
 	phase = std::make_unique<CommandPhase>(cursor, context, input);
@@ -9,7 +9,7 @@ BattleManager::BattleManager(Cursor* arg_cursor, BattleContext* arg_context, Inp
 /// <summary>
 /// 入力処理
 /// </summary>
-void BattleManager::Input()
+void PhaseManager::Input()
 {
 	PhaseState change_phase = phase->Input();
 
@@ -21,7 +21,7 @@ void BattleManager::Input()
 /// <summary>
 /// 更新処理
 /// </summary>
-void BattleManager::Update()
+void PhaseManager::Update()
 {
 	//phase->Update();
 
@@ -33,7 +33,7 @@ void BattleManager::Update()
 /// <summary>
 /// 描画処理
 /// </summary>
-void BattleManager::Draw()
+void PhaseManager::Draw()
 {
 	phase->Draw();
 }
@@ -41,12 +41,12 @@ void BattleManager::Draw()
 /// <summary>
 /// サウンド処理
 /// </summary>
-void BattleManager::Sound()
+void PhaseManager::Sound()
 {
 	phase->Sound();
 }
 
-void BattleManager::ChangePhase(PhaseState nextPhase)
+void PhaseManager::ChangePhase(PhaseState nextPhase)
 {
 	if (nextPhase == PhaseState::NONE)
 	{
@@ -55,7 +55,7 @@ void BattleManager::ChangePhase(PhaseState nextPhase)
 	phase = CreatePhase(nextPhase);
 }
 
-std::unique_ptr<PhaseBase> BattleManager::CreatePhase(PhaseState state)
+std::unique_ptr<PhaseBase> PhaseManager::CreatePhase(PhaseState state)
 {
 	switch (state)
 	{
@@ -78,7 +78,7 @@ std::unique_ptr<PhaseBase> BattleManager::CreatePhase(PhaseState state)
 	return nullptr;
 }
 
-void BattleManager::DrawPhaseForDebug(PhaseState phase)
+void PhaseManager::DrawPhaseForDebug(PhaseState phase)
 {
 	switch (phase)
 	{

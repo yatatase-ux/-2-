@@ -17,7 +17,7 @@ ScenePlay::ScenePlay()
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
 	m_Input = std::make_unique<InputManager>();
-	m_Battle = std::make_unique<BattleManager>(player->GetCursor(), &context, m_Input.get());
+	m_Battle = std::make_unique<PhaseManager>(player->GetCursor(), &context, m_Input.get());
 }
 
 void ScenePlay::Input()

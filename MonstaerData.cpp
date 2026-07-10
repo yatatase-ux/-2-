@@ -1,8 +1,8 @@
 #include "MonsterData.h"
 
 const MonsterBaseData MonsterData::monster[] = {
-	{ 1, "プレイヤー", {Type::Normal, Type::None}, 100, 100, 100, 300, 100, 100, {0, 1, 2, 3 }},
-	{ 2, "CPU",       {Type::Fire, Type::Normal}, 100, 30, 300, 30, 300, 30, {0, -1, -1, -1 }}
+	{ 1, "プレイヤー", {Type::Normal, Type::None}, 100, 10, 100, 10, 100, 100, {0, 1, 2, 3 }},
+	{ 2, "CPU",       {Type::Fire, Type::Normal}, 100, 10, 100, 10, 100, 100, {0, -1, -1, -1 }}
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);

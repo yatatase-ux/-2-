@@ -49,7 +49,7 @@ void ActionPhase::DecideActionOrder()
 		moveID[Earlyer] = context->selectedMoveID;
 		moveID[Later] = context->enemy->data->MoveID[0];
 	}
-	else
+	else if(context->player->data->SPD < context->enemy->data->SPD)
 	{
 		Mons[Later] = context->player;
 		Mons[Earlyer] = context->enemy;
@@ -57,12 +57,34 @@ void ActionPhase::DecideActionOrder()
 		moveID[Later] = context->selectedMoveID;
 		moveID[Earlyer] = context->enemy->data->MoveID[0];
 	}
+	else if(context->player->data->SPD == context->enemy->data->SPD)
+	{
+		int rand = GetRand(100) % 2;
+
+		switch (rand)
+		{
+		case Earlyer:
+			Mons[Earlyer] = context->player;
+			Mons[Later] = context->enemy;
+			moveID[Earlyer] = context->selectedMoveID;
+			moveID[Later] = context->enemy->data->MoveID[0];
+			break;
+
+		case Later:
+			Mons[Later] = context->player;
+			Mons[Earlyer] = context->enemy;
+			moveID[Later] = context->selectedMoveID;
+			moveID[Earlyer] = context->enemy->data->MoveID[0];
+			break;
+		}
+	}
 }
 
 void ActionPhase::DamageAction()
 {
 	time--;
 
+	// æs
 	if (turn == Earlyer)
 	{
 		if (time > 0)

@@ -11,7 +11,7 @@
 #include "ActionPhase.h"
 #include "CheckWLPhase.h"
 
-class BattleManager
+class PhaseManager
 {
 protected:
 
@@ -25,7 +25,7 @@ protected:
 
 public:
 
-	BattleManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
+	PhaseManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
 
 	/// <summary>
 	/// “ü—Íˆ—

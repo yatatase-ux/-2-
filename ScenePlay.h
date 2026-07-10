@@ -3,7 +3,7 @@
 #include "MonsterData.h"
 #include "Player.h"
 #include "BattleMonster.h"
-#include "BattleManager.h"
+#include "PhaseManager.h"
 #include "BattleContext.h"
 #include "InputManager.h"
 
@@ -14,7 +14,7 @@ class ScenePlay : public SceneBase
 
 	std::unique_ptr<Player> player;
 	std::unique_ptr<InputManager> m_Input;
-	std::unique_ptr<BattleManager> m_Battle;
+	std::unique_ptr<PhaseManager> m_Battle;
 	BattleContext context;
 
 public:
