@@ -1,7 +1,7 @@
 #include "CheckWLPhase.h"
 
-CheckWLPhase::CheckWLPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_context, arg_input)
+CheckWLPhase::CheckWLPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_members, arg_context, arg_input)
 {
 
 }

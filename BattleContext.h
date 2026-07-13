@@ -7,4 +7,5 @@ struct BattleContext
     BattleMonster* enemy  = nullptr;
 
     int selectedMoveID = -1;
+    int changeMonster = -1;
 };

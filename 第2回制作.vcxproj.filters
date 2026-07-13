@@ -191,5 +191,8 @@
     <ClInclude Include="ChangeMonsPhase.h">
       <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
+    <ClInclude Include="Party.h">
+      <Filter>ヘッダー ファイル\バトル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

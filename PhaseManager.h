@@ -2,6 +2,7 @@
 #include <memory>
 #include "BattleMonster.h"
 #include "InputManager.h"
+#include "Party.h"
 #include "BattleContext.h"
 
 // フェーズクラスのインクルード
@@ -19,6 +20,7 @@ protected:
 	std::unique_ptr<PhaseBase> phase;
 
 	Cursor* cursor;
+	Members* members;
 	BattleContext* context;
 	InputManager* input;
 
@@ -26,7 +28,7 @@ protected:
 
 public:
 
-	PhaseManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input);
+	PhaseManager(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input);
 
 	/// <summary>
 	/// 入力処理

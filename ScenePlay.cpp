@@ -2,22 +2,23 @@
 
 ScenePlay::ScenePlay()
 {
+	const MonsterBaseData* pMons[3] = { MonsterData::FindByID(2),
+										MonsterData::FindByID(3), 
+										MonsterData::FindByID(4) };
+	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(2),
+										MonsterData::FindByID(3), 
+										MonsterData::FindByID(4) };
 
-	const MonsterBaseData* pData = MonsterData::FindByID(1);
-	pMonster.data = pData;
-	pMonster.CurrentHP = pData->HP;
+	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);
+	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);
 
-	const MonsterBaseData* eData = MonsterData::FindByID(2);
-	eMonster.data = eData;
-	eMonster.CurrentHP = eData->HP;
-
-	context.player = &pMonster;
-	context.enemy = &eMonster;
+	context.player = pMember.Active();
+	context.enemy = eMember.Active();
 
 	// プレイシーンの初期化処理
 	player = std::make_unique<Player>();
 	m_Input = std::make_unique<InputManager>();
-	m_Battle = std::make_unique<PhaseManager>(player->GetCursor(), &context, m_Input.get());
+	m_Battle = std::make_unique<PhaseManager>(player->GetCursor(), &pMember, &context, m_Input.get());
 }
 
 void ScenePlay::Input()
@@ -30,8 +31,7 @@ void ScenePlay::Input()
 void ScenePlay::Update()
 {
 	// プレイシーンの更新処理
-	player->Update();
-	
+	player->Update();	
 	m_Battle->Update();
 }
 
@@ -61,4 +61,15 @@ void ScenePlay::Draw()
 void ScenePlay::Sound()
 {
 
+}
+
+void ScenePlay::InitMambers(const MonsterBaseData* mons[], BattleMonster battle[], Members& member, int count)
+{
+	for (int i = 0; i < count; i++)
+	{
+		battle[i].data = mons[i];
+		battle[i].CurrentHP = mons[i]->HP;
+
+		member.mons[i] = &battle[i];
+	}
 }

@@ -1,8 +1,8 @@
 #include "MoveSelectPhase.h"
 #include "Function.h"
 
-MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_context, arg_input)
+MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_members, arg_context, arg_input)
 {
 	for(int init = 0; init < 4; init++)
 	{

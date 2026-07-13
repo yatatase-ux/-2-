@@ -1,10 +1,12 @@
 #include "MonsterData.h"
 
 const MonsterBaseData MonsterData::monster[] = {
-	{ 1, "•’Ê‚ÌŒ¢", {Type::Normal, Type::None}, 100, 10, 100, 10, 100, 100, {0, -1, -1, -1 }},
-	{ 2, "‘Œ´‚ÌŒ¢", {Type::Grass,  Type::None}, 100, 10, 100, 10, 100, 100, {1, -1, -1, -1 }},
-	{ 3, "Ä‚«Œ¢",   {Type::Fire,   Type::None}, 100, 10, 100, 10, 100, 100, {2, -1, -1, -1 }},
-	{ 4, "”G‚êŒ¢",   {Type::Water,  Type::None}, 100, 10, 100, 10, 100, 100, {3, -1, -1, -1 }},
+	{ 1, "•’Ê‚ÌŒ¢", {Type::Normal, Type::None},  100,  50, 100,  50, 100, 100, {0, -1, -1, -1 }},
+	{ 2, "‘Œ´‚ÌŒ¢", {Type::Grass,  Type::None},  100,  50, 100,  50, 100, 100, {1, -1, -1, -1 }},
+	{ 3, "Ä‚«Œ¢",   {Type::Fire,   Type::None},  100,  50, 100,  50, 100, 100, {2, -1, -1, -1 }},
+	{ 4, "”G‚êŒ¢",   {Type::Water,  Type::None},  100,  50, 100,  50, 100, 100, {3, -1, -1, -1 }},
+	{ 5, "”]‹ØŒ¢",   {Type::Fire,   Type::Water},  70, 100,  50, 100,  50, 105, {0,  1,  2,  3 }},
+	{ 6, "Œ˜çŒ¢",   {Type::Normal, Type::None},  200,  20, 150,  20, 150,  60, {0, -1, -1, -1 }},
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);

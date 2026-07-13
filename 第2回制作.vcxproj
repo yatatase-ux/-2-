@@ -153,6 +153,7 @@
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
+    <ClInclude Include="Party.h" />
     <ClInclude Include="PhaseManager.h" />
     <ClInclude Include="CheckWLPhase.h" />
     <ClInclude Include="CommandPhase.h" />

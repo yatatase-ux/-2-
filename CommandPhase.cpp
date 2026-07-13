@@ -1,7 +1,7 @@
 #include "CommandPhase.h"
 
-CommandPhase::CommandPhase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_context, arg_input)
+CommandPhase::CommandPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_members, arg_context, arg_input)
 {
 	button[Fight] = { 1150.0f, 425.0f, 75.0f, GetColor(175,0,0) };
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };

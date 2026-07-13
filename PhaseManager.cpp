@@ -1,9 +1,9 @@
 #include "PhaseManager.h"
 
-PhaseManager::PhaseManager(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
-	: cursor(arg_cursor), context(arg_context), input(arg_input)
+PhaseManager::PhaseManager(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
+	: cursor(arg_cursor), members(arg_members), context(arg_context), input(arg_input)
 {
-	phase = std::make_unique<CommandPhase>(cursor, context, input);
+	phase = std::make_unique<CommandPhase>(cursor, members, context, input);
 }
 
 /// <summary>
@@ -53,8 +53,6 @@ void PhaseManager::ChangePhase(PhaseState nextPhase)
 		return;
 	}
 
-	DrawFormatString(20, 100, GetColor(255, 255, 0), "Change!");
-
 	phase = CreatePhase(nextPhase);
 }
 
@@ -64,22 +62,22 @@ std::unique_ptr<PhaseBase> PhaseManager::CreatePhase(PhaseState state)
 	{
 	case PhaseState::COMMAND:
 		currentPhase = PhaseState::COMMAND;
-		return std::make_unique<CommandPhase>(cursor, context, input);
+		return std::make_unique<CommandPhase>(cursor, members, context, input);
 
 	case PhaseState::MOVE_SELECT:
 		currentPhase = PhaseState::MOVE_SELECT;
-		return std::make_unique<MoveSelectPhase>(cursor, context, input);
+		return std::make_unique<MoveSelectPhase>(cursor, members, context, input);
 
 	case PhaseState::CHANGE_MONS:
 		currentPhase = PhaseState::CHANGE_MONS;
-		return std::make_unique<ChangeMonsPhase>(cursor, context, input);
+		return std::make_unique<ChangeMonsPhase>(cursor, members, context, input);
 
 	case PhaseState::ACTION:
 		currentPhase = PhaseState::ACTION;
-		return std::make_unique<ActionPhase>(cursor, context, input);
+		return std::make_unique<ActionPhase>(cursor, members, context, input);
 		
 	case PhaseState::CHECK_FAINT:
-		return std::make_unique<CheckWLPhase>(cursor, context, input);
+		return std::make_unique<CheckWLPhase>(cursor, members, context, input);
 	}
 
 	return nullptr;

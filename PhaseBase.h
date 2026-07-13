@@ -4,6 +4,7 @@
 #include "KeyAction.h"
 #include "Cursor.h"
 #include "BattleMonster.h"
+#include "Party.h"
 #include "BattleContext.h"
 #include "InputManager.h"
 
@@ -24,6 +25,7 @@ class PhaseBase
 protected:
 
 	Cursor* cursor;
+	Members* members;
 	BattleContext* context;
 	InputManager* input;
 
@@ -31,8 +33,8 @@ protected:
 
 public:
 
-	PhaseBase(Cursor* arg_cursor, BattleContext* arg_context, InputManager* arg_input)
-		: cursor(arg_cursor), context(arg_context), input(arg_input) {}
+	PhaseBase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
+		: cursor(arg_cursor), members(arg_members), context(arg_context), input(arg_input) {}
 
 	~PhaseBase() {}
 
