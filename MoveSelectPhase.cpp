@@ -23,8 +23,8 @@ PhaseState MoveSelectPhase::Input()
 		{
 			if (input->Mouse().Push(MOUSE_LEFT))
 			{
-				context->selectedMoveID = context->player->data->MoveID[colorChange];
-				if (context->selectedMoveID >= 0)
+				context->player->selectedMoveID = context->player->data->MoveID[colorChange];
+				if (context->player->selectedMoveID >= 0)
 				{
 					// 技選択が有効な場合、次のフェーズに進む
 					return PhaseState::ACTION;

@@ -21,7 +21,7 @@ PhaseState ChangeMonsPhase::Input()
 		{
 			if (input->Mouse().Push(MOUSE_LEFT))
 			{
-				context->changeMonster = i;
+				context->player->changeMonster = i;
 
 				return PhaseState::ACTION;
 			}

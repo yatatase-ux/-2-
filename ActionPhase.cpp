@@ -44,24 +44,33 @@ void ActionPhase::Sound()
 /// </summary>
 void ActionPhase::DecideActionOrder()
 {
-
-	if (context->player->data->SPD > context->enemy->data->SPD)
+	// Œð‘ã‚ð‘I‚ñ‚¾Žž
+	if (context->player->changeMonster >= 0)
 	{
+		context->player = members->mons[context->player->changeMonster];
 		SetActionOrder(TRUE);
-	}
-	else if(context->player->data->SPD < context->enemy->data->SPD)
+	} 
+	// ‹Z‚ð‘I‚ñ‚¾Žž
+	else
 	{
-		SetActionOrder(FALSE);
-	}
-	else if(context->player->data->SPD == context->enemy->data->SPD)
-	{
-		if (GetRand(1) == 0)
+		if (context->player->data->SPD > context->enemy->data->SPD)
 		{
 			SetActionOrder(TRUE);
 		}
-		else
+		else if (context->player->data->SPD < context->enemy->data->SPD)
 		{
 			SetActionOrder(FALSE);
+		}
+		else if (context->player->data->SPD == context->enemy->data->SPD)
+		{
+			if (GetRand(1) == 0)
+			{
+				SetActionOrder(TRUE);
+			}
+			else
+			{
+				SetActionOrder(FALSE);
+			}
 		}
 	}
 }
@@ -80,7 +89,7 @@ void ActionPhase::SetActionOrder(bool playerFirst)
 		Mons[Earlyer] = context->player;
 		Mons[Later] = context->enemy;
 
-		moveID[Earlyer] = context->selectedMoveID;
+		moveID[Earlyer] = context->player->selectedMoveID;
 		moveID[Later] = context->enemy->data->MoveID[0];
 	}
 	else
@@ -92,7 +101,7 @@ void ActionPhase::SetActionOrder(bool playerFirst)
 		Mons[Later] = context->player;
 
 		moveID[Earlyer] = context->enemy->data->MoveID[0];
-		moveID[Later] = context->selectedMoveID;
+		moveID[Later] = context->player->selectedMoveID;
 	}
 }
 

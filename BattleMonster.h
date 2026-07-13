@@ -12,4 +12,7 @@ struct BattleMonster
 	int MATKRank = 0;
 	int MDEFRank = 0;
 	int SPDRank = 0;
+
+	int selectedMoveID = -1;
+	int changeMonster = -1;
 };
