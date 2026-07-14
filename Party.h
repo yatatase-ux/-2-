@@ -12,10 +12,12 @@ struct Party
 struct Members
 {
     BattleMonster* mons[MEMBER_MAX];
+
     int current = 0;
 
     BattleMonster* Active()
     {
         return mons[current];
     }
+
 };
