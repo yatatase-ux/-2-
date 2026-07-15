@@ -1,7 +1,7 @@
 #include "ActionPhase.h"
 
-ActionPhase::ActionPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_members, arg_context, arg_input)
+ActionPhase::ActionPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)
 {
 	DecideActionOrder();
 
@@ -22,9 +22,9 @@ PhaseState ActionPhase::Update()
 	// 行動フェーズの更新処理を実装
 	DamageAction();
 
-	if (turnEnd) return PhaseState::COMMAND;
-
 	if (monsDying) return PhaseState::CHECK_FAINT;
+
+	if (turnEnd) return PhaseState::COMMAND;
 
 	return PhaseState::NONE;
 }
@@ -47,7 +47,7 @@ void ActionPhase::DecideActionOrder()
 	// 交代を選んだ時
 	if (context->player->changeMonster >= 0)
 	{
-		context->player = members->mons[context->player->changeMonster];
+		context->player = pMembers->mons[context->player->changeMonster];
 		SetActionOrder(TRUE);
 	} 
 	// 技を選んだ時
@@ -125,7 +125,7 @@ void ActionPhase::DamageAction()
 		else
 		{
 			damage.Attack(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
-			CheckFaint(Mons[Later]->CurrentHP);
+			CheckFaint(Mons[Later]);
 
 			time = 120;
 			turn = Later;
@@ -147,7 +147,7 @@ void ActionPhase::DamageAction()
 		else
 		{
 			damage.Attack(*Mons[Later], *Mons[Earlyer], moveID[Later]);
-			CheckFaint(Mons[Earlyer]->CurrentHP);
+			CheckFaint(Mons[Earlyer]);
 
 			turnEnd = true;
 		}
@@ -158,10 +158,11 @@ void ActionPhase::DamageAction()
 /// 瀕死チェック
 /// </summary>
 /// <param name="after_hp">ダメージ処理後の残りHP</param>
-void ActionPhase::CheckFaint(int after_hp)
+void ActionPhase::CheckFaint(BattleMonster* target)
 {
-	if (after_hp <= 0)
+	if (target->CurrentHP <= 0)
 	{
 		monsDying = true;
+		context->faintedMonster = target; // 追加:誰が倒れたかを記録
 	}
 }

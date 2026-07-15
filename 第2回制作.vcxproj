@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="ChangeMonsPhase.cpp" />
+    <ClCompile Include="EndGamePhase.cpp" />
     <ClCompile Include="PhaseManager.cpp" />
     <ClCompile Include="CheckWLPhase.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
+    <ClInclude Include="EndBattlePhase.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="PhaseManager.h" />
     <ClInclude Include="CheckWLPhase.h" />

@@ -15,4 +15,6 @@ struct BattleMonster
 
 	int selectedMoveID = -1;
 	int changeMonster = -1;
+
+	bool isFainted = false;
 };

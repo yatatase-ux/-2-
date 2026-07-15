@@ -1,7 +1,7 @@
 #include "CheckWLPhase.h"
 
-CheckWLPhase::CheckWLPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_members, arg_context, arg_input)
+CheckWLPhase::CheckWLPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)
 {
 
 }
@@ -13,6 +13,44 @@ PhaseState CheckWLPhase::Input()
 
 PhaseState CheckWLPhase::Update()
 {
+	context->faintedMonster->isFainted = true;
+
+	if (context->faintedMonster == context->enemy)
+	{
+		// CPU側が瀕死 → 生存怪獣を検索
+		int check_lose = 0;
+		for (int i = 0; i < MEMBER_MAX; i++)
+		{
+			if (eMembers->mons[i]->isFainted == false)
+			{
+				context->enemy = eMembers->mons[i];
+				return PhaseState::COMMAND;
+			}
+			check_lose++;
+		}
+		if (check_lose >= MEMBER_MAX)
+		{
+			return PhaseState::GAME_END; // 仮:勝利フェーズへ
+		}
+	}
+	else
+	{
+		// プレイヤー側が瀕死 → こちらも同様に処理
+		int check_lose = 0;
+		for (int i = 0; i < MEMBER_MAX; i++)
+		{
+			if (pMembers->mons[i]->isFainted == false)
+			{
+				context->player = pMembers->mons[i];
+				return PhaseState::COMMAND; // 本来は選択フェーズに飛ばすのが理想
+			}
+			check_lose++;
+		}
+		if (check_lose >= MEMBER_MAX)
+		{
+			return PhaseState::GAME_END; // 仮:敗北フェーズへ
+		}
+	}
 	return PhaseState::NONE;
 }
 

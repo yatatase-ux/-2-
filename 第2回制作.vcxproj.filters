@@ -108,6 +108,9 @@
     <ClCompile Include="ChangeMonsPhase.cpp">
       <Filter>ソース ファイル\フェーズ</Filter>
     </ClCompile>
+    <ClCompile Include="EndGamePhase.cpp">
+      <Filter>ソース ファイル\フェーズ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Party.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
+    </ClInclude>
+    <ClInclude Include="EndBattlePhase.h">
+      <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

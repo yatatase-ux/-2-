@@ -16,7 +16,6 @@ enum class PhaseState
 	CHANGE_MONS,  // 怪獣チェンジ
 	ACTION,       // 行動実行
 	CHECK_FAINT,  // 戦闘不能判定
-	TURN_END,     // ターン終了
 	GAME_END      // 試合終了
 };
 
@@ -25,7 +24,8 @@ class PhaseBase
 protected:
 
 	Cursor* cursor;
-	Members* members;
+	Members* pMembers;
+	Members* eMembers;
 	BattleContext* context;
 	InputManager* input;
 
@@ -33,8 +33,8 @@ protected:
 
 public:
 
-	PhaseBase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
-		: cursor(arg_cursor), members(arg_members), context(arg_context), input(arg_input) {}
+	PhaseBase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
+		: cursor(arg_cursor), pMembers(arg_pMembers),eMembers(arg_eMembers), context(arg_context), input(arg_input) {}
 
 	~PhaseBase() {}
 

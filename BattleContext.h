@@ -6,4 +6,5 @@ struct BattleContext
     BattleMonster* player = nullptr;
     BattleMonster* enemy  = nullptr;
 
+    BattleMonster* faintedMonster = nullptr;
 };

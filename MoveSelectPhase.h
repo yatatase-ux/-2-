@@ -15,7 +15,7 @@ public:
 	MoveButton moveButtons[4];
 
 public:
-	MoveSelectPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input);
+	MoveSelectPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
 
 	PhaseState Input() override;
 

@@ -28,7 +28,7 @@ public:
 	const char* debugText[ActionMax] = {"", ""};
 
 public:
-	ActionPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input);
+	ActionPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
 
 	PhaseState Input() override;
 
@@ -44,5 +44,5 @@ public:
 
 	void DamageAction();
 
-	void CheckFaint(int after_hp);
+	void CheckFaint(BattleMonster* target);
 };

@@ -2,6 +2,9 @@
 #include "Structure.h"
 #include <cmath>
 
+#define WINDOW_W 1280	// 画面サイズ　横
+#define WINDOW_H 720	// 画面サイズ　縦
+
 int GetMouseIntX();
 int GetMouseIntY();
 

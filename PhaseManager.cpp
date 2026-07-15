@@ -1,9 +1,9 @@
 #include "PhaseManager.h"
 
-PhaseManager::PhaseManager(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
-	: cursor(arg_cursor), members(arg_members), context(arg_context), input(arg_input)
+PhaseManager::PhaseManager(Cursor* arg_cursor, Members* arg_pMembers,Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
+	: cursor(arg_cursor), pMembers(arg_pMembers),eMembers(arg_eMembers), context(arg_context), input(arg_input)
 {
-	phase = std::make_unique<CommandPhase>(cursor, members, context, input);
+	phase = std::make_unique<CommandPhase>(cursor, pMembers, eMembers, context, input);
 }
 
 /// <summary>
@@ -62,22 +62,25 @@ std::unique_ptr<PhaseBase> PhaseManager::CreatePhase(PhaseState state)
 	{
 	case PhaseState::COMMAND:
 		currentPhase = PhaseState::COMMAND;
-		return std::make_unique<CommandPhase>(cursor, members, context, input);
+		return std::make_unique<CommandPhase>(cursor, pMembers, eMembers, context, input);
 
 	case PhaseState::MOVE_SELECT:
 		currentPhase = PhaseState::MOVE_SELECT;
-		return std::make_unique<MoveSelectPhase>(cursor, members, context, input);
+		return std::make_unique<MoveSelectPhase>(cursor, pMembers, eMembers, context, input);
 
 	case PhaseState::CHANGE_MONS:
 		currentPhase = PhaseState::CHANGE_MONS;
-		return std::make_unique<ChangeMonsPhase>(cursor, members, context, input);
+		return std::make_unique<ChangeMonsPhase>(cursor, pMembers, eMembers, context, input);
 
 	case PhaseState::ACTION:
 		currentPhase = PhaseState::ACTION;
-		return std::make_unique<ActionPhase>(cursor, members, context, input);
+		return std::make_unique<ActionPhase>(cursor, pMembers, eMembers, context, input);
 		
 	case PhaseState::CHECK_FAINT:
-		return std::make_unique<CheckWLPhase>(cursor, members, context, input);
+		return std::make_unique<CheckWLPhase>(cursor, pMembers, eMembers, context, input);
+
+	case PhaseState::GAME_END:
+		return std::make_unique<EndGamePhase>(cursor, pMembers, eMembers, context, input);
 	}
 
 	return nullptr;
@@ -104,6 +107,9 @@ void PhaseManager::DrawPhaseForDebug(PhaseState phase)
 		break;
 	case PhaseState::CHECK_FAINT:
 		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: CehckWin-Lose");
+		break;
+	case PhaseState::GAME_END:
+		DrawFormatString(20, 20, GetColor(255, 255, 255), "Phase: GAME_END");
 		break;
 	}
 }

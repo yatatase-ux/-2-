@@ -6,7 +6,7 @@ class CheckWLPhase : public PhaseBase
 public:
 
 public:
-	CheckWLPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input);
+	CheckWLPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
 
 	PhaseState Input() override;
 

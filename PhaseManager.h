@@ -12,6 +12,7 @@
 #include "ChangeMonsPhase.h"
 #include "ActionPhase.h"
 #include "CheckWLPhase.h"
+#include "EndBattlePhase.h"
 
 class PhaseManager
 {
@@ -20,7 +21,8 @@ protected:
 	std::unique_ptr<PhaseBase> phase;
 
 	Cursor* cursor;
-	Members* members;
+	Members* pMembers;
+	Members* eMembers;
 	BattleContext* context;
 	InputManager* input;
 
@@ -28,7 +30,7 @@ protected:
 
 public:
 
-	PhaseManager(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input);
+	PhaseManager(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
 
 	/// <summary>
 	/// “ü—Íˆ—

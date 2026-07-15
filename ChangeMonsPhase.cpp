@@ -1,7 +1,7 @@
 #include "ChangeMonsPhase.h"
 
-ChangeMonsPhase::ChangeMonsPhase(Cursor* arg_cursor, Members* arg_members, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_members, arg_context, arg_input)
+ChangeMonsPhase::ChangeMonsPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
+	: PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -58,7 +58,7 @@ void ChangeMonsPhase::Draw()
 
 
 		DrawCenterText(buttons[i].pos.x + 125.0f, buttons[i].pos.y + 37.5f,
-						members->mons[i]->data->Name, GetColor(0, 0, 0), 30.0f);
+						pMembers->mons[i]->data->Name, GetColor(0, 0, 0), 30.0f);
 	}
 }
 
