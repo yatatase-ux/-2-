@@ -40,9 +40,9 @@ void Game::GameLoop()
 		// =======================================	
 		scene.Draw();
 
-		int s = sizeof(Type);
+		//int s = sizeof(Type);
 
-		DrawFormatString(20, 100, GetColor(255, 255, 255), "%d", s);
+		//DrawFormatString(20, 100, GetColor(255, 255, 255), "%d", s);
 
 		// =======================================
 		//  âπê∫çƒê∂èàóù
