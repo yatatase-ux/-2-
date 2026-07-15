@@ -69,6 +69,7 @@ void ChangeMonsPhase::Sound()
 
 bool ChangeMonsPhase::CursorInButton(int moveID)
 {
+	if (pMembers->mons[moveID]->isFainted) return false; // •mŽ€‚Í‘I‘ð•s‰Â
 	if (CheckPointBoxHit(cursor->GetPos(), buttons[moveID].pos, { 250.0f, 75.0f }))
 	{
 		return true;
