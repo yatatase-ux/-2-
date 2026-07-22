@@ -12,21 +12,30 @@ PHASE_CONSTRUCTOR(ChangeMonsPhase)
 
 PhaseState ChangeMonsPhase::Input()
 {
-	if (input->Mouse().Push(MOUSE_RIGHT)) return PhaseState::COMMAND;
+	// 強制交代でなければキャンセル可能
+	if (!context->isForcedSwitch && input->Mouse().Push(MOUSE_RIGHT))
+		return PhaseState::COMMAND;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < MEMBER_MAX; i++)
 	{
 		if (CursorInButton(i))
 		{
 			if (input->Mouse().Push(MOUSE_LEFT))
 			{
-				context->player->changeMonster = i;
-
-				return PhaseState::ACTION;
+				if (context->isForcedSwitch)
+				{
+					context->player = pMembers->mons[i];
+					context->isForcedSwitch = false;
+					return PhaseState::COMMAND; // 行動を消費せずコマンド選択へ
+				}
+				else
+				{
+					context->player->changeMonster = i;
+					return PhaseState::ACTION; // 通常交代は行動を消費
+				}
 			}
 		}
 	}
-
 	return PhaseState::NONE;
 }
 
