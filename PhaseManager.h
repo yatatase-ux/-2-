@@ -11,7 +11,7 @@
 #include "MoveSelectPhase.h"
 #include "ChangeMonsPhase.h"
 #include "ActionPhase.h"
-#include "CheckWLPhase.h"
+#include "CheckFaintPhase.h"
 #include "EndBattlePhase.h"
 
 class PhaseManager

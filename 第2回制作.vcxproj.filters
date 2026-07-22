@@ -96,7 +96,7 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>ソース ファイル\プレイヤー</Filter>
     </ClCompile>
-    <ClCompile Include="CheckWLPhase.cpp">
+    <ClCompile Include="CheckFaintPhase.cpp">
       <Filter>ソース ファイル\フェーズ</Filter>
     </ClCompile>
     <ClCompile Include="PhaseManager.cpp">
@@ -179,7 +179,7 @@
     <ClInclude Include="InputManager.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
-    <ClInclude Include="CheckWLPhase.h">
+    <ClInclude Include="CheckFaintPhase.h">
       <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="BattleContext.h">

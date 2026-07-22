@@ -133,7 +133,7 @@
     <ClCompile Include="ChangeMonsPhase.cpp" />
     <ClCompile Include="EndGamePhase.cpp" />
     <ClCompile Include="PhaseManager.cpp" />
-    <ClCompile Include="CheckWLPhase.cpp" />
+    <ClCompile Include="CheckFaintPhase.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
     <ClCompile Include="DamageCalculator.cpp" />
     <ClCompile Include="Cursor.cpp" />
@@ -157,7 +157,7 @@
     <ClInclude Include="EndBattlePhase.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="PhaseManager.h" />
-    <ClInclude Include="CheckWLPhase.h" />
+    <ClInclude Include="CheckFaintPhase.h" />
     <ClInclude Include="CommandPhase.h" />
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="InputManager.h" />
