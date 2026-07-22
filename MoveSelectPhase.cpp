@@ -1,10 +1,9 @@
 #include "MoveSelectPhase.h"
 #include "Function.h"
 
-MoveSelectPhase::MoveSelectPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)
+PHASE_CONSTRUCTOR(MoveSelectPhase)
 {
-	for(int init = 0; init < 4; init++)
+	for (int init = 0; init < 4; init++)
 	{
 		moveButtons[init].pos.x = 1000.0f;
 		moveButtons[init].pos.y = 350.0f + init * 85.0f;

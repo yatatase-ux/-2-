@@ -2,22 +2,26 @@
 
 ScenePlay::ScenePlay()
 {
+	// プレイシーンの初期化処理
+	
+	// 戦闘参加怪獣の設定
 	const MonsterBaseData* pMons[3] = { MonsterData::FindByID(2),
 										MonsterData::FindByID(3), 
 										MonsterData::FindByID(4) };
+
 	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(2),
 										MonsterData::FindByID(3), 
 										MonsterData::FindByID(4) };
-
 	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);
 	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);
-
 	context.player = pMember.Active();
 	context.enemy = eMember.Active();
-
-	// プレイシーンの初期化処理
+	
+	// プレイヤークラスの初期化
 	player = std::make_unique<Player>();
+	// 入力関係クラスの初期化
 	m_Input = std::make_unique<InputManager>();
+	// フェーズ管理マネージャークラスの初期化
 	m_Battle = std::make_unique<PhaseManager>(player->GetCursor(), &pMember, &eMember, &context, m_Input.get());
 }
 
@@ -25,7 +29,6 @@ void ScenePlay::Input()
 {
 	// プレイシーンの入力処理
 	m_Battle->Input();
-
 }
 
 void ScenePlay::Update()

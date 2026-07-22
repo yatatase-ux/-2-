@@ -7,13 +7,6 @@ protected:
 
 public:
 
-	EndGamePhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
+	PHASE_CLASS(EndGamePhase);
 
-	PhaseState Input() override;
-
-	PhaseState Update() override;
-
-	void Draw() override;
-
-	void Sound() override;
 };

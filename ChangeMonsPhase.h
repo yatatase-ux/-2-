@@ -16,15 +16,8 @@ protected:
 
 public:
 
-	ChangeMonsPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
+	PHASE_CLASS(ChangeMonsPhase);
 
-	PhaseState Input() override;
-
-	PhaseState Update() override;
-
-	void Draw() override;
-
-	void Sound() override;
 
 	bool CursorInButton(int moveID);
 

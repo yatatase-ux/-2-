@@ -46,3 +46,21 @@ public:
 
 	virtual void Sound() = 0;
 };
+
+
+// マクロ定義-----------------------------------------
+
+// フェーズクラスのデフォルトの関数
+#define PHASE_CLASS(className)\
+	className(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);\
+	PhaseState Input() override;\
+	PhaseState Update() override;\
+	void Draw() override;\
+	void Sound() override;
+
+// フェーズクラスのコンストラクタ
+#define PHASE_CONSTRUCTOR(className)\
+className::className(Cursor* arg_cursor,\
+					Members* arg_pMembers, Members* arg_eMembers,\
+					BattleContext* arg_context, InputManager* arg_input)\
+	: PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)

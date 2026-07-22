@@ -28,15 +28,9 @@ public:
 	const char* debugText[ActionMax] = {"", ""};
 
 public:
-	ActionPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
 
-	PhaseState Input() override;
+	PHASE_CLASS(ActionPhase);
 
-	PhaseState Update() override;
-
-	void Draw() override;
-
-	void Sound() override;
 
 	void DecideActionOrder();
 

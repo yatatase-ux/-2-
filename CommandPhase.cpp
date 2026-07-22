@@ -1,7 +1,6 @@
 #include "CommandPhase.h"
 
-CommandPhase::CommandPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
-	: PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)
+PHASE_CONSTRUCTOR(CommandPhase)
 {
 	button[Fight] = { 1150.0f, 425.0f, 75.0f, GetColor(175,0,0) };
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
@@ -22,10 +21,10 @@ PhaseState CommandPhase::Input()
 
 	if (click)
 	{
-		if (CursorInButtom(Fight))
+		if (CursorInButton(Fight))
 			return PhaseState::MOVE_SELECT;
 
-		if (CursorInButtom(Change))
+		if (CursorInButton(Change))
 			return PhaseState::CHANGE_MONS;
 	}
 
@@ -72,7 +71,7 @@ PhaseState CommandPhase::Update()
 {
 	for (int in = 0; in < BUTTOM_MAX; in++)
 	{
-		if (CursorInButtom(in))
+		if (CursorInButton(in))
 		{
 			ChangeButtomColor(in, true);
 		}
@@ -106,7 +105,7 @@ void CommandPhase::Sound()
 	
 }
 
-bool CommandPhase::CursorInButtom(int type)
+bool CommandPhase::CursorInButton(int type)
 {
 	if (CheckCircleHit(button[type].pos, 75.0f, cursor->GetPos(), 10.0f))
 	{
@@ -143,17 +142,4 @@ void CommandPhase::ChangeButtomColor(int type, bool InFlag)
 			break;
 		}
 	}
-}
-
-bool CommandPhase::InputButton(int type)
-{
-	if (input->Mouse().Push(MOUSE_LEFT))
-	{
-		if (CursorInButtom(type))
-		{
-			return true;
-		}
-	}
-
-	return false;
 }

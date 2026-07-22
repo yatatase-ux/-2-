@@ -19,19 +19,10 @@ private:
 
 public:
 
-	CommandPhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input);
+	PHASE_CLASS(CommandPhase);
 
-	PhaseState Input() override;
 
-	PhaseState Update() override;
-
-	void Draw() override;
-
-	void Sound() override;
-
-	bool CursorInButtom(int type);
+	bool CursorInButton(int type);
 
 	void ChangeButtomColor(int type, bool InFlag);
-
-	bool InputButton(int type);
 };

@@ -1,7 +1,6 @@
 #include "EndBattlePhase.h"
 
-EndGamePhase::EndGamePhase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
-	:PhaseBase(arg_cursor, arg_pMembers, arg_eMembers, arg_context, arg_input)
+PHASE_CONSTRUCTOR(EndGamePhase)
 {
 
 }
