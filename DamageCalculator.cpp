@@ -45,15 +45,15 @@ int DamageCalculator::CalcDamage(
     int def = 0;
     switch (move.category)
     {
-    case PHYSICAL:
+    case MoveCategory::Physical:
         atk = attacker.PATK;
         def = defender.PDEF;
         break;
-    case SPECIAL:
+    case MoveCategory::Special:
         atk = attacker.MATK;
         def = defender.MDEF;
         break;
-    case STATUS:
+    case MoveCategory::Status:
         return 0;
     }
 

@@ -38,7 +38,6 @@ const MonsterBaseData* MonsterData::FindByID(int id)
 
 
 // 正式怪獣保管場所
-
 /*
 // 火属性：アタッカー寄り。攻撃つよい
 { , "火物理", {Type::Fire  , Type::None},   80, 120,  65,  50,  65, 100, {0, -1, -1, -1 } // 480
@@ -58,7 +57,7 @@ const MonsterBaseData* MonsterData::FindByID(int id)
 { , "草高速", {Type::Grass , Type::None},  70,  80,  65,  80,  70, 125, {0, -1, -1, -1 } // 490
 { , "草耐久", {Type::Grass , Type::None}, 100,  60,  95,  75, 110,  55, {0, -1, -1, -1 } // 495
 
-// 無属性
+// 無属性。技等シンプルな反面、能力値で多少のアドバンテージ
 { , "無物理", {Type::Normal, Type::None},  85, 115,  85,  50,  95,  90, {0, -1, -1, -1 } // 520
 { , "無特殊", {Type::Normal, Type::None},  95,  50,  85, 115,  85,  90, {0, -1, -1, -1 } // 520
 { , "無高速", {Type::Normal, Type::None},  75,  95,  70,  95,  70, 120, {0, -1, -1, -1 } // 525
