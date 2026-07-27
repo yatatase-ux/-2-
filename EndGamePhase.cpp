@@ -1,26 +1,33 @@
 #include "EndBattlePhase.h"
 
-PHASE_CONSTRUCTOR(EndGamePhase)
+PHASE_CONSTRUCTOR(EndBattlePhase)
 {
 
 }
 
-PhaseState EndGamePhase::Input()
-{
-	return PhaseState::NONE;
-}
-
-PhaseState EndGamePhase::Update()
+PhaseState EndBattlePhase::Input()
 {
 	return PhaseState::NONE;
 }
 
-void EndGamePhase::Draw()
+PhaseState EndBattlePhase::Update()
 {
-	DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "WIN", GetColor(255, 255, 255), 50);
+	return PhaseState::NONE;
 }
 
-void EndGamePhase::Sound()
+void EndBattlePhase::Draw()
+{
+	if (context->isPlayerWin)
+	{
+		DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "WIN", GetColor(255, 255, 255), 50);
+	}
+	else
+	{
+		DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "LOSE", GetColor(255, 255, 255), 50);
+	}
+}
+
+void EndBattlePhase::Sound()
 {
 
 }

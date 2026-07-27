@@ -1,12 +1,12 @@
 #pragma once
 #include "PhaseBase.h"
 
-class EndGamePhase : public PhaseBase
+class EndBattlePhase : public PhaseBase
 {
 protected:
 
 public:
 
-	PHASE_CLASS(EndGamePhase);
+	PHASE_CLASS(EndBattlePhase);
 
 };

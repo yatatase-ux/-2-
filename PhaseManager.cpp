@@ -80,7 +80,7 @@ std::unique_ptr<PhaseBase> PhaseManager::CreatePhase(PhaseState state)
 		return std::make_unique<CheckFaintPhase>(cursor, pMembers, eMembers, context, input);
 
 	case PhaseState::GAME_END:
-		return std::make_unique<EndGamePhase>(cursor, pMembers, eMembers, context, input);
+		return std::make_unique<EndBattlePhase>(cursor, pMembers, eMembers, context, input);
 	}
 
 	return nullptr;
