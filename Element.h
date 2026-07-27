@@ -1,14 +1,5 @@
 #pragma once
 
-enum class StatType
-{
-	PhysicalAtk,
-	PhysicalDef,
-	MagicAtk,
-	MagicDef,
-	Speed
-};
-
 enum class Type
 {
 	None, 	// –³
