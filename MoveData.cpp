@@ -1,6 +1,8 @@
 #include "MoveData.h"
 MoveData MoveTable[] =
 {
+	{ 0, "ŒŠ–„‚ß",   Type::Fire, MoveCategory::Physical, 90, 100, 0 },
+
 	// ===== ‰Î(ID 1~5) =====
 	{ 1, "‰Î‰ŠŽa‚è",   Type::Fire, MoveCategory::Physical, 90, 100, 0 },
 
