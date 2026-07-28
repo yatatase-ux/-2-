@@ -5,13 +5,14 @@ ScenePlay::ScenePlay()
 	// プレイシーンの初期化処理
 	
 	// 戦闘参加怪獣の設定
-	const MonsterBaseData* pMons[3] = { MonsterData::FindByID(2),
-										MonsterData::FindByID(3), 
-										MonsterData::FindByID(4) };
+	const MonsterBaseData* pMons[3] = { MonsterData::FindByID(1),
+										MonsterData::FindByID(5), 
+										MonsterData::FindByID(9) };
 
-	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(2),
-										MonsterData::FindByID(3), 
-										MonsterData::FindByID(4) };
+	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(12),
+										MonsterData::FindByID(4), 
+										MonsterData::FindByID(8) };
+
 	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);
 	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);
 	context.player = pMember.Active();

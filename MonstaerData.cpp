@@ -13,13 +13,13 @@ const MonsterBaseData MonsterData::monster[] = {
 {  7, "水高速", {Type::Water , Type::None},  75,  85,  70,  85,  70, 120, { 6,  7,  8,  9 }}, // 505
 {  8, "水耐久", {Type::Water , Type::None}, 110,  65, 105,  70, 110,  40, { 7,  9, 10, -1 }}, // 500
 
-// 技が優秀。状態異常とか能力変化とか
+// 草属性：技が優秀。状態異常とか能力変化とか
 {  9, "草物理", {Type::Grass , Type::None},  85, 105,  80,  50,  85,  75, {11, -1, -1, -1 }}, // 480
 { 10, "草特殊", {Type::Grass , Type::None},  80,  45,  75, 110,  90,  80, {12, -1, -1, -1 }}, // 480
 { 11, "草高速", {Type::Grass , Type::None},  70,  80,  65,  80,  70, 125, {11, 12, -1, -1 }}, // 490
 { 12, "草耐久", {Type::Grass , Type::None}, 100,  60,  95,  75, 110,  55, {12, 13, 14, 15 }}, // 495
 
-// 無属性。技等シンプルな反面、能力値で多少のアドバンテージ
+// 無属性：技等シンプルな反面、能力値で多少のアドバンテージ
 { 13, "無物理", {Type::Normal, Type::None},  85, 115,  85,  50,  95,  90, {16, 17, -1, -1 }}, // 520
 { 14, "無特殊", {Type::Normal, Type::None},  95,  50,  85, 115,  85,  90, {18, 19, -1, -1 }}, // 520
 { 15, "無高速", {Type::Normal, Type::None},  75,  95,  70,  95,  70, 120, {16, 17, 18, 19 }}, // 525
@@ -27,18 +27,6 @@ const MonsterBaseData MonsterData::monster[] = {
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);
-
-//void MonsterData::ShowData()
-//{
-//	for (int i = 0; i < MonsterSize; i++) {
-//		DrawFormatString(20 * (i + 1) * 10, 20, GetColor(0, 0, 0), "Name : %s", monster[i].Name);
-//		DrawFormatString(20 * (i + 1) * 10, 40, GetColor(0, 0, 0), "PATK : %d", monster[i].PATK);
-//		DrawFormatString(20 * (i + 1) * 10, 60, GetColor(0, 0, 0), "PDEF : %d", monster[i].PDEF);
-//		DrawFormatString(20 * (i + 1) * 10, 80, GetColor(0, 0, 0), "MATK : %d", monster[i].MATK);
-//		DrawFormatString(20 * (i + 1) * 10, 100, GetColor(0, 0, 0), "MDEF : %d", monster[i].MDEF);
-//		DrawFormatString(20 * (i + 1) * 10, 120, GetColor(0, 0, 0), "SPD  : %d", monster[i].SPD);
-//	}
-//}
 
 const MonsterBaseData* MonsterData::FindByID(int id)
 {
