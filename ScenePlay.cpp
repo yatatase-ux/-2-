@@ -60,6 +60,12 @@ void ScenePlay::Draw()
 		"HP : %d",
 		context.player->CurrentHP);
 	DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
+	DrawFormatString(
+		100,
+		500,
+		GetColor(255, 255, 255),
+		"•¨—UŒ‚ƒ‰ƒ“ƒN : %d",
+		context.player->PATKRank);
 }
 
 void ScenePlay::Sound()

@@ -123,7 +123,7 @@ void ActionPhase::DamageAction()
 		}
 		else
 		{
-			damage.Attack(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
+			ExecuteMove(Mons[Earlyer], Mons[Later], moveID[Earlyer]); // ここを変更
 			CheckFaint(Mons[Later]);
 
 			time = 120;
@@ -145,7 +145,7 @@ void ActionPhase::DamageAction()
 		}
 		else
 		{
-			damage.Attack(*Mons[Later], *Mons[Earlyer], moveID[Later]);
+			ExecuteMove(Mons[Later], Mons[Earlyer], moveID[Later]); // ここを変更
 			CheckFaint(Mons[Earlyer]);
 
 			turnEnd = true;
@@ -163,5 +163,43 @@ void ActionPhase::CheckFaint(BattleMonster* target)
 	{
 		monsDying = true;
 		context->faintedMonster = target; // 追加:誰が倒れたかを記録
+	}
+}
+
+// ActionPhase.cpp
+void ActionPhase::ExecuteMove(BattleMonster* attacker, BattleMonster* defender, int moveID)
+{
+	const MoveData& move = MoveTable[moveID]; // ID(1始まり)と配列index(0始まり)のズレに注意
+
+	if (move.category == MoveCategory::Status)
+	{
+		// 補助技:ダメージなし
+		BattleMonster* target = move.targetSelf ? attacker : defender;
+		if (move.effect == EffectType::StatUp || move.effect == EffectType::StatDown)
+		{
+			effect.ApplyStatChange(*target, move.statIndex, move.statChange);
+		}
+		else
+		{
+			effect.ApplyStatusCondition(*target, move.effect);
+		}
+	}
+	else
+	{
+		// 攻撃技:まずダメージ
+		damage.Attack(*attacker, *defender, moveID);
+
+		// 追加効果があれば確率判定(業火拳のやけど、頭突きの素早さダウンなど)
+		if (move.effect != EffectType::None && move.effectChance > 0)
+		{
+			if (GetRand(99) < move.effectChance)
+			{
+				BattleMonster* target = move.targetSelf ? attacker : defender;
+				if (move.effect == EffectType::StatUp || move.effect == EffectType::StatDown)
+					effect.ApplyStatChange(*target, move.statIndex, move.statChange);
+				else
+					effect.ApplyStatusCondition(*target, move.effect);
+			}
+		}
 	}
 }

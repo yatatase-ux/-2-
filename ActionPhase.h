@@ -1,6 +1,8 @@
 #pragma once
 #include "PhaseBase.h"
 #include "DamageCalculator.h"
+#include "EffectApplier.h"
+#include "MoveData.h"
 
 enum
 {
@@ -13,7 +15,7 @@ enum
 
 class ActionPhase : public PhaseBase
 {
-public:
+private:
 
 	DamageCalculator damage;
 
@@ -27,10 +29,11 @@ public:
 
 	const char* debugText[ActionMax] = {"", ""};
 
+	EffectApplier effect; // ÉÅÉìÉoí«â¡
+
 public:
 
 	PHASE_CLASS(ActionPhase);
-
 
 	void DecideActionOrder();
 
@@ -39,4 +42,6 @@ public:
 	void DamageAction();
 
 	void CheckFaint(BattleMonster* target);
+
+	void ExecuteMove(BattleMonster* attacker, BattleMonster* defender, int moveID);
 };

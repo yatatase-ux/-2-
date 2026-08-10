@@ -111,6 +111,9 @@
     <ClCompile Include="EndGamePhase.cpp">
       <Filter>ソース ファイル\フェーズ</Filter>
     </ClCompile>
+    <ClCompile Include="EffectApplier.cpp">
+      <Filter>ソース ファイル\バトル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="EndBattlePhase.h">
       <Filter>ヘッダー ファイル\フェーズ</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectApplier.h">
+      <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
