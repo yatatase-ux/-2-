@@ -116,7 +116,7 @@ void ActionPhase::DamageAction()
 	{
 		if (time > 0)
 		{
-			int d = damage.CalcDamage(*Mons[Earlyer]->data, *Mons[Later]->data, moveID[Earlyer]);
+			int d = damage.CalcDamage(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
 			DrawString(500, 220, debugText[Earlyer ], GetColor(255, 255, 255));
 			DrawString(500, 250, Mons[Earlyer]->data->Name, GetColor(255, 255, 255));
 			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
@@ -138,7 +138,7 @@ void ActionPhase::DamageAction()
 	{
 		if (time > 0)
 		{
-			int d = damage.CalcDamage( *Mons[Later]->data, *Mons[Earlyer]->data, moveID[Later]);
+			int d = damage.CalcDamage( *Mons[Later], *Mons[Earlyer], moveID[Later]);
 			DrawString(500, 220, debugText[Later], GetColor(255, 255, 255));
 			DrawString(500, 250, Mons[Later]->data->Name, GetColor(255, 255, 255));
 			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);

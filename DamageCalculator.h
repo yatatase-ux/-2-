@@ -2,10 +2,14 @@
 #include "MonsterBaseData.h"
 #include "MoveData.h"
 #include "BattleMonster.h"
+#include "EffectApplier.h"
+
 
 class DamageCalculator
 {
 protected:
+
+	EffectApplier effect; // í«â¡
 
 public:
 
@@ -29,8 +33,8 @@ public:
 	/// <param name="moveID">ãZID</param>
 	/// <returns>É_ÉÅÅ[ÉWó </returns>
 	int CalcDamage(
-		const MonsterBaseData& attacker,
-		const MonsterBaseData& defender,
+		const BattleMonster& attacker,
+		const BattleMonster& defender,
 		int moveID);
 
 	bool CheckHit();

@@ -14,7 +14,7 @@ DamageCalculator::DamageCalculator()
 /// <param name="moveID">‹ZID</param>
 void DamageCalculator::Attack(BattleMonster& attacker, BattleMonster& defender, int moveID)
 {
-    int damage = CalcDamage(*attacker.data, *defender.data, moveID);
+    int damage = CalcDamage(attacker, defender, moveID);
 
     defender.CurrentHP -= damage;
 
@@ -30,32 +30,42 @@ void DamageCalculator::Attack(BattleMonster& attacker, BattleMonster& defender, 
 /// <param name="moveID">‹Z‚Ì”Ô†</param>
 /// <returns>ƒ_ƒ[ƒW—Ê</returns>
 int DamageCalculator::CalcDamage(
-    const MonsterBaseData& attacker,
-    const MonsterBaseData& defender,
+    const BattleMonster& attacker,
+    const BattleMonster& defender,
     int moveID)
-{ 
+{
     if (moveID < 0 || moveID >= MoveTableSize)
     {
         return 0;
     }
-
     const MoveData& move = MoveTable[moveID];
 
     int atk = 0;
     int def = 0;
+    int atkRank = 0;
+    int defRank = 0;
+
     switch (move.category)
     {
     case MoveCategory::Physical:
-        atk = attacker.PATK;
-        def = defender.PDEF;
+        atk = attacker.data->PATK;
+        def = defender.data->PDEF;
+        atkRank = attacker.PATKRank;
+        defRank = defender.PDEFRank;
         break;
     case MoveCategory::Special:
-        atk = attacker.MATK;
-        def = defender.MDEF;
+        atk = attacker.data->MATK;
+        def = defender.data->MDEF;
+        atkRank = attacker.MATKRank;
+        defRank = defender.MDEFRank;
         break;
     case MoveCategory::Status:
         return 0;
     }
+
+    // ƒ‰ƒ“ƒN•â³‚ğ”½‰f
+    atk = (int)(atk * effect.RankToMultiplier(atkRank));
+    def = (int)(def * effect.RankToMultiplier(defRank));
 
     if (def <= 0)
     {
@@ -63,16 +73,13 @@ int DamageCalculator::CalcDamage(
     }
 
     float damage = BaseDamage(move.Power, atk, def);
-
-    damage *= TypeBonus(attacker, move);
-
-    damage *= TypeMatchup(defender, move);
+    damage *= TypeBonus(*attacker.data, move);
+    damage *= TypeMatchup(*defender.data, move);
 
     if (damage <= 0.0f)
     {
         return 0;
     }
-
     return (int)damage;
 }
 
