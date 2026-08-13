@@ -83,6 +83,25 @@ int DamageCalculator::CalcDamage(
     return (int)damage;
 }
 
+// 将来的に実装する乱数
+//int DamageCalculator::RollDamage(const BattleMonster& attacker, const BattleMonster& defender, int moveID)
+//{
+//    int baseDamage = CalcDamage(attacker, defender, moveID); // 基準値の計算はそのまま流用
+//    float roll = 0.85f + (GetRand(15) / 100.0f); // 例:85%~100%の乱数
+//    return (int)(baseDamage * roll);
+//}
+
+float DamageCalculator::LethalProbability(const BattleMonster& attacker, const BattleMonster& defender, int moveID)
+{
+    const MoveData& move = MoveTable[moveID];
+    if (move.category == MoveCategory::Status) return 0.0f;
+
+    int dmg = CalcDamage(attacker, defender, moveID);
+    bool isLethal = (dmg >= defender.CurrentHP);
+
+    return isLethal ? (move.Accuracy / 100.0f) : 0.0f;
+}
+
 bool DamageCalculator::CheckHit()
 {
     return false;

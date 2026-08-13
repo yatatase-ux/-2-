@@ -1,6 +1,7 @@
 #pragma once
 #include "PhaseBase.h"
 #include "DamageCalculator.h"
+#include "CpuBrain.h"
 
 enum
 {
@@ -16,6 +17,8 @@ private:
 	DamageCalculator damage;
 
 	FloatCircle button[BUTTOM_MAX];
+
+	CpuBrain cpuBrain;
 
 public:
 

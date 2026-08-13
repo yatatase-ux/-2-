@@ -6,7 +6,8 @@ PHASE_CONSTRUCTOR(CommandPhase)
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 
 	context->player->selectedMoveID = -1;
-	context->enemy->selectedMoveID = -1;
+	context->enemy->selectedMoveID = cpuBrain.ChooseMove(*context->enemy, *context->player, damage);
+
 
 	context->player->changeMonster = -1;
 	context->enemy->changeMonster = -1;

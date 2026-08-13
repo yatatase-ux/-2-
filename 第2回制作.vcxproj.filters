@@ -114,6 +114,9 @@
     <ClCompile Include="EffectApplier.cpp">
       <Filter>ソース ファイル\バトル</Filter>
     </ClCompile>
+    <ClCompile Include="CpuBrain.cpp">
+      <Filter>ソース ファイル\バトル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -204,6 +207,9 @@
       <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="EffectApplier.h">
+      <Filter>ヘッダー ファイル\バトル</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuBrain.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
   </ItemGroup>

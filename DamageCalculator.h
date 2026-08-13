@@ -37,6 +37,11 @@ public:
 		const BattleMonster& defender,
 		int moveID);
 
+	// «—ˆ“I‚ÉÀ‘•‚·‚é—”
+//	int RollDamage(const BattleMonster& attacker, const BattleMonster& defender, int moveID);
+
+	float LethalProbability(const BattleMonster& attacker, const BattleMonster& defender, int moveID);
+
 	bool CheckHit();
 
 	void ApplyDamage();

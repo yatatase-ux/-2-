@@ -89,7 +89,7 @@ void ActionPhase::SetActionOrder(bool playerFirst)
 		Mons[Later] = context->enemy;
 
 		moveID[Earlyer] = context->player->selectedMoveID;
-		moveID[Later] = context->enemy->data->MoveID[0];
+		moveID[Later] = context->enemy->selectedMoveID;
 	}
 	else
 	{
@@ -99,7 +99,7 @@ void ActionPhase::SetActionOrder(bool playerFirst)
 		Mons[Earlyer] = context->enemy;
 		Mons[Later] = context->player;
 
-		moveID[Earlyer] = context->enemy->data->MoveID[0];
+		moveID[Earlyer] = context->enemy->selectedMoveID;
 		moveID[Later] = context->player->selectedMoveID;
 	}
 }
@@ -119,7 +119,8 @@ void ActionPhase::DamageAction()
 			int d = damage.CalcDamage(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
 			DrawString(500, 220, debugText[Earlyer ], GetColor(255, 255, 255));
 			DrawString(500, 250, Mons[Earlyer]->data->Name, GetColor(255, 255, 255));
-			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
+			DrawString(500, 300, MoveTable[moveID[Earlyer]].Name, GetColor(255, 255, 255));
+			DrawFormatString(500, 350, GetColor(255, 255, 255), "ダメージ：%d", d);
 		}
 		else
 		{
@@ -141,7 +142,8 @@ void ActionPhase::DamageAction()
 			int d = damage.CalcDamage( *Mons[Later], *Mons[Earlyer], moveID[Later]);
 			DrawString(500, 220, debugText[Later], GetColor(255, 255, 255));
 			DrawString(500, 250, Mons[Later]->data->Name, GetColor(255, 255, 255));
-			DrawFormatString(500, 300, GetColor(255, 255, 255), "ダメージ：%d", d);
+			DrawString(500, 300, MoveTable[moveID[Later]].Name, GetColor(255, 255, 255));
+			DrawFormatString(500, 350, GetColor(255, 255, 255), "ダメージ：%d", d);
 		}
 		else
 		{
