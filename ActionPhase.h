@@ -29,7 +29,11 @@ private:
 
 	const char* debugText[ActionMax] = {"", ""};
 
-	EffectApplier effect; // ÉÅÉìÉoí«â¡
+	EffectApplier effect;
+
+	bool isSwitchAction[ActionMax] = { false, false };
+	const char* switchFromName[ActionMax] = { "", "" };
+	const char* switchToName[ActionMax] = { "", "" };
 
 public:
 

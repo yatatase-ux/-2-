@@ -72,6 +72,42 @@ void ActionPhase::DecideActionOrder()
 			}
 		}
 	}
+
+	//------------------------------
+	
+	// 交代を選んだ時
+	if (context->player->changeMonster >= 0)
+	{
+		const char* fromName = context->player->data->Name; // 差し替え前に名前を控えておく
+		BattleMonster* newMon = pMembers->mons[context->player->changeMonster];
+
+		context->player = newMon;
+		SetActionOrder(TRUE);
+
+		isSwitchAction[Earlyer] = true;
+		isSwitchAction[Later] = false; // CPU側は通常通り技を使う
+		switchFromName[Earlyer] = fromName;
+		switchToName[Earlyer] = newMon->data->Name;
+	}
+	// 技を選んだ時
+	else
+	{
+		isSwitchAction[Earlyer] = false;
+		isSwitchAction[Later] = false;
+
+		if (context->player->data->SPD > context->enemy->data->SPD)
+		{
+			SetActionOrder(TRUE);
+		}
+		else if (context->player->data->SPD < context->enemy->data->SPD)
+		{
+			SetActionOrder(FALSE);
+		}
+		else
+		{
+			SetActionOrder(GetRand(1) == 0);
+		}
+	}
 }
 
 /// <summary>
@@ -116,21 +152,34 @@ void ActionPhase::DamageAction()
 	{
 		if (time > 0)
 		{
-			int d = damage.CalcDamage(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
-			DrawString(500, 220, debugText[Earlyer ], GetColor(255, 255, 255));
-			DrawString(500, 250, Mons[Earlyer]->data->Name, GetColor(255, 255, 255));
-			DrawString(500, 300, MoveTable[moveID[Earlyer]].Name, GetColor(255, 255, 255));
-			DrawFormatString(500, 350, GetColor(255, 255, 255), "ダメージ：%d", d);
+			DrawString(500, 220, debugText[Earlyer], GetColor(255, 255, 255));
+
+			if (isSwitchAction[Earlyer])
+			{
+				DrawFormatString(500, 250, GetColor(255, 255, 255),
+					"%s→%sへ交代", switchFromName[Earlyer], switchToName[Earlyer]);
+			}
+			else
+			{
+				int d = damage.CalcDamage(*Mons[Earlyer], *Mons[Later], moveID[Earlyer]);
+				DrawFormatString(500, 250, GetColor(255, 255, 255),
+					"%s(%s)", Mons[Earlyer]->data->Name, MoveTable[moveID[Earlyer]].Name);
+				DrawFormatString(500, 280, GetColor(255, 255, 255),
+					"ダメージ：%d", d);
+			}
 		}
 		else
 		{
-			ExecuteMove(Mons[Earlyer], Mons[Later], moveID[Earlyer]); // ここを変更
-			CheckFaint(Mons[Later]);
+			if (!isSwitchAction[Earlyer])
+			{
+				ExecuteMove(Mons[Earlyer], Mons[Later], moveID[Earlyer]);
+			}
+			// 交代の場合、交代自体はDecideActionOrderで既に完了しているので何もしない
 
+			CheckFaint(Mons[Later]);
 			time = 120;
 			turn = Later;
 		}
-
 		return;
 	}
 
@@ -139,19 +188,34 @@ void ActionPhase::DamageAction()
 	{
 		if (time > 0)
 		{
-			int d = damage.CalcDamage( *Mons[Later], *Mons[Earlyer], moveID[Later]);
 			DrawString(500, 220, debugText[Later], GetColor(255, 255, 255));
-			DrawString(500, 250, Mons[Later]->data->Name, GetColor(255, 255, 255));
-			DrawString(500, 300, MoveTable[moveID[Later]].Name, GetColor(255, 255, 255));
-			DrawFormatString(500, 350, GetColor(255, 255, 255), "ダメージ：%d", d);
+
+			if (isSwitchAction[Later])
+			{
+				DrawFormatString(500, 250, GetColor(255, 255, 255),
+					"%s→%sへ交代", switchFromName[Later], switchToName[Later]);
+			}
+			else
+			{
+				int d = damage.CalcDamage(*Mons[Later], *Mons[Earlyer], moveID[Later]);
+				DrawFormatString(500, 250, GetColor(255, 255, 255),
+					"%s(%s)", Mons[Later]->data->Name, MoveTable[moveID[Later]].Name);
+				DrawFormatString(500, 280, GetColor(255, 255, 255),
+					"ダメージ：%d", d);
+			}
 		}
 		else
 		{
-			ExecuteMove(Mons[Later], Mons[Earlyer], moveID[Later]); // ここを変更
-			CheckFaint(Mons[Earlyer]);
+			if (!isSwitchAction[Later])
+			{
+				ExecuteMove(Mons[Later], Mons[Earlyer], moveID[Later]);
+			}
+			// 交代の場合、交代自体はDecideActionOrderで既に完了しているので何もしない
 
+			CheckFaint(Mons[Earlyer]);
 			turnEnd = true;
 		}
+		return;
 	}
 }
 
@@ -168,7 +232,7 @@ void ActionPhase::CheckFaint(BattleMonster* target)
 	}
 }
 
-// ActionPhase.cpp
+
 void ActionPhase::ExecuteMove(BattleMonster* attacker, BattleMonster* defender, int moveID)
 {
 	const MoveData& move = MoveTable[moveID]; // ID(1始まり)と配列index(0始まり)のズレに注意
