@@ -23,7 +23,9 @@ const MonsterBaseData MonsterData::monster[] = {
 { 13, "無物理", {Type::Normal, Type::None},  85, 115,  85,  50,  95,  90, {16, 17, -1, -1 }}, // 520
 { 14, "無特殊", {Type::Normal, Type::None},  95,  50,  85, 115,  85,  90, {18, 19, -1, -1 }}, // 520
 { 15, "無高速", {Type::Normal, Type::None},  75,  95,  70,  95,  70, 120, {16, 17, 18, 19 }}, // 525
-{ 16, "無耐久", {Type::Normal, Type::None}, 100,  70, 100,  70, 100,  60, {17, 19, 20, -1 }}  // 500
+{ 16, "無耐久", {Type::Normal, Type::None}, 100,  70, 100,  70, 100,  60, {17, 19, 20, -1 }}, // 500
+
+{ 17, "デバッグ用つよつよお兄さん", {Type::Fire, Type::Water}, 200, 200, 200, 200, 200, 200, {1, 8, 11, 16 }}, // 1200
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);

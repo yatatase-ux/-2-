@@ -9,7 +9,7 @@ ScenePlay::ScenePlay()
 										MonsterData::FindByID(5), 
 										MonsterData::FindByID(9) };
 
-	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(12),
+	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(17),
 										MonsterData::FindByID(4), 
 										MonsterData::FindByID(8) };
 
@@ -44,15 +44,29 @@ void ScenePlay::Draw()
 	// プレイシーンの描画処理
 	m_Battle->Draw();
 	player->Draw();
-		
+
+	//CPU
 	DrawFormatString(
 		1100,
 		100,
 		GetColor(255, 255, 255),
 		"HP : %d",
 		context.enemy->CurrentHP);
-	DrawString(1100, 70, context.enemy->data->Name, GetColor(255,255,255));
+	DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
+	for (int i = 0; i < 4; i++)
+	{
+		int moveID = context.enemyMoveScores[i].moveID;
+		const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // 技が無いスロット対策
 
+		DrawFormatString(
+			925,
+			150 + i * 30,
+			GetColor(255, 255, 255),
+			"技:%s, Score:%d",
+			moveName, context.enemyMoveScores[i].score);
+	}
+
+	//Player
 	DrawFormatString(
 		100,
 		400,

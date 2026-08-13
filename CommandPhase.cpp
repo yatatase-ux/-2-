@@ -6,6 +6,27 @@ PHASE_CONSTRUCTOR(CommandPhase)
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 
 	context->player->selectedMoveID = -1;
+
+	// CPUの技選択+スコアをcontextに記録
+	int bestMoveID = -1;
+	int bestScore = -1;
+	for (int i = 0; i < 4; i++)
+	{
+		int moveID = context->enemy->data->MoveID[i];
+		if (moveID < 0)
+		{
+			context->enemyMoveScores[i] = { -1, 0 };
+			continue;
+		}
+		int score = cpuBrain.ScoreMove(moveID, *context->enemy, *context->player, damage);
+		context->enemyMoveScores[i] = { moveID, score };
+
+		if (score > bestScore)
+		{
+			bestScore = score;
+			bestMoveID = moveID;
+		}
+	}
 	context->enemy->selectedMoveID = cpuBrain.ChooseMove(*context->enemy, *context->player, damage);
 
 

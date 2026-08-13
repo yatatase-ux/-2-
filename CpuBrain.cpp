@@ -86,9 +86,11 @@ int CpuBrain::ChooseMove(BattleMonster& self, BattleMonster& opponent, DamageCal
 	for (int i = 0; i < 4; i++)
 	{
 		int moveID = self.data->MoveID[i];
-		if (moveID < 0) continue; // 技が入っていないスロットはスキップ
-
+		if (moveID < 0) continue;
 		int score = ScoreMove(moveID, self, opponent, damageCalc);
+
+		lastScores[i] = { moveID, score };
+
 		if (score > bestScore)
 		{
 			bestScore = score;
@@ -96,4 +98,9 @@ int CpuBrain::ChooseMove(BattleMonster& self, BattleMonster& opponent, DamageCal
 		}
 	}
 	return bestMoveID;
+}
+
+MoveScoreDebug* CpuBrain::GetLastScore(int num)
+{
+	return &lastScores[num];
 }

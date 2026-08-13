@@ -1,5 +1,6 @@
 #pragma once
 #include "BattleMonster.h"
+#include "CpuBrain.h"
 
 struct BattleContext
 {
@@ -11,4 +12,6 @@ struct BattleContext
     bool isPlayerWin = false;
 
     bool isForcedSwitch = false;
+
+    MoveScoreDebug enemyMoveScores[4];
 };
