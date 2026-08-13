@@ -4,10 +4,16 @@ PHASE_CONSTRUCTOR(CommandPhase)
 {
 	button[Fight] = { 1150.0f, 425.0f, 75.0f, GetColor(175,0,0) };
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
-
 	context->player->selectedMoveID = -1;
 
-	// CPUの技選択+スコアをcontextに記録
+	// 相手(プレイヤー)の残り生存数を数え、撃破が勝利確定になるか判定
+	int aliveCount = 0;
+	for (int i = 0; i < MEMBER_MAX; i++)
+	{
+		if (!pMembers->mons[i]->isFainted) aliveCount++;
+	}
+	bool isMatchPoint = (aliveCount <= 1);
+
 	int bestMoveID = -1;
 	int bestScore = -1;
 	for (int i = 0; i < 4; i++)
@@ -18,7 +24,7 @@ PHASE_CONSTRUCTOR(CommandPhase)
 			context->enemyMoveScores[i] = { -1, 0 };
 			continue;
 		}
-		int score = cpuBrain.ScoreMove(moveID, *context->enemy, *context->player, damage);
+		int score = cpuBrain.ScoreMove(moveID, *context->enemy, *context->player, damage, isMatchPoint);
 		context->enemyMoveScores[i] = { moveID, score };
 
 		if (score > bestScore)
@@ -27,11 +33,11 @@ PHASE_CONSTRUCTOR(CommandPhase)
 			bestMoveID = moveID;
 		}
 	}
-	context->enemy->selectedMoveID = cpuBrain.ChooseMove(*context->enemy, *context->player, damage);
-
+	context->enemy->selectedMoveID = bestMoveID;
 
 	context->player->changeMonster = -1;
 	context->enemy->changeMonster = -1;
+
 }
 
 /// <summary>

@@ -1,6 +1,8 @@
 #pragma once
 #include "Structure.h"
 #include <cmath>
+#include <cstdarg> // va_list関連
+#include <cstdio>  // vsprintf_s
 
 #define WINDOW_W 1280	// 画面サイズ　横
 #define WINDOW_H 720	// 画面サイズ　縦
@@ -33,3 +35,6 @@ bool CheckPointBoxHit(FloatXY point, FloatXY box_pos, FloatXY box_size);
 
 //	円と四角の当たり判定（座標と大きさに Float2 を渡すバージョン）
 bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY box_size);
+
+// 中央揃えで文字列と変数を描画する関数
+void DrawCenterFormatText(float x, float y, unsigned int color, float size, const char* format, ...);

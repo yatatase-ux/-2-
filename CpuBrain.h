@@ -14,7 +14,7 @@ class CpuBrain
 private:
 	
 public:
-	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
+	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc, bool isMatchPoint);
 
 	MoveScoreDebug lastScores[4]; // ’¼‹ß‚Ì•]‰¿Œ‹‰Ê‚ğ•Û
 
@@ -23,7 +23,5 @@ public:
 	float EstimateKORisk(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
 	
 	int ChooseMove(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
-
-	MoveScoreDebug* GetLastScore(int num);
 
 };

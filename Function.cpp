@@ -68,6 +68,32 @@ void DrawCenterText(float x, float y, const char* text, unsigned int color, floa
 	DrawStringF(draw_x, draw_y, text, color);
 }
 
+/// <summary>
+/// 中央揃えで文字列と変数を描画する関数
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="color"></param>
+/// <param name="size"></param>
+/// <param name="format"></param>
+/// <param name=""></param>
+void DrawCenterFormatText(float x, float y, unsigned int color, float size, const char* format, ...)
+{
+	char buffer[256]; // 描画する文字列の一時バッファ
+
+	va_list args;
+	va_start(args, format);
+	vsprintf_s(buffer, sizeof(buffer), format, args); // formatと可変長引数から文字列を組み立てる
+	va_end(args);
+
+	SetFontSize(size);
+	int GT_s = strlen(buffer);
+	int GT_w = GetDrawStringWidth(buffer, GT_s);
+	float draw_x = x - (float)GT_w / 2.0f;
+	float draw_y = y - size / 2.0f;
+	DrawStringF(draw_x, draw_y, buffer, color);
+}
+
 //---------------------------------------------------------------------------------
 //	点と円の当たり判定（座標に Float2 を渡すバージョン）
 //---------------------------------------------------------------------------------

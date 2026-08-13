@@ -114,7 +114,9 @@ void DamageCalculator::ApplyDamage()
 
 float  DamageCalculator::BaseDamage(int power, int atk, int def)
 {
-    return (power * atk) / (float)max(def, 1);
+    const float scale = 4.0f; // 仮の値。プレイテストしながら調整
+    return (power * atk) / (float)max(def, 1) / scale;
+
 }
 
 float DamageCalculator::TypeBonus(const MonsterBaseData& attacker, const MoveData& move)

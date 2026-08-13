@@ -59,7 +59,7 @@ void ScenePlay::Draw()
 		const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // ‹Z‚ª–³‚¢ƒXƒƒbƒg‘Îô
 
 		DrawFormatString(
-			925,
+			850,
 			150 + i * 30,
 			GetColor(255, 255, 255),
 			"‹Z:%s, Score:%d",
