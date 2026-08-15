@@ -79,3 +79,16 @@ float EffectApplier::RankToMultiplier(int rank)
 		return 2.0f / (2.0f - rank); // ó·: -1 Å® 0.66î{, -2 Å® 0.5î{
 	}
 }
+
+int EffectApplier::GetRank(const BattleMonster& target, StatType stat) const
+{
+	switch (stat)
+	{
+	case StatType::PhysicalAtk: return target.PATKRank;
+	case StatType::PhysicalDef: return target.PDEFRank;
+	case StatType::MagicAtk:    return target.MATKRank;
+	case StatType::MagicDef:    return target.MDEFRank;
+	case StatType::Speed:       return target.SPDRank;
+	}
+	return 0;
+}

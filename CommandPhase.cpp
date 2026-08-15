@@ -24,7 +24,7 @@ PHASE_CONSTRUCTOR(CommandPhase)
 			context->enemyMoveScores[i] = { -1, 0 };
 			continue;
 		}
-		int score = cpuBrain.ScoreMove(moveID, *context->enemy, *context->player, damage, isMatchPoint);
+		int score = cpuBrain.Score(moveID, *context->enemy, *context->player, damage, isMatchPoint);
 		context->enemyMoveScores[i] = { moveID, score };
 
 		if (score > bestScore)

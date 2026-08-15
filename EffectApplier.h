@@ -9,4 +9,6 @@ public:
 	void ApplyStatusCondition(BattleMonster& target, EffectType effect);
 	void ResetBattleRanks(BattleMonster& mon);
 	float RankToMultiplier(int rank);
+
+	int GetRank(const BattleMonster& target, StatType stat) const;
 };

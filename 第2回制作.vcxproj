@@ -131,7 +131,10 @@
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="ChangeMonsPhase.cpp" />
+    <ClCompile Include="CpuAttackScorer.cpp" />
     <ClCompile Include="CpuBrain.cpp" />
+    <ClCompile Include="CpuRiskEvaluator.cpp" />
+    <ClCompile Include="CpuStatusBrain.cpp" />
     <ClCompile Include="EffectApplier.cpp" />
     <ClCompile Include="EndGamePhase.cpp" />
     <ClCompile Include="PhaseManager.cpp" />
@@ -156,7 +159,10 @@
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
+    <ClInclude Include="CpuAttackScorer.h" />
     <ClInclude Include="CpuBrain.h" />
+    <ClInclude Include="CpuRiskEvaluator.h" />
+    <ClInclude Include="CpuStatusScorer.h" />
     <ClInclude Include="EffectApplier.h" />
     <ClInclude Include="EndBattlePhase.h" />
     <ClInclude Include="Party.h" />

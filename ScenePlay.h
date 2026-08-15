@@ -7,7 +7,7 @@
 #include "BattleContext.h"
 #include "InputManager.h"
 #include "Party.h"
-#include "CpuBrain.h"
+#include "CpuAttackScorer.h"
 
 class ScenePlay : public SceneBase
 {

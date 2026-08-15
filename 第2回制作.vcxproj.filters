@@ -49,6 +49,12 @@
     <Filter Include="ソース ファイル\フェーズ">
       <UniqueIdentifier>{ccf59725-fc90-41ed-ba21-18f578eb3bb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\CPU">
+      <UniqueIdentifier>{518ce562-6d82-4d93-af11-681f8c52bd21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CPU">
+      <UniqueIdentifier>{c69c501b-dadb-4b41-b55d-bfa6445c2e89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -114,8 +120,17 @@
     <ClCompile Include="EffectApplier.cpp">
       <Filter>ソース ファイル\バトル</Filter>
     </ClCompile>
+    <ClCompile Include="CpuAttackScorer.cpp">
+      <Filter>ソース ファイル\CPU</Filter>
+    </ClCompile>
     <ClCompile Include="CpuBrain.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+      <Filter>ソース ファイル\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuRiskEvaluator.cpp">
+      <Filter>ソース ファイル\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuStatusBrain.cpp">
+      <Filter>ソース ファイル\CPU</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,8 +224,17 @@
     <ClInclude Include="EffectApplier.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
+    <ClInclude Include="CpuAttackScorer.h">
+      <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
     <ClInclude Include="CpuBrain.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuStatusScorer.h">
+      <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuRiskEvaluator.h">
+      <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

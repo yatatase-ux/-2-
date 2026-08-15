@@ -1,6 +1,6 @@
 #pragma once
 #include "BattleMonster.h"
-#include "CpuBrain.h"
+#include "CpuAttackScorer.h"
 
 struct BattleContext
 {
