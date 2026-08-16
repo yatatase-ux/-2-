@@ -129,7 +129,7 @@
     <ClCompile Include="CpuRiskEvaluator.cpp">
       <Filter>ソース ファイル\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="CpuStatusBrain.cpp">
+    <ClCompile Include="CpuStatusScorer.cpp">
       <Filter>ソース ファイル\CPU</Filter>
     </ClCompile>
   </ItemGroup>

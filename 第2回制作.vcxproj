@@ -134,7 +134,7 @@
     <ClCompile Include="CpuAttackScorer.cpp" />
     <ClCompile Include="CpuBrain.cpp" />
     <ClCompile Include="CpuRiskEvaluator.cpp" />
-    <ClCompile Include="CpuStatusBrain.cpp" />
+    <ClCompile Include="CpuStatusScorer.cpp" />
     <ClCompile Include="EffectApplier.cpp" />
     <ClCompile Include="EndGamePhase.cpp" />
     <ClCompile Include="PhaseManager.cpp" />

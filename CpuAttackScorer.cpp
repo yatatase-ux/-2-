@@ -45,7 +45,6 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	return (int)score;
 }
 
-
 ///// <summary>
 ///// T‚¦ˆêŠÑ«
 ///// </summary>
