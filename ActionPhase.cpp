@@ -48,58 +48,18 @@ void ActionPhase::DecideActionOrder()
 	{
 		context->player = pMembers->mons[context->player->changeMonster];
 		SetActionOrder(TRUE);
-	} 
-	// ‹Z‚ð‘I‚ñ‚¾Žž
-	else
-	{
-		if (context->player->data->SPD > context->enemy->data->SPD)
-		{
-			SetActionOrder(TRUE);
-		}
-		else if (context->player->data->SPD < context->enemy->data->SPD)
-		{
-			SetActionOrder(FALSE);
-		}
-		else if (context->player->data->SPD == context->enemy->data->SPD)
-		{
-			if (GetRand(1) == 0)
-			{
-				SetActionOrder(TRUE);
-			}
-			else
-			{
-				SetActionOrder(FALSE);
-			}
-		}
-	}
-
-	//------------------------------
-	
-	// Œð‘ã‚ð‘I‚ñ‚¾Žž
-	if (context->player->changeMonster >= 0)
-	{
-		const char* fromName = context->player->data->Name; // ·‚µ‘Ö‚¦‘O‚É–¼‘O‚ðT‚¦‚Ä‚¨‚­
-		BattleMonster* newMon = pMembers->mons[context->player->changeMonster];
-
-		context->player = newMon;
-		SetActionOrder(TRUE);
-
-		isSwitchAction[Earlyer] = true;
-		isSwitchAction[Later] = false; // CPU‘¤‚Í’Êí’Ê‚è‹Z‚ðŽg‚¤
-		switchFromName[Earlyer] = fromName;
-		switchToName[Earlyer] = newMon->data->Name;
 	}
 	// ‹Z‚ð‘I‚ñ‚¾Žž
 	else
 	{
-		isSwitchAction[Earlyer] = false;
-		isSwitchAction[Later] = false;
+		float playerSpeed = effect.GetEffectiveSpeed(*context->player);
+		float enemySpeed = effect.GetEffectiveSpeed(*context->enemy);
 
-		if (context->player->data->SPD > context->enemy->data->SPD)
+		if (playerSpeed > enemySpeed)
 		{
 			SetActionOrder(TRUE);
 		}
-		else if (context->player->data->SPD < context->enemy->data->SPD)
+		else if (playerSpeed < enemySpeed)
 		{
 			SetActionOrder(FALSE);
 		}

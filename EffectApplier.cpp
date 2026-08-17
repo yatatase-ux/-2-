@@ -68,7 +68,7 @@ void EffectApplier::ResetBattleRanks(BattleMonster& mon)
 	// condition ‚ÍƒŠƒZƒbƒg‚µ‚È‚¢(ó‘ÔˆÙí‚ÍŒð‘ã‚µ‚Ä‚àŽ‘±‚·‚é)
 }
 
-float EffectApplier::RankToMultiplier(int rank)
+float EffectApplier::RankToMultiplier(int rank) const
 {
 	if (rank >= 0) 
 	{
@@ -91,4 +91,9 @@ int EffectApplier::GetRank(const BattleMonster& target, StatType stat) const
 	case StatType::Speed:       return target.SPDRank;
 	}
 	return 0;
+}
+
+float EffectApplier::GetEffectiveSpeed(const BattleMonster& mon) const
+{
+	return mon.data->SPD * RankToMultiplier(mon.SPDRank);
 }

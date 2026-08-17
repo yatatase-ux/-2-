@@ -18,10 +18,12 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 
 	if (move.statIndex == StatType::Speed)
 	{
-		// ‡A‘¬‚³ŠÖŒW‚Ì‹t“]
-		float newMultiplier = effect.RankToMultiplier(currentRank + move.statChange);
-		bool wasSlowerOrEqual = (self.data->SPD <= opponent.data->SPD);
-		bool willBeFaster = (self.data->SPD * newMultiplier > opponent.data->SPD);
+		float selfSpeedBefore = effect.GetEffectiveSpeed(self);
+		float opponentSpeed = effect.GetEffectiveSpeed(opponent);
+		float selfSpeedAfter = self.data->SPD * effect.RankToMultiplier(currentRank + move.statChange);
+
+		bool wasSlowerOrEqual = (selfSpeedBefore <= opponentSpeed);
+		bool willBeFaster = (selfSpeedAfter > opponentSpeed);
 
 		if (wasSlowerOrEqual && willBeFaster)
 		{
@@ -48,7 +50,7 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 
 	// ‡CŠù‚É“|‚¹‚éó‹µ‚Å‚Í‚È‚¢‚©
 	int bestCurrentDamage = 0;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		int mID = self.data->MoveID[i];
 		if (mID < 0) continue;

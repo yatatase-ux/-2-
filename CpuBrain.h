@@ -1,7 +1,6 @@
 #pragma once
 #include "CpuAttackScorer.h"
 #include "CpuStatusScorer.h"
-#include "MoveData.h"
 
 class CpuBrain
 {
@@ -11,6 +10,8 @@ private:
 	CpuStatusScorer statusScorer;
 
 public:
+	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
+	DamageCalculator& damageCalc, EffectApplier& effect, bool isMatchPoint);
 
 	int ChooseMove(BattleMonster& self, BattleMonster& opponent,
 		DamageCalculator& damageCalc, EffectApplier& effect, bool isMatchPoint);

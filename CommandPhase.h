@@ -1,7 +1,8 @@
 #pragma once
 #include "PhaseBase.h"
 #include "DamageCalculator.h"
-#include "CpuAttackScorer.h"
+#include "CpuBrain.h"
+#include "EffectApplier.h"
 
 enum
 {
@@ -18,7 +19,8 @@ private:
 
 	FloatCircle button[BUTTOM_MAX];
 
-	CpuAttackScorer cpuBrain;
+	CpuBrain cpuBrain;
+	EffectApplier effect;
 
 public:
 

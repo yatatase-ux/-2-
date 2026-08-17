@@ -1,4 +1,5 @@
 #include "CommandPhase.h"
+#include "MonsterBaseData.h"
 
 PHASE_CONSTRUCTOR(CommandPhase)
 {
@@ -6,17 +7,20 @@ PHASE_CONSTRUCTOR(CommandPhase)
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 	context->player->selectedMoveID = -1;
 
-	// 相手(プレイヤー)の残り生存数を数え、撃破が勝利確定になるか判定
-	int aliveCount = 0;
+	//----------------------------------------
+	// CPUの行動選択
+	//----------------------------------------
+	int aliveCount = 0; // 生存している怪獣の数
 	for (int i = 0; i < MEMBER_MAX; i++)
 	{
+		// 怪獣が気絶していなければ
 		if (!pMembers->mons[i]->isFainted) aliveCount++;
 	}
-	bool isMatchPoint = (aliveCount <= 1);
+	bool isMatchPoint = (aliveCount <= 1); // 生存している怪獣が1体以下ならマッチポイント
 
-	int bestMoveID = -1;
-	int bestScore = -1;
-	for (int i = 0; i < 4; i++)
+	int bestMoveID = -1; // CPUが選択する技のID
+	int bestScore = -1;  // CPUが選択する技の最高スコア
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		int moveID = context->enemy->data->MoveID[i];
 		if (moveID < 0)
@@ -24,7 +28,7 @@ PHASE_CONSTRUCTOR(CommandPhase)
 			context->enemyMoveScores[i] = { -1, 0 };
 			continue;
 		}
-		int score = cpuBrain.Score(moveID, *context->enemy, *context->player, damage, isMatchPoint);
+		int score = cpuBrain.ScoreMove(moveID, *context->enemy, *context->player, damage, effect, isMatchPoint);
 		context->enemyMoveScores[i] = { moveID, score };
 
 		if (score > bestScore)
@@ -37,7 +41,6 @@ PHASE_CONSTRUCTOR(CommandPhase)
 
 	context->player->changeMonster = -1;
 	context->enemy->changeMonster = -1;
-
 }
 
 /// <summary>

@@ -4,6 +4,8 @@
 
 enum Move;
 
+const int MOVE_SLOT_MAX = 4; // 1‘Ì‚ªŠo‚¦‚ç‚ê‚é‹Z‚ÌÅ‘å”
+
 struct MonsterBaseData
 {
 	int ID;
@@ -15,5 +17,5 @@ struct MonsterBaseData
 	int MATK;
 	int MDEF;
 	int SPD;
-	int MoveID[4];
+	int MoveID[MOVE_SLOT_MAX];
 };

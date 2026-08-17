@@ -32,7 +32,7 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	if (move.Priority > 0)
 	{
 		bool isLethalByThisMove = (damage >= opponent.CurrentHP); // 条件A(先制技で倒せる場合)
-		bool possiblyGoesSecond = (self.data->SPD <= opponent.data->SPD); // 後攻かどうか
+		bool possiblyGoesSecond = (effect.GetEffectiveSpeed(self) <= effect.GetEffectiveSpeed(opponent)); // 後攻かどうか
 		bool willDieFirst = possiblyGoesSecond && (riskEvaluator.EstimateKORisk(self, opponent, damageCalc) > 0.0f); // 条件B(相手より遅いかつ倒される)
 
 		// 条件Aまたは条件Bを満たす場合、スコアにボーナスを加算
