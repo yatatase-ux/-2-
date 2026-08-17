@@ -2,6 +2,7 @@
 #include "BattleMonster.h"
 #include "DamageCalculator.h"
 #include "Party.h"
+#include "CpuRiskEvaluator.h"
 
 struct MoveScoreDebug
 {
@@ -12,16 +13,14 @@ struct MoveScoreDebug
 class CpuAttackScorer
 {
 private:
+
+	CpuRiskEvaluator riskEvaluator;
 	
 public:
 	int Score(int moveID, BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc, bool isMatchPoint);
 
-	MoveScoreDebug lastScores[4]; // íºãﬂÇÃï]âøåãâ Çï€éù
-
 //	float BenchConsistencyScore(const MoveData& move, const Members& enemyBox);
 
-	float EstimateKORisk(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
-	
 	int ChooseMove(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
 
 };

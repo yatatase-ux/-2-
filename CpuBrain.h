@@ -1,6 +1,7 @@
 #pragma once
 #include "CpuAttackScorer.h"
 #include "CpuStatusScorer.h"
+#include "MoveData.h"
 
 class CpuBrain
 {

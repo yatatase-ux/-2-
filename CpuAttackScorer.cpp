@@ -33,7 +33,7 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	{
 		bool isLethalByThisMove = (damage >= opponent.CurrentHP); // 条件A(先制技で倒せる場合)
 		bool possiblyGoesSecond = (self.data->SPD <= opponent.data->SPD); // 後攻かどうか
-		bool willDieFirst = possiblyGoesSecond && (EstimateKORisk(self, opponent, damageCalc) > 0.0f); // 条件B(相手より遅いかつ倒される)
+		bool willDieFirst = possiblyGoesSecond && (riskEvaluator.EstimateKORisk(self, opponent, damageCalc) > 0.0f); // 条件B(相手より遅いかつ倒される)
 
 		// 条件Aまたは条件Bを満たす場合、スコアにボーナスを加算
 		if (isLethalByThisMove || willDieFirst)
@@ -68,53 +68,3 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 //	if (checked == 0) return 0.0f;
 //	return (float)hitCount / checked * 5.0f; // 最大+5、効く割合に応じて按分
 //}
-
-/// <summary>
-/// 戦闘不能リスク評価
-/// </summary>
-/// <param name="self"></param>
-/// <param name="opponent"></param>
-/// <param name="damageCalc"></param>
-/// <returns></returns>
-float CpuAttackScorer::EstimateKORisk(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc)
-{
-	float worstRisk = 0.0f;
-	for (int i = 0; i < 4; i++)
-	{
-		int moveID = opponent.data->MoveID[i];
-		if (moveID < 0) continue;
-
-		float risk = damageCalc.LethalProbability(opponent, self, moveID);
-		if (risk > worstRisk) worstRisk = risk;
-	}
-	return worstRisk;
-}
-
-/// <summary>
-/// 評価したスコアをもとに最適な行動を選択
-/// </summary>
-/// <param name="self"></param>
-/// <param name="opponent"></param>
-/// <param name="damageCalc"></param>
-/// <returns></returns>
-int CpuAttackScorer::ChooseMove(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc)
-{
-	//int bestMoveID = -1;
-	//int bestScore = -1;
-
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	int moveID = self.data->MoveID[i];
-	//	if (moveID < 0) continue;
-	//	int score = ScoreMove(moveID, self, opponent, damageCalc);
-
-	//	lastScores[i] = { moveID, score };
-
-	//	if (score > bestScore)
-	//	{
-	//		bestScore = score;
-	//		bestMoveID = moveID;
-	//	}
-	//}
-	return /*bestMoveID*/0;
-}
