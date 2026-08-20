@@ -7,7 +7,10 @@
 class CpuStatusScorer
 {
 private:
-	CpuRiskEvaluator riskEvaluator; // é©ëOÇ≈ï€éù
+	CpuRiskEvaluator riskEvaluator;
+	int CalcBestDamage(BattleMonster& attacker, BattleMonster& defender,
+						DamageCalculator& damageCalc);
+
 public:
 	int Score(int moveID, BattleMonster& self, BattleMonster& opponent,
 		DamageCalculator& damageCalc, EffectApplier& effect);

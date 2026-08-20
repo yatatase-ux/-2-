@@ -9,9 +9,9 @@ ScenePlay::ScenePlay()
 										MonsterData::FindByID(5), 
 										MonsterData::FindByID(9) };
 
-	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(17),
+	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(8),
 										MonsterData::FindByID(4), 
-										MonsterData::FindByID(8) };
+										MonsterData::FindByID(12) };
 
 	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);
 	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);

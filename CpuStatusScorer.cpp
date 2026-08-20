@@ -1,29 +1,57 @@
 #include "CpuStatusScorer.h"
 #include "MoveData.h"
 
+int CpuStatusScorer::CalcBestDamage(BattleMonster& attacker, BattleMonster& defender, DamageCalculator& damageCalc)
+{
+	int best = 0;
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
+	{
+		int mID = attacker.data->MoveID[i];
+		if (mID < 0) continue;
+		const MoveData& mv = MoveTable[mID];
+		if (mv.category == MoveCategory::Status) continue;
+
+		int dmg = damageCalc.CalcDamage(attacker, defender, mID);
+		if (dmg > best) best = dmg;
+	}
+	return best;
+}
+
 int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent,
 	DamageCalculator& damageCalc, EffectApplier& effect)
 {
-	const MoveData& move = MoveTable[moveID];
+	const MoveData& move = MoveTable[moveID];	// ‹Zƒf[ƒ^‚Ìæ“¾
 
-	// ¡‰ñ‚Íƒ‰ƒ“ƒN•Ï“®‹Z‚Ì‚İ‘ÎÛBó‘ÔˆÙí•t—^‹Z‚ÍŒp‘±Œø‰Ê‚ª–¢À‘•‚Ì‚½‚ß0“_
 	if (move.effect != EffectType::StatUp && move.effect != EffectType::StatDown)
 	{
 		return 0;
 	}
 
-	BattleMonster* target = move.targetSelf ? &self : &opponent;
-	int currentRank = effect.GetRank(*target, move.statIndex);
-	float score = 0.0f;
+	BattleMonster* target = move.targetSelf ? &self : &opponent;	// ‘ÎÛw’è
+	float score = 0.0f;		// ƒXƒRƒA‚Ì‰Šú‰»
+
+	int bestCurrentDamage = CalcBestDamage(self, opponent, damageCalc); // ‡C‚Å‚àg‚¤
+
+	int* rankPtr = effect.GetRankPtr(*target, move.statIndex);		// ”\—Íƒ‰ƒ“ƒN‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾ <- g‚¤Û‚Í•K‚¸•œŒ³‚ğ–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+	int originalRank = *rankPtr;			// Œ³‚Ìƒ‰ƒ“ƒN‚ğ•Û‘¶
 
 	if (move.statIndex == StatType::Speed)
 	{
+		// ‡A‘¬‚³ŠÖŒW‚Ì‹t“]
 		float selfSpeedBefore = effect.GetEffectiveSpeed(self);
-		float opponentSpeed = effect.GetEffectiveSpeed(opponent);
-		float selfSpeedAfter = self.data->SPD * effect.RankToMultiplier(currentRank + move.statChange);
+		float opponentSpeedBefore = effect.GetEffectiveSpeed(opponent);
 
-		bool wasSlowerOrEqual = (selfSpeedBefore <= opponentSpeed);
-		bool willBeFaster = (selfSpeedAfter > opponentSpeed);
+		*rankPtr += move.statChange;
+		if (*rankPtr > 6) *rankPtr = 6;
+		if (*rankPtr < -6) *rankPtr = -6;
+
+		float selfSpeedAfter = effect.GetEffectiveSpeed(self);
+		float opponentSpeedAfter = effect.GetEffectiveSpeed(opponent);
+
+		*rankPtr = originalRank; // •œŒ³ <- •K‚¸•œŒ³‚ğ–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+
+		bool wasSlowerOrEqual = (selfSpeedBefore <= opponentSpeedBefore);
+		bool willBeFaster = (selfSpeedAfter > opponentSpeedAfter);
 
 		if (wasSlowerOrEqual && willBeFaster)
 		{
@@ -32,16 +60,21 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	}
 	else
 	{
-		// ‡@Ï‚İŒã‚Ì‰ü‘P—Ê + ‡Dƒ‰ƒ“ƒN“ª‘Å‚¿‚É‚æ‚éŒ¸Š
-		float multiplier = effect.RankToMultiplier(currentRank + move.statChange);
-		float raw = multiplier * 30.0f;
+		float incomingBefore = riskEvaluator.EstimateIncomingDamage(self, opponent, damageCalc);
 
-		int capRoom = (move.statChange > 0) ? (6 - currentRank) : (6 + currentRank);
-		float damping = capRoom / 6.0f;
-		if (damping < 0.0f) damping = 0.0f;
-		if (damping > 1.0f) damping = 1.0f;
+		*rankPtr += move.statChange;
+		if (*rankPtr > 6) *rankPtr = 6;
+		if (*rankPtr < -6) *rankPtr = -6;
 
-		score += raw * damping;
+		int damageAfter = CalcBestDamage(self, opponent, damageCalc);
+		float incomingAfter = riskEvaluator.EstimateIncomingDamage(self, opponent, damageCalc);
+
+		*rankPtr = originalRank; // •œŒ³ <- •K‚¸•œŒ³‚ğ–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+
+		float offenseGain = (float)(damageAfter - bestCurrentDamage); // —^ƒ_ƒ‚ª‘‚¦‚½•ª
+		float defenseGain = incomingBefore - incomingAfter;           // ”íƒ_ƒ‚ªŒ¸‚Á‚½•ª
+
+		score += offenseGain + defenseGain; // ’Êí‚Í‚Ç‚¿‚ç‚©•Ğ•û‚¾‚¯‚ª“®‚­‚Í‚¸
 	}
 
 	// ‡BÏ‚ñ‚¾ƒ^[ƒ“‚É“|‚³‚ê‚È‚¢‚©
@@ -49,17 +82,6 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	score += (risk > 0.0f) ? (-300.0f * risk) : 10.0f;
 
 	// ‡CŠù‚É“|‚¹‚éó‹µ‚Å‚Í‚È‚¢‚©
-	int bestCurrentDamage = 0;
-	for (int i = 0; i < MOVE_SLOT_MAX; i++)
-	{
-		int mID = self.data->MoveID[i];
-		if (mID < 0) continue;
-		const MoveData& mv = MoveTable[mID];
-		if (mv.category == MoveCategory::Status) continue;
-
-		int dmg = damageCalc.CalcDamage(self, opponent, mID);
-		if (dmg > bestCurrentDamage) bestCurrentDamage = dmg;
-	}
 	bool canAlreadyKO = (bestCurrentDamage >= opponent.CurrentHP);
 	score += canAlreadyKO ? -100.0f : 10.0f;
 

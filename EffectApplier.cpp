@@ -93,6 +93,19 @@ int EffectApplier::GetRank(const BattleMonster& target, StatType stat) const
 	return 0;
 }
 
+int* EffectApplier::GetRankPtr(BattleMonster& target, StatType stat)
+{
+	switch (stat)
+	{
+	case StatType::PhysicalAtk: return &target.PATKRank;
+	case StatType::PhysicalDef: return &target.PDEFRank;
+	case StatType::MagicAtk:    return &target.MATKRank;
+	case StatType::MagicDef:    return &target.MDEFRank;
+	case StatType::Speed:       return &target.SPDRank;
+	}
+	return nullptr;
+}
+
 float EffectApplier::GetEffectiveSpeed(const BattleMonster& mon) const
 {
 	return mon.data->SPD * RankToMultiplier(mon.SPDRank);
