@@ -1,6 +1,6 @@
 #pragma once
 #include "BattleMonster.h"
-#include "CpuAttackScorer.h"
+#include "CpuBrain.h"
 
 struct BattleContext
 {
@@ -13,5 +13,7 @@ struct BattleContext
 
     bool isForcedSwitch = false;
 
-    MoveScoreDebug enemyMoveScores[4];
+    MoveScoreDebug enemyMoveScore[4];
+
+    SwitchScoreDebug enemySwitchScore[MEMBER_MAX - 1];
 };

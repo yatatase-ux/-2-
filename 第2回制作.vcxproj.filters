@@ -132,6 +132,9 @@
     <ClCompile Include="CpuStatusScorer.cpp">
       <Filter>ソース ファイル\CPU</Filter>
     </ClCompile>
+    <ClCompile Include="CpuSwitchScorer.cpp">
+      <Filter>ソース ファイル\CPU</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -234,6 +237,9 @@
       <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
     <ClInclude Include="CpuRiskEvaluator.h">
+      <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuSwitchScorer.h">
       <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
   </ItemGroup>

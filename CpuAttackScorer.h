@@ -5,12 +5,6 @@
 #include "CpuRiskEvaluator.h"
 #include "EffectApplier.h"
 
-struct MoveScoreDebug
-{
-	int moveID;
-	int score;
-};
-
 class CpuAttackScorer
 {
 private:

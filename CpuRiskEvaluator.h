@@ -8,6 +8,6 @@ class CpuRiskEvaluator
 public:
 	// 瀕死リスクの推定
 	float EstimateKORisk(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
-	// 被ダメージ量の推定
-	float EstimateIncomingDamage(BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc);
+	// 与ダメージ量の推定
+	float EstimateBestExpectedDamage(BattleMonster& attacker, BattleMonster& defender, DamageCalculator& damageCalc);
 };

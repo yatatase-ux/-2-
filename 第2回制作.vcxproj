@@ -135,6 +135,7 @@
     <ClCompile Include="CpuBrain.cpp" />
     <ClCompile Include="CpuRiskEvaluator.cpp" />
     <ClCompile Include="CpuStatusScorer.cpp" />
+    <ClCompile Include="CpuSwitchScorer.cpp" />
     <ClCompile Include="EffectApplier.cpp" />
     <ClCompile Include="EndGamePhase.cpp" />
     <ClCompile Include="PhaseManager.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="CpuBrain.h" />
     <ClInclude Include="CpuRiskEvaluator.h" />
     <ClInclude Include="CpuStatusScorer.h" />
+    <ClInclude Include="CpuSwitchScorer.h" />
     <ClInclude Include="EffectApplier.h" />
     <ClInclude Include="EndBattlePhase.h" />
     <ClInclude Include="Party.h" />

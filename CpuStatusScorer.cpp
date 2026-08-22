@@ -60,14 +60,14 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	}
 	else
 	{
-		float incomingBefore = riskEvaluator.EstimateIncomingDamage(self, opponent, damageCalc);
+		float incomingBefore = riskEvaluator.EstimateBestExpectedDamage(opponent, self, damageCalc);
 
 		*rankPtr += move.statChange;
 		if (*rankPtr > 6) *rankPtr = 6;
 		if (*rankPtr < -6) *rankPtr = -6;
 
 		int damageAfter = CalcBestDamage(self, opponent, damageCalc);
-		float incomingAfter = riskEvaluator.EstimateIncomingDamage(self, opponent, damageCalc);
+		float incomingAfter = riskEvaluator.EstimateBestExpectedDamage(opponent, self, damageCalc);
 
 		*rankPtr = originalRank; // •œŒ³ <- •K‚¸•œŒ³‚ð–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
 

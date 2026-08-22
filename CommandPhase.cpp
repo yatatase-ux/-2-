@@ -7,40 +7,28 @@ PHASE_CONSTRUCTOR(CommandPhase)
 	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 	context->player->selectedMoveID = -1;
 
-	//----------------------------------------
-	// CPUの行動選択
-	//----------------------------------------
-	int aliveCount = 0; // 生存している怪獣の数
+	int aliveCount = 0;
 	for (int i = 0; i < MEMBER_MAX; i++)
-	{
-		// 怪獣が気絶していなければ
 		if (!pMembers->mons[i]->isFainted) aliveCount++;
-	}
-	bool isMatchPoint = (aliveCount <= 1); // 生存している怪獣が1体以下ならマッチポイント
+	bool isMatchPoint = (aliveCount <= 1);
 
-	int bestMoveID = -1; // CPUが選択する技のID
-	int bestScore = -1;  // CPUが選択する技の最高スコア
-	for (int i = 0; i < MOVE_SLOT_MAX; i++)
+	CpuDecisionResult decision = cpuBrain.Decide(*context->enemy, *context->player, *eMembers, damage, isMatchPoint);
+
+	for (int i = 0; i < MOVE_SLOT_MAX; i++) context->enemyMoveScore[i] = decision.moveScores[i];
+	for (int i = 0; i < MEMBER_MAX - 1; i++) context->enemySwitchScore[i] = decision.switchScores[i];
+
+	if (decision.switchToIndex >= 0)
 	{
-		int moveID = context->enemy->data->MoveID[i];
-		if (moveID < 0)
-		{
-			context->enemyMoveScores[i] = { -1, 0 };
-			continue;
-		}
-		int score = cpuBrain.ScoreMove(moveID, *context->enemy, *context->player, damage, effect, isMatchPoint);
-		context->enemyMoveScores[i] = { moveID, score };
-
-		if (score > bestScore)
-		{
-			bestScore = score;
-			bestMoveID = moveID;
-		}
+		context->enemy->changeMonster = decision.switchToIndex;
+		context->enemy->selectedMoveID = -1;
 	}
-	context->enemy->selectedMoveID = bestMoveID;
+	else
+	{
+		context->enemy->selectedMoveID = decision.selectedMoveID;
+		context->enemy->changeMonster = -1;
+	}
 
 	context->player->changeMonster = -1;
-	context->enemy->changeMonster = -1;
 }
 
 /// <summary>

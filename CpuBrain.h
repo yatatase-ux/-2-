@@ -1,19 +1,38 @@
 #pragma once
+#pragma once
+#include "BattleMonster.h"
+#include "EffectApplier.h"
+#include "Party.h"
+#include "DamageCalculator.h"
+
 #include "CpuAttackScorer.h"
 #include "CpuStatusScorer.h"
+#include "CpuSwitchScorer.h"
+
+struct MoveScoreDebug { int moveID; int score; };
+struct SwitchScoreDebug { const char* name; int score; };
+
+struct CpuDecisionResult
+{
+	int selectedMoveID = -1; // ãZÇëIÇÒÇæèÍçá
+	int switchToIndex = -1;  // åë„ÇëIÇÒÇæèÍçá(Membersì‡ÇÃindex)
+	MoveScoreDebug moveScores[MOVE_SLOT_MAX];
+	SwitchScoreDebug switchScores[MEMBER_MAX - 1]; // çTÇ¶ÇÃêî(åªèÛ2)
+};
 
 class CpuBrain
 {
 private:
-
 	CpuAttackScorer attackScorer;
 	CpuStatusScorer statusScorer;
+	CpuSwitchScorer switchScorer;
+	EffectApplier effect;
 
 public:
-	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
-	DamageCalculator& damageCalc, EffectApplier& effect, bool isMatchPoint);
 
-	int ChooseMove(BattleMonster& self, BattleMonster& opponent,
-		DamageCalculator& damageCalc, EffectApplier& effect, bool isMatchPoint);
+	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
+		DamageCalculator& damageCalc, bool isMatchPoint);
+	CpuDecisionResult Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
+		DamageCalculator& damageCalc, bool isMatchPoint);
 
 };

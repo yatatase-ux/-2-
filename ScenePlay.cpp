@@ -55,7 +55,7 @@ void ScenePlay::Draw()
 	DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
 	for (int i = 0; i < 4; i++)
 	{
-		int moveID = context.enemyMoveScores[i].moveID;
+		int moveID = context.enemyMoveScore[i].moveID;
 		const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // ‹Z‚ª–³‚¢ƒXƒƒbƒg‘Îô
 
 		DrawFormatString(
@@ -63,7 +63,13 @@ void ScenePlay::Draw()
 			150 + i * 30,
 			GetColor(255, 255, 255),
 			"‹Z:%s, Score:%d",
-			moveName, context.enemyMoveScores[i].score);
+			moveName, context.enemyMoveScore[i].score);
+	}
+	for (int i = 0; i < MEMBER_MAX - 1; i++)
+	{
+		DrawFormatString(850, 280 + i * 30, GetColor(255, 255, 0),
+			"Œğ‘ãŒó•â:%s, Score:%d",
+			context.enemySwitchScore[i].name, context.enemySwitchScore[i].score);
 	}
 
 	//Player
