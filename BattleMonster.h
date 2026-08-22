@@ -11,20 +11,22 @@ enum class StatusCondition
 
 struct BattleMonster
 {
-	const MonsterBaseData* data;
+	const MonsterBaseData* data;							// モンスターの基本データへのポインタ
 
-	int CurrentHP;
+	int CurrentHP;											// 現在のHP
+	int PATKRank = 0;										// 物理攻撃ランク
+	int PDEFRank = 0;										// 物理防御ランク
+	int MATKRank = 0;										// 特殊攻撃ランク
+	int MDEFRank = 0;										// 特殊防御ランク
+	int SPDRank = 0;										// すばやさランク
 
-	int PATKRank = 0;
-	int PDEFRank = 0;
-	int MATKRank = 0;
-	int MDEFRank = 0;
-	int SPDRank = 0;
+	StatusCondition condition = StatusCondition::None;		// 状態異常の種類を表す列挙型
 
-	StatusCondition condition = StatusCondition::None;
+	int selectedMoveID = -1;								// 選択された技のIDを保持
+	int changeMonster = -1;									// 交代先のモンスターを保持
 
-	int selectedMoveID = -1;
-	int changeMonster = -1;
+	bool isFainted = false;									// 瀕死かどうかを表すフラッグ
 
-	bool isFainted = false;
+	bool isRevealed = false;								// 一度でも場に出たかを表すフラッグ
+
 };

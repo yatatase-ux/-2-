@@ -13,5 +13,4 @@ struct BattleContext
 
 	MoveScoreDebug enemyMoveScore[4];						// CPUの技スコアデバッグ情報(4つの技スロット分)
 	SwitchScoreDebug enemySwitchScore[MEMBER_MAX - 1];		// CPUの交代スコアデバッグ情報(控えの数分)
-	bool isRevealed = false;								// CPUのスコア情報が公開されているかどうかのフラグ
 };
