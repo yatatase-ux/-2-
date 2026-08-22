@@ -41,6 +41,8 @@ public:
 
 	void DecideActionOrder();
 
+	void PerformSwitch(BattleMonster*& contextMon, Members* members, int slot);
+
 	void SetActionOrder(bool playerFirst);
 
 	void DamageAction();

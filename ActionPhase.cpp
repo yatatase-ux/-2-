@@ -43,31 +43,65 @@ void ActionPhase::Sound()
 /// </summary>
 void ActionPhase::DecideActionOrder()
 {
-	// 交代を選んだ時
-	if (context->player->changeMonster >= 0)
+	bool playerSwitching = (context->player->changeMonster >= 0);
+	bool enemySwitching = (context->enemy->changeMonster >= 0);
+
+	isSwitchAction[Earlyer] = false;
+	isSwitchAction[Later] = false;
+
+	// 両者交代の場合
+	if (playerSwitching && enemySwitching)
 	{
-		context->player = pMembers->mons[context->player->changeMonster];
-		SetActionOrder(TRUE);
+		// 両者交代:殴り合いが発生しないため順序は問わない
+		PerformSwitch(context->player, pMembers, Earlyer);
+		PerformSwitch(context->enemy, eMembers, Later);
 	}
-	// 技を選んだ時
+	// プレイヤーが交代、CPUが技の場合
+	else if (playerSwitching)
+	{
+		// 交代は技より優先されるため必ず先攻
+		PerformSwitch(context->player, pMembers, Earlyer);
+		Mons[Later] = context->enemy;
+		moveID[Later] = context->enemy->selectedMoveID;
+		debugText[Later] = "CPUのターン";
+	}
+	// CPUが交代、プレイヤーが技の場合
+	else if (enemySwitching)
+	{
+		PerformSwitch(context->enemy, eMembers, Earlyer);
+		Mons[Later] = context->player;
+		moveID[Later] = context->player->selectedMoveID;
+		debugText[Later] = "プレイヤーのターン";
+	}
+	// 両者技の場合
 	else
 	{
 		float playerSpeed = effect.GetEffectiveSpeed(*context->player);
 		float enemySpeed = effect.GetEffectiveSpeed(*context->enemy);
 
-		if (playerSpeed > enemySpeed)
-		{
-			SetActionOrder(TRUE);
-		}
-		else if (playerSpeed < enemySpeed)
-		{
-			SetActionOrder(FALSE);
-		}
-		else
-		{
-			SetActionOrder(GetRand(1) == 0);
-		}
+		if (playerSpeed > enemySpeed) SetActionOrder(TRUE);
+		else if (playerSpeed < enemySpeed) SetActionOrder(FALSE);
+		else SetActionOrder(GetRand(1) == 0);
 	}
+}
+
+/// <summary>
+/// 交代処理
+/// </summary>
+/// <param name="contextMon"></param>
+/// <param name="members"></param>
+/// <param name="slot"></param>
+void ActionPhase::PerformSwitch(BattleMonster*& contextMon, Members* members, int slot)
+{
+	const char* fromName = contextMon->data->Name;						// 交代前の名前を保存
+	BattleMonster* newMon = members->mons[contextMon->changeMonster];	// 交代後のモンスターを取得
+	contextMon = newMon;												// 交代後のモンスターをBattleContextに反映
+
+	isSwitchAction[slot] = true;										// 交代アクションフラグを立てる
+	switchFromName[slot] = fromName;									// 交代前の名前を保存
+	switchToName[slot] = newMon->data->Name;							// 交代後の名前を保存
+	Mons[slot] = newMon;												// 交代後のモンスターをMonsに反映
+	debugText[slot] = (members == pMembers) ? "プレイヤーのターン" : "CPUのターン";
 }
 
 /// <summary>
