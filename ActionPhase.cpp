@@ -96,6 +96,7 @@ void ActionPhase::PerformSwitch(BattleMonster*& contextMon, Members* members, in
 	const char* fromName = contextMon->data->Name;						// 交代前の名前を保存
 	BattleMonster* newMon = members->mons[contextMon->changeMonster];	// 交代後のモンスターを取得
 	contextMon = newMon;												// 交代後のモンスターをBattleContextに反映
+	newMon->isRevealed = true;											// 交代後のモンスターを場に出たことにする
 
 	isSwitchAction[slot] = true;										// 交代アクションフラグを立てる
 	switchFromName[slot] = fromName;									// 交代前の名前を保存
@@ -229,7 +230,7 @@ void ActionPhase::CheckFaint(BattleMonster* target)
 
 void ActionPhase::ExecuteMove(BattleMonster* attacker, BattleMonster* defender, int moveID)
 {
-	const MoveData& move = MoveTable[moveID]; // ID(1始まり)と配列index(0始まり)のズレに注意
+	const MoveData& move = MoveTable[moveID];
 
 	if (move.category == MoveCategory::Status)
 	{

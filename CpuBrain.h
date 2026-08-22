@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "BattleMonster.h"
 #include "EffectApplier.h"
 #include "Party.h"
@@ -8,9 +7,7 @@
 #include "CpuAttackScorer.h"
 #include "CpuStatusScorer.h"
 #include "CpuSwitchScorer.h"
-
-struct MoveScoreDebug { int moveID; int score; };
-struct SwitchScoreDebug { const char* name; int score; };
+#include "CpuDebugTypes.h" 
 
 struct CpuDecisionResult
 {
@@ -31,8 +28,8 @@ private:
 public:
 
 	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
-		DamageCalculator& damageCalc, bool isMatchPoint);
+		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint);
 	CpuDecisionResult Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
-		DamageCalculator& damageCalc, bool isMatchPoint);
+		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint);
 
 };

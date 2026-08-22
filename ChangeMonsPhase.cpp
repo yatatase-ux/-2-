@@ -22,16 +22,19 @@ PhaseState ChangeMonsPhase::Input()
 		{
 			if (input->Mouse().Push(MOUSE_LEFT))
 			{
+				// もし場のモンスターが瀕死なら
 				if (context->isForcedSwitch)
 				{
-					context->player = pMembers->mons[i];
-					context->isForcedSwitch = false;
-					return PhaseState::COMMAND; // 行動を消費せずコマンド選択へ
+					context->player = pMembers->mons[i];	// 強制交代の場合、選択されたモンスターを即座に場に出す
+					context->player->isRevealed = true;		// 強制交代で場に出たモンスターは、isRevealedをtrueに設定
+					context->isForcedSwitch = false;		// 強制交代フラグをリセット
+					return PhaseState::COMMAND;				// 行動を消費せずコマンド選択へ
 				}
+				// シンプルに交代するだけなら
 				else
 				{
-					context->player->changeMonster = i;
-					return PhaseState::ACTION; // 通常交代は行動を消費
+					context->player->changeMonster = i;		// 選択されたモンスターを交代先として設定
+					return PhaseState::ACTION;				// 通常交代は行動を消費
 				}
 			}
 		}

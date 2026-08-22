@@ -242,5 +242,8 @@
     <ClInclude Include="CpuSwitchScorer.h">
       <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
+    <ClInclude Include="CpuDebugTypes.h">
+      <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

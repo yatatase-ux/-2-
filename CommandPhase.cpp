@@ -12,7 +12,7 @@ PHASE_CONSTRUCTOR(CommandPhase)
 		if (!pMembers->mons[i]->isFainted) aliveCount++;
 	bool isMatchPoint = (aliveCount <= 1);
 
-	CpuDecisionResult decision = cpuBrain.Decide(*context->enemy, *context->player, *eMembers, damage, isMatchPoint);
+	CpuDecisionResult decision = cpuBrain.Decide(*context->enemy, *context->player, *eMembers, *pMembers, damage, isMatchPoint);
 
 	for (int i = 0; i < MOVE_SLOT_MAX; i++) context->enemyMoveScore[i] = decision.moveScores[i];
 	for (int i = 0; i < MEMBER_MAX - 1; i++) context->enemySwitchScore[i] = decision.switchScores[i];

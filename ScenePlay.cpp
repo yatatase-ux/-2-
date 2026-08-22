@@ -13,10 +13,12 @@ ScenePlay::ScenePlay()
 										MonsterData::FindByID(4), 
 										MonsterData::FindByID(12) };
 
-	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);
-	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);
-	context.player = pMember.Active();
-	context.enemy = eMember.Active();
+	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);			// プレイヤーのパーティ初期化
+	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);			// CPUのパーティ初期化
+	context.player = pMember.Active();							// プレイヤーの現在のモンスターをBattleContextに設定
+	context.enemy = eMember.Active();							// CPUの現在のモンスターをBattleContextに設定
+	context.player->isRevealed = true;							// プレイヤーのモンスターは初期状態で場に出ているので、isRevealedをtrueに設定
+	context.enemy->isRevealed = true;							// CPUのモンスターも同様にisRevealedをtrueに設定
 	
 	// プレイヤークラスの初期化
 	player = std::make_unique<Player>();

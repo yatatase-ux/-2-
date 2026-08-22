@@ -162,6 +162,7 @@
     <ClInclude Include="ChangeMonsPhase.h" />
     <ClInclude Include="CpuAttackScorer.h" />
     <ClInclude Include="CpuBrain.h" />
+    <ClInclude Include="CpuDebugTypes.h" />
     <ClInclude Include="CpuRiskEvaluator.h" />
     <ClInclude Include="CpuStatusScorer.h" />
     <ClInclude Include="CpuSwitchScorer.h" />

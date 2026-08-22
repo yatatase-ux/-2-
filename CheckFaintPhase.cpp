@@ -34,15 +34,18 @@ PhaseState CheckFaintPhase::Update()
         return PhaseState::GAME_END;
     }
 
+	// もしプレイヤーのモンスターが瀕死になった場合、強制交代フラグを立てる
     if (isPlayerFainted)
     {
         context->isForcedSwitch = true;
         return PhaseState::CHANGE_MONS;
     }
+	// もしCPUのモンスターが瀕死になった場合、次の生存モンスターを自動で選出する
     else
     {
         // 暫定:生存先頭を出す。将来的にCPU選出ロジックに差し替え
         context->enemy = eMembers->mons[aliveIndex];
+        context->enemy->isRevealed = true;
         return PhaseState::COMMAND;
     }
 }

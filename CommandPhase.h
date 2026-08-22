@@ -20,7 +20,6 @@ private:
 	FloatCircle button[BUTTOM_MAX];
 
 	CpuBrain cpuBrain;
-	EffectApplier effect;
 
 public:
 

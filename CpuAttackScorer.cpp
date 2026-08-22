@@ -8,14 +8,9 @@
 /// <param name="opponent">技を受ける側(プレイヤー)</param>
 /// <param name="damageCalc">ダメージ計算機の参照</param>
 /// <returns>計算されたスコア（期待ダメージを整数化した値）。補助技の場合は0を返す。</returns>
-int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc, bool isMatchPoint)
+int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent, Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint)
 {
 	const MoveData& move = MoveTable[moveID];
-
-	if (move.category == MoveCategory::Status)
-	{
-		return 0; // 第一段階では補助技は評価しない(選ばれなくてOK)
-	}
 
 	int damage = damageCalc.CalcDamage(self, opponent, moveID);
 	// 命中率を加味した期待値(まだ命中判定自体は未実装なので係数として使うだけ)
@@ -42,29 +37,34 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 		}
 	}
 
+	score += BenchConsistencyScore(move, opponent, opponentMembers, damageCalc);
+
 	return (int)score;
 }
 
-///// <summary>
-///// 控え一貫性
-///// </summary>
-///// <param name="move"></param>
-///// <param name="enemyBox"></param>
-///// <returns></returns>
-//float CpuBrain::BenchConsistencyScore(const MoveData& move, const Members& enemyBox)
-//{
-//	int hitCount = 0;
-//	int checked = 0;
-//
-//	for (int i = 0; i < PARTY_MAX; i++) // 相手が選んだ6体のうち
-//	{
-//		if (enemyBox.mons[i]->isRevealed) continue; // 既に場に出て見えている個体は除外(通常ダメージ側で評価済みのため)
-//
-//		checked++;
-//		float matchup = damageCalc.TypeMatchup(*enemyBox.mons[i]->data, move);
-//		if (matchup >= 1.0f) hitCount++; // 等倍以上なら「効く」とみなす
-//	}
-//
-//	if (checked == 0) return 0.0f;
-//	return (float)hitCount / checked * 5.0f; // 最大+5、効く割合に応じて按分
-//}
+/// <summary>
+/// 控え一貫性
+/// </summary>
+/// <param name="move"></param>
+/// <param name="enemyBox"></param>
+/// <returns></returns>
+float CpuAttackScorer::BenchConsistencyScore(const MoveData& move, BattleMonster& activeOpponent,
+	Members& opponentMembers, DamageCalculator& damageCalc)
+{
+	int hitCount = 0;
+	int checked = 0;
+
+	for (int i = 0; i < MEMBER_MAX; i++)
+	{
+		BattleMonster* candidate = opponentMembers.mons[i];
+		if (candidate == &activeOpponent) continue;				// 場に出ている本人は対象外
+		if (!candidate->isRevealed) continue;					// まだ見せていない相手は対象外(いないものとして扱う)
+
+		checked++;
+		float matchup = damageCalc.TypeMatchup(*candidate->data, move);
+		if (matchup >= 1.0f) hitCount++;
+	}
+
+	if (checked == 0) return 0.0f;								// 判断材料が無ければボーナスなし
+	return (float)hitCount / checked * 5.0f;
+}

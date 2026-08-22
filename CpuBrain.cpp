@@ -1,20 +1,17 @@
 #include "CpuBrain.h"
 #include "MoveData.h"
 
-#include "CpuBrain.h"
-#include "MoveData.h"
-
 int CpuBrain::ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
-	DamageCalculator& damageCalc, bool isMatchPoint)
+	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint)
 {
 	const MoveData& move = MoveTable[moveID];
 	return (move.category == MoveCategory::Status)
 		? statusScorer.Score(moveID, self, opponent, damageCalc, effect)
-		: attackScorer.Score(moveID, self, opponent, damageCalc, isMatchPoint);
+		: attackScorer.Score(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint);
 }
 
 CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
-	DamageCalculator& damageCalc, bool isMatchPoint)
+	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint)
 {
 	CpuDecisionResult result;
 
@@ -26,7 +23,7 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 		int moveID = self.data->MoveID[i];
 		if (moveID < 0) { result.moveScores[i] = { -1, 0 }; continue; }
 
-		int score = ScoreMove(moveID, self, opponent, damageCalc, isMatchPoint);
+		int score = ScoreMove(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint);
 		result.moveScores[i] = { moveID, score };
 		if (score > bestMoveScore) { bestMoveScore = score; bestMoveID = moveID; }
 	}

@@ -13,8 +13,11 @@ private:
 	EffectApplier effect;
 	
 public:
-	int Score(int moveID, BattleMonster& self, BattleMonster& opponent, DamageCalculator& damageCalc, bool isMatchPoint);
 
-//	float BenchConsistencyScore(const MoveData& move, const Members& enemyBox);
+	int Score(int moveID, BattleMonster& self, BattleMonster& opponent,
+				Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint);
+
+	float BenchConsistencyScore(const MoveData& move, BattleMonster& activeOpponent,
+								Members& opponentMembers, DamageCalculator& damageCalc);
 
 };

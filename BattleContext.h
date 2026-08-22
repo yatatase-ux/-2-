@@ -1,6 +1,7 @@
 #pragma once
 #include "BattleMonster.h"
-#include "CpuBrain.h"
+#include "Party.h"          // MEMBER_MAXを使うため明示的に追加(以前はCpuBrain.h経由の間接includeだったため)
+#include "CpuDebugTypes.h"  // CpuBrain.h全体ではなく、必要な構造体だけをinclude
 
 struct BattleContext
 {
