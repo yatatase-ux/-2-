@@ -1,16 +1,18 @@
 #include "SceneEnd.h"
 
-SceneEnd::SceneEnd()
+SCENE_CONSTRUCTOR(SceneEnd)
 {
 	// エンディングシーンの初期化処理
 }
 
-void SceneEnd::Input()
+SCENE_INPUT(SceneEnd)
 {
 	// エンディングシーンの入力処理
+
+	return SceneState::None;
 }
 
-void SceneEnd::Update()
+SCENE_UPDATE(SceneEnd)
 {
 	// エンディングシーンの更新処理
 }

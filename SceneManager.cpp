@@ -2,7 +2,7 @@
 
 SceneManager::SceneManager()
 {
-	nowScene = std::make_unique<ScenePlay>();	// 最初のシーンをOPシーンに設定
+	nowScene = std::make_unique<SceneOP>(m_Input.Get());	// 最初のシーンをOPシーンに設定
 
 	scene = Scene::OP;
 }

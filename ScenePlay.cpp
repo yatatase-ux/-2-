@@ -1,6 +1,6 @@
 #include "ScenePlay.h"
 
-ScenePlay::ScenePlay()
+SCENE_CONSTRUCTOR(ScenePlay)
 {
 	// プレイシーンの初期化処理
 	
@@ -28,13 +28,15 @@ ScenePlay::ScenePlay()
 	m_Battle = std::make_unique<PhaseManager>(player->GetCursor(), &pMember, &eMember, &context, m_Input.get());
 }
 
-void ScenePlay::Input()
+SCENE_INPUT(ScenePlay)
 {
 	// プレイシーンの入力処理
 	m_Battle->Input();
+
+	return SceneState::None;
 }
 
-void ScenePlay::Update()
+SCENE_UPDATE(ScenePlay)
 {
 	// プレイシーンの更新処理
 	player->Update();	

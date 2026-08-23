@@ -5,6 +5,7 @@
 #include "ScenePlay.h"
 #include "SceneEnd.h"
 #include "KeyAction.h"
+#include "InputManager.h"
 
 enum class Scene
 {
@@ -24,6 +25,8 @@ protected:
 	Scene scene;
 
 	KeyAct key;
+
+	std::unique_ptr<InputManager> m_Input;
 
 public:
 
