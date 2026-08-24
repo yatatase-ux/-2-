@@ -1,9 +1,12 @@
 #include "PrepStageManager.h"
+#include "PrepPartyStage.h"
+#include "PrepMemberStage.h"
+#include "PrepHomeStage.h"
 
 PrepStageManager::PrepStageManager(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context)
 	: cursor(arg_cursor), input(arg_input), context(arg_context)
 {
-	prepStage = std::make_unique<PrepStageBase>(cursor, input, context);
+	prepStage = std::make_unique<PrepPartyStage>(cursor, input, context);
 }
 
 void PrepStageManager::Input()
@@ -13,8 +16,23 @@ void PrepStageManager::Input()
 
 bool PrepStageManager::Update()
 {
-	prepStage->Update();
-
+	PrepState state = prepStage->Update();
+	switch (state)
+	{
+	case PrepState::ToHome:
+		prepStage = std::make_unique<PrepHomeStage>(cursor, input, context);
+		break;
+	case PrepState::ToParty:
+		prepStage = std::make_unique<PrepPartyStage>(cursor, input, context);
+		break;
+	case PrepState::ToMember:
+		prepStage = std::make_unique<PrepMemberStage>(cursor, input, context);
+		break;
+	case PrepState::Complete:
+		return true; // €”õŠ®—¹‚ğScenePlay‚Ö“`‚¦‚é
+	default:
+		break; // None:‰½‚à‚µ‚È‚¢
+	}
 	return false;
 }
 

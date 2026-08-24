@@ -150,6 +150,9 @@
     <ClCompile Include="MoveData.cpp" />
     <ClCompile Include="MoveSelectPhase.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PrepHomeStage.cpp" />
+    <ClCompile Include="PrepMemberStage.cpp" />
+    <ClCompile Include="PrepPartyStage.cpp" />
     <ClCompile Include="PrepStageManager.cpp" />
     <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -189,6 +192,9 @@
     <ClInclude Include="PhaseBase.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PrepContext.h" />
+    <ClInclude Include="PrepHomeStage.h" />
+    <ClInclude Include="PrepMemberStage.h" />
+    <ClInclude Include="PrepPartyStage.h" />
     <ClInclude Include="PrepStageManager.h" />
     <ClInclude Include="PrepStageBase.h" />
     <ClInclude Include="SceneBase.h" />

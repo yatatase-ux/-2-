@@ -3,6 +3,15 @@
 #include "InputManager.h"
 #include "PrepContext.h"
 
+enum class PrepState
+{
+	None,       // まだ何も選ばれていない(このステージに留まる)
+	ToHome,     // Home画面へ(デバッグ時のみ想定)
+	ToParty,    // パーティ選出ステージへ
+	ToMember,   // メンバー選出ステージへ
+	Complete    // 準備完了(3体決定、ScenePlayへ通知)
+};
+
 class PrepStageBase
 {
 protected:
@@ -16,7 +25,7 @@ public:
 	virtual ~PrepStageBase() {};
 
 	virtual void Input() = 0;
-	virtual bool Update() = 0;
+	virtual PrepState  Update() = 0;
 	virtual void Draw() = 0;
 	virtual void Sound() = 0;
 };
@@ -24,7 +33,7 @@ public:
 #define PREP_CLASS(className)\
 	className(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context);\
 	void Input() override;\
-	bool Update() override;\
+	PrepState  Update() override;\
 	void Draw() override;\
 	void Sound() override;
 
@@ -36,4 +45,4 @@ public:
 	void className::Input()
 
 #define PREP_UPDATE(className)\
-	bool className::Update()
+	PrepState  className::Update()

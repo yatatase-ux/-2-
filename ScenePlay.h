@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include "Party.h"
 #include "CpuAttackScorer.h"
+#include "PrepStageManager.h"
 
 enum class PlayStage
 {
@@ -26,7 +27,7 @@ class ScenePlay : public SceneBase
 	BattleMonster eBattle[3];
 	Members eMember;
 
-//	std::unique_ptr<PrepManager> m_Prep;     // 新規:準備フェーズ用マネージャー
+//	std::unique_ptr<PrepStageManager> m_Prep;     // 新規:準備フェーズ用マネージャー
 	std::unique_ptr<PhaseManager> m_Battle;
 	PlayStage stage;
 

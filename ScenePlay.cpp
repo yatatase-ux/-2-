@@ -24,6 +24,7 @@ SCENE_CONSTRUCTOR(ScenePlay)
 	stage = PlayStage::Preparing;
 
 	// フェーズ管理マネージャークラスの初期化
+//	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
 	m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
 }
 
