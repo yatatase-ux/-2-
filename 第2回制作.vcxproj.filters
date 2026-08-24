@@ -55,6 +55,12 @@
     <Filter Include="ソース ファイル\CPU">
       <UniqueIdentifier>{c69c501b-dadb-4b41-b55d-bfa6445c2e89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\フェーズ\戦闘">
+      <UniqueIdentifier>{d4953007-3872-4cf5-a3f6-9fe28f0d69b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\フェーズ\準備">
+      <UniqueIdentifier>{292e0afe-c8c7-410b-b658-97f041fa31a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -182,29 +188,11 @@
     <ClInclude Include="Enumeration.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
-    <ClInclude Include="PhaseManager.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
-    </ClInclude>
-    <ClInclude Include="PhaseBase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveSelectPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
-    </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
-    <ClInclude Include="ActionPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckFaintPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="BattleContext.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
@@ -215,14 +203,8 @@
     <ClInclude Include="DamageCalculator.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
     </ClInclude>
-    <ClInclude Include="ChangeMonsPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
-    </ClInclude>
     <ClInclude Include="Party.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
-    </ClInclude>
-    <ClInclude Include="EndBattlePhase.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
     <ClInclude Include="EffectApplier.h">
       <Filter>ヘッダー ファイル\バトル</Filter>
@@ -244,6 +226,33 @@
     </ClInclude>
     <ClInclude Include="CpuDebugTypes.h">
       <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionPhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeMonsPhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckFaintPhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandPhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="EndBattlePhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveSelectPhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="PhaseBase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="PhaseManager.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+    </ClInclude>
+    <ClInclude Include="PrepStageBase.h">
+      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,7 +36,7 @@ public:
 	PhaseBase(Cursor* arg_cursor, Members* arg_pMembers, Members* arg_eMembers, BattleContext* arg_context, InputManager* arg_input)
 		: cursor(arg_cursor), pMembers(arg_pMembers),eMembers(arg_eMembers), context(arg_context), input(arg_input) {}
 
-	~PhaseBase() {}
+	virtual ~PhaseBase() {}
 
 	virtual PhaseState Input() = 0;
 

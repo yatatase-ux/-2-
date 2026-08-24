@@ -24,7 +24,7 @@ public:
 
 	SceneBase(Cursor* arg_cursor, InputManager* arg_input)
 		:cursor(arg_cursor), input(arg_input){};
-	~SceneBase() {}
+	virtual ~SceneBase() {}
 	virtual SceneState Input() = 0;	// ƒˆ‰¼‘zŠÖ”
 	virtual SceneState Update() = 0;	// ƒˆ‰¼‘zŠÖ”
 	virtual void Draw() = 0;	// ƒˆ‰¼‘zŠÖ”

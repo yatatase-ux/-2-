@@ -187,6 +187,7 @@
     <ClInclude Include="MoveSelectPhase.h" />
     <ClInclude Include="PhaseBase.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PrepStageBase.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEnd.h" />
     <ClInclude Include="SceneManager.h" />
