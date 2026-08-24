@@ -21,6 +21,8 @@ SCENE_CONSTRUCTOR(ScenePlay)
 	context.enemy->isRevealed = true;							// CPUのモンスターも同様にisRevealedをtrueに設定
 	
 
+	stage = PlayStage::Preparing;
+
 	// フェーズ管理マネージャークラスの初期化
 	m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
 }
@@ -36,11 +38,24 @@ SCENE_INPUT(ScenePlay)
 SCENE_UPDATE(ScenePlay)
 {
 	// プレイシーンの更新処理
-	if(m_Battle->Update())
+	if (stage == PlayStage::Preparing)
 	{
-		return SceneState::End;
+		//if (m_Prep->Update()) // 準備完了(6→3体まで決定)でtrueを返す想定
+		//{
+		//	// 確定したメンバーでパーティを構築してから、戦闘フェーズへ切り替え
+		//	InitMambers(...);
+		//	context.player = pMember.Active();
+		//	context.enemy = eMember.Active();
+			m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
+		//	stage = PlayStage::Battling;
+		//}
+		return SceneState::None;
 	}
-
+	else
+	{
+		if (m_Battle->Update()) return SceneState::End;
+		return SceneState::None;
+	}
 	return SceneState::None;
 }
 
@@ -57,7 +72,7 @@ void ScenePlay::Draw()
 		"HP : %d",
 		context.enemy->CurrentHP);
 	DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		int moveID = context.enemyMoveScore[i].moveID;
 		const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // 技が無いスロット対策

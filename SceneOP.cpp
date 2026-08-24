@@ -28,7 +28,7 @@ SCENE_UPDATE(SceneOP)
 void SceneOP::Draw()
 {
 	// OPƒV[ƒ“‚Ì•`‰æˆ—
-	DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "Click to Start", (255,255,255), 50.0f);
+	DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "Click to Start", GetColor(255,255,255), 50.0f);
 }
 
 void SceneOP::Sound()
