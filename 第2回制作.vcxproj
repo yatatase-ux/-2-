@@ -188,6 +188,7 @@
     <ClInclude Include="MoveSelectPhase.h" />
     <ClInclude Include="PhaseBase.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PrepContext.h" />
     <ClInclude Include="PrepStageManager.h" />
     <ClInclude Include="PrepStageBase.h" />
     <ClInclude Include="SceneBase.h" />

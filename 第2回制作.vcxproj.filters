@@ -266,5 +266,8 @@
     <ClInclude Include="PrepStageManager.h">
       <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
     </ClInclude>
+    <ClInclude Include="PrepContext.h">
+      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

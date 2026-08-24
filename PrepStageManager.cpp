@@ -1,8 +1,9 @@
 #include "PrepStageManager.h"
 
-PrepStageManager::PrepStageManager()
+PrepStageManager::PrepStageManager(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context)
+	: cursor(arg_cursor), input(arg_input), context(arg_context)
 {
-	prepStage = std::make_unique<PrepStageBase>();
+	prepStage = std::make_unique<PrepStageBase>(cursor, input, context);
 }
 
 void PrepStageManager::Input()
