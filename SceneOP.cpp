@@ -8,6 +8,12 @@ SCENE_CONSTRUCTOR(SceneOP)
 SCENE_INPUT(SceneOP)
 {
 	// OPシーンの入力処理
+	bool click = input->Mouse().Push(MOUSE_LEFT);
+
+	if(click)
+	{
+		return SceneState::Play;	// クリックされたらプレイシーンに遷移
+	}
 
 	return SceneState::None;
 }
@@ -16,7 +22,7 @@ SCENE_UPDATE(SceneOP)
 {
 	// OPシーンの更新処理
 
-
+	return SceneState::None;
 }
 
 void SceneOP::Draw()

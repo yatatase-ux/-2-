@@ -2,6 +2,8 @@
 #include "DxLib.h"
 #include "KeyAction.h"
 #include "Cursor.h"
+#include "InputManager.h"
+#include "Player.h"
 
 enum class SceneState
 {
@@ -14,31 +16,34 @@ enum class SceneState
 class SceneBase
 {
 protected:
+
 	Cursor* cursor;
+	InputManager* input;
 
 public:
 
-	SceneBase(Cursor* arg_cursor)
-		:cursor(arg_cursor){};
+	SceneBase(Cursor* arg_cursor, InputManager* arg_input)
+		:cursor(arg_cursor), input(arg_input){};
 	~SceneBase() {}
 	virtual SceneState Input() = 0;	// 純粋仮想関数
-	virtual void Update() = 0;	// 純粋仮想関数
+	virtual SceneState Update() = 0;	// 純粋仮想関数
 	virtual void Draw() = 0;	// 純粋仮想関数
 	virtual void Sound() = 0;	// 純粋仮想関数
 };
 
 #define SCENE_CLASS(className)\
-	className(Cursor* arg_cursor);\
+	className(Cursor* arg_cursor, InputManager* arg_input);\
 	SceneState Input() override;\
-	void Update() override;\
+	SceneState Update() override;\
 	void Draw() override;\
 	void Sound() override;
 
 #define SCENE_CONSTRUCTOR(className)\
-	className::className()
+	className::className(Cursor* arg_cursor, InputManager* arg_input)\
+			:SceneBase(arg_cursor, arg_input)\
 
 #define SCENE_INPUT(className)\
 	SceneState className::Input()
 
 #define SCENE_UPDATE(className)\
-	void className::Update()
+	SceneState className::Update()

@@ -9,7 +9,7 @@ SCENE_CONSTRUCTOR(ScenePlay)
 										MonsterData::FindByID(5), 
 										MonsterData::FindByID(9) };
 
-	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(8),
+	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(17),
 										MonsterData::FindByID(4), 
 										MonsterData::FindByID(12) };
 
@@ -20,12 +20,9 @@ SCENE_CONSTRUCTOR(ScenePlay)
 	context.player->isRevealed = true;							// プレイヤーのモンスターは初期状態で場に出ているので、isRevealedをtrueに設定
 	context.enemy->isRevealed = true;							// CPUのモンスターも同様にisRevealedをtrueに設定
 	
-	// プレイヤークラスの初期化
-	player = std::make_unique<Player>();
-	// 入力関係クラスの初期化
-	m_Input = std::make_unique<InputManager>();
+
 	// フェーズ管理マネージャークラスの初期化
-	m_Battle = std::make_unique<PhaseManager>(player->GetCursor(), &pMember, &eMember, &context, m_Input.get());
+	m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
 }
 
 SCENE_INPUT(ScenePlay)
@@ -39,15 +36,18 @@ SCENE_INPUT(ScenePlay)
 SCENE_UPDATE(ScenePlay)
 {
 	// プレイシーンの更新処理
-	player->Update();	
-	m_Battle->Update();
+	if(m_Battle->Update())
+	{
+		return SceneState::End;
+	}
+
+	return SceneState::None;
 }
 
 void ScenePlay::Draw()
 {
 	// プレイシーンの描画処理
 	m_Battle->Draw();
-	player->Draw();
 
 	//CPU
 	DrawFormatString(

@@ -20,10 +20,10 @@ protected:
 
 	std::unique_ptr<PhaseBase> phase;
 
-	Cursor* cursor;
 	Members* pMembers;
 	Members* eMembers;
 	BattleContext* context;
+	Cursor* cursor;
 	InputManager* input;
 
 	PhaseState currentPhase = PhaseState::COMMAND;
@@ -40,7 +40,7 @@ public:
 	/// <summary>
 	/// XVˆ—
 	/// </summary>
-	void Update();
+	bool Update();
 
 	/// <summary>
 	/// •`‰æˆ—

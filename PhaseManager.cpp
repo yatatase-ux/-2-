@@ -21,13 +21,19 @@ void PhaseManager::Input()
 /// <summary>
 /// XVˆ—
 /// </summary>
-void PhaseManager::Update()
+bool PhaseManager::Update()
 {
 	//phase->Update();
 
 	PhaseState change_phase = phase->Update();
+	if(change_phase == PhaseState::GAME_END)
+	{
+		return true;
+	}
 
 	ChangePhase(change_phase);
+
+	return false;
 }
 
 /// <summary>
