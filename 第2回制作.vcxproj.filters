@@ -61,6 +61,12 @@
     <Filter Include="ヘッダー ファイル\フェーズ\準備">
       <UniqueIdentifier>{292e0afe-c8c7-410b-b658-97f041fa31a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\フェーズ\戦闘">
+      <UniqueIdentifier>{07394229-300b-400e-925d-7c22e7d373c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\フェーズ\準備">
+      <UniqueIdentifier>{ee9edb54-109b-4844-8d07-74740fe28bc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -93,35 +99,14 @@
     <ClCompile Include="MoveData.cpp">
       <Filter>ソース ファイル\怪獣データ</Filter>
     </ClCompile>
-    <ClCompile Include="CommandPhase.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveSelectPhase.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
-    </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>ソース ファイル\プレイヤー</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionPhase.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>ソース ファイル\プレイヤー</Filter>
     </ClCompile>
-    <ClCompile Include="CheckFaintPhase.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
-    </ClCompile>
-    <ClCompile Include="PhaseManager.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
-    </ClCompile>
     <ClCompile Include="DamageCalculator.cpp">
       <Filter>ソース ファイル\バトル</Filter>
-    </ClCompile>
-    <ClCompile Include="ChangeMonsPhase.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
-    </ClCompile>
-    <ClCompile Include="EndGamePhase.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
     </ClCompile>
     <ClCompile Include="EffectApplier.cpp">
       <Filter>ソース ファイル\バトル</Filter>
@@ -140,6 +125,30 @@
     </ClCompile>
     <ClCompile Include="CpuSwitchScorer.cpp">
       <Filter>ソース ファイル\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionPhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeMonsPhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckFaintPhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandPhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGamePhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveSelectPhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="PhaseManager.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+    </ClCompile>
+    <ClCompile Include="PrepStageManager.cpp">
+      <Filter>ソース ファイル\フェーズ\準備</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +261,9 @@
       <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="PrepStageBase.h">
+      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+    </ClInclude>
+    <ClInclude Include="PrepStageManager.h">
       <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
     </ClInclude>
   </ItemGroup>
