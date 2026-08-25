@@ -5,6 +5,8 @@
 
 struct BattleContext
 {
+	Party playerParty;
+
 	BattleMonster* player = nullptr;                        // プレイヤーの現在のモンスター
 	BattleMonster* enemy = nullptr;                         // CPUの現在のモンスター
 

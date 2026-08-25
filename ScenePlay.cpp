@@ -24,15 +24,20 @@ SCENE_CONSTRUCTOR(ScenePlay)
 	stage = PlayStage::Preparing;
 
 	// フェーズ管理マネージャークラスの初期化
-//	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
-	m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
+	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
+//	m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
 }
 
 SCENE_INPUT(ScenePlay)
 {
-	// プレイシーンの入力処理
-	m_Battle->Input();
-
+	if (stage == PlayStage::Preparing)
+	{
+		m_Prep->Input();
+	}
+	else
+	{
+		m_Battle->Input();
+	}
 	return SceneState::None;
 }
 
@@ -41,15 +46,15 @@ SCENE_UPDATE(ScenePlay)
 	// プレイシーンの更新処理
 	if (stage == PlayStage::Preparing)
 	{
-		//if (m_Prep->Update()) // 準備完了(6→3体まで決定)でtrueを返す想定
-		//{
-		//	// 確定したメンバーでパーティを構築してから、戦闘フェーズへ切り替え
+		if (m_Prep->Update()) // 準備完了(6→3体まで決定)でtrueを返す想定
+		{
+			// 確定したメンバーでパーティを構築してから、戦闘フェーズへ切り替え
 		//	InitMambers(...);
-		//	context.player = pMember.Active();
-		//	context.enemy = eMember.Active();
+			context.player = pMember.Active();
+			context.enemy = eMember.Active();
 			m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
-		//	stage = PlayStage::Battling;
-		//}
+			stage = PlayStage::Battling;
+		}
 		return SceneState::None;
 	}
 	else
@@ -62,50 +67,58 @@ SCENE_UPDATE(ScenePlay)
 
 void ScenePlay::Draw()
 {
-	// プレイシーンの描画処理
-	m_Battle->Draw();
 
-	//CPU
-	DrawFormatString(
-		1100,
-		100,
-		GetColor(255, 255, 255),
-		"HP : %d",
-		context.enemy->CurrentHP);
-	DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
-	for (int i = 0; i < MOVE_SLOT_MAX; i++)
+	if (stage == PlayStage::Preparing)
 	{
-		int moveID = context.enemyMoveScore[i].moveID;
-		const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // 技が無いスロット対策
+		m_Prep->Draw();
+	}
+	else
+	{
+		// プレイシーンの描画処理
+		m_Battle->Draw();
 
+		//CPU
 		DrawFormatString(
-			850,
-			150 + i * 30,
+			1100,
+			100,
 			GetColor(255, 255, 255),
-			"技:%s, Score:%d",
-			moveName, context.enemyMoveScore[i].score);
-	}
-	for (int i = 0; i < MEMBER_MAX - 1; i++)
-	{
-		DrawFormatString(850, 280 + i * 30, GetColor(255, 255, 0),
-			"交代候補:%s, Score:%d",
-			context.enemySwitchScore[i].name, context.enemySwitchScore[i].score);
-	}
+			"HP : %d",
+			context.enemy->CurrentHP);
+		DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
+		for (int i = 0; i < MOVE_SLOT_MAX; i++)
+		{
+			int moveID = context.enemyMoveScore[i].moveID;
+			const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // 技が無いスロット対策
 
-	//Player
-	DrawFormatString(
-		100,
-		400,
-		GetColor(255, 255, 255),
-		"HP : %d",
-		context.player->CurrentHP);
-	DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
-	DrawFormatString(
-		100,
-		500,
-		GetColor(255, 255, 255),
-		"物理攻撃ランク : %d",
-		context.player->PATKRank);
+			DrawFormatString(
+				850,
+				150 + i * 30,
+				GetColor(255, 255, 255),
+				"技:%s, Score:%d",
+				moveName, context.enemyMoveScore[i].score);
+		}
+		for (int i = 0; i < MEMBER_MAX - 1; i++)
+		{
+			DrawFormatString(850, 280 + i * 30, GetColor(255, 255, 0),
+				"交代候補:%s, Score:%d",
+				context.enemySwitchScore[i].name, context.enemySwitchScore[i].score);
+		}
+
+		//Player
+		DrawFormatString(
+			100,
+			400,
+			GetColor(255, 255, 255),
+			"HP : %d",
+			context.player->CurrentHP);
+		DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
+		DrawFormatString(
+			100,
+			500,
+			GetColor(255, 255, 255),
+			"物理攻撃ランク : %d",
+			context.player->PATKRank);
+	}
 }
 
 void ScenePlay::Sound()

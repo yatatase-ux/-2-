@@ -3,10 +3,10 @@
 #include "PrepMemberStage.h"
 #include "PrepHomeStage.h"
 
-PrepStageManager::PrepStageManager(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context)
+PrepStageManager::PrepStageManager(Cursor* arg_cursor, InputManager* arg_input, BattleContext* arg_context)
 	: cursor(arg_cursor), input(arg_input), context(arg_context)
 {
-	prepStage = std::make_unique<PrepPartyStage>(cursor, input, context);
+	prepStage = std::make_unique<PrepHomeStage>(cursor, input, context);
 }
 
 void PrepStageManager::Input()

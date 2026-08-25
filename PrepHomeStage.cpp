@@ -17,7 +17,7 @@ PREP_UPDATE(PrepHomeStage)
 
 void PrepHomeStage::Draw()
 {
-
+	DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "HOME", GetColor(255, 255, 255), 50);
 }
 
 void PrepHomeStage::Sound()

@@ -2,6 +2,7 @@
 #include "Cursor.h"
 #include "InputManager.h"
 #include "PrepContext.h"
+#include "BattleContext.h"
 
 enum class PrepState
 {
@@ -17,10 +18,10 @@ class PrepStageBase
 protected:
 	Cursor* cursor;
 	InputManager* input;
-	PrepContext* context;
+	BattleContext* context;
 public:
 
-	PrepStageBase(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context)
+	PrepStageBase(Cursor* arg_cursor, InputManager* arg_input, BattleContext* arg_context)
 		: cursor(arg_cursor), input(arg_input), context(arg_context) {}
 	virtual ~PrepStageBase() {};
 
@@ -31,14 +32,14 @@ public:
 };
 
 #define PREP_CLASS(className)\
-	className(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context);\
+	className(Cursor* arg_cursor, InputManager* arg_input, BattleContext* arg_context);\
 	void Input() override;\
 	PrepState  Update() override;\
 	void Draw() override;\
 	void Sound() override;
 
 #define PREP_CONSTRUCTOR(className)\
-	className::className(Cursor* arg_cursor, InputManager* arg_input, PrepContext* arg_context)\
+	className::className(Cursor* arg_cursor, InputManager* arg_input, BattleContext* arg_context)\
 		: PrepStageBase(arg_cursor, arg_input, arg_context)
 
 #define PREP_INPUT(className)\
