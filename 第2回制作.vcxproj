@@ -164,6 +164,7 @@
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="CpuAttackScorer.h" />
     <ClInclude Include="CpuBrain.h" />
     <ClInclude Include="CpuDebugTypes.h" />
@@ -176,7 +177,6 @@
     <ClInclude Include="PhaseManager.h" />
     <ClInclude Include="CheckFaintPhase.h" />
     <ClInclude Include="CommandPhase.h" />
-    <ClInclude Include="Enumeration.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MonsterBaseData.h" />
     <ClInclude Include="DamageCalculator.h" />
@@ -191,7 +191,6 @@
     <ClInclude Include="MoveSelectPhase.h" />
     <ClInclude Include="PhaseBase.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PrepContext.h" />
     <ClInclude Include="PrepHomeStage.h" />
     <ClInclude Include="PrepMemberStage.h" />
     <ClInclude Include="PrepPartyStage.h" />

@@ -203,9 +203,6 @@
     <ClInclude Include="MoveData.h">
       <Filter>ヘッダー ファイル\怪獣データ</Filter>
     </ClInclude>
-    <ClInclude Include="Enumeration.h">
-      <Filter>ヘッダー ファイル\Main＆Game</Filter>
-    </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>ヘッダー ファイル\プレイヤー</Filter>
     </ClInclude>
@@ -275,9 +272,6 @@
     <ClInclude Include="PrepStageManager.h">
       <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
     </ClInclude>
-    <ClInclude Include="PrepContext.h">
-      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
-    </ClInclude>
     <ClInclude Include="PrepPartyStage.h">
       <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
     </ClInclude>
@@ -286,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="PrepHomeStage.h">
       <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

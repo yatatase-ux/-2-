@@ -7,7 +7,11 @@ PREP_CONSTRUCTOR(PrepMemberStage)
 
 PREP_INPUT(PrepMemberStage)
 {
-	// Inputメソッドの実装
+	if (DEBUG_ALLOW_BACK_TO_HOME && input->Mouse().Push(MOUSE_RIGHT))
+	{
+		return PrepState::ToHome;
+	}
+	return PrepState::None;
 }
 
 PREP_UPDATE(PrepMemberStage)
@@ -19,6 +23,7 @@ PREP_UPDATE(PrepMemberStage)
 void PrepMemberStage::Draw()
 {
 	// Drawメソッドの実装
+	DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "Member", GetColor(255, 255, 255), 50);
 }
 
 void PrepMemberStage::Sound()

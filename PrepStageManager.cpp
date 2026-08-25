@@ -9,14 +9,20 @@ PrepStageManager::PrepStageManager(Cursor* arg_cursor, InputManager* arg_input, 
 	prepStage = std::make_unique<PrepHomeStage>(cursor, input, context);
 }
 
-void PrepStageManager::Input()
+bool PrepStageManager::Input()
 {
-	prepStage->Input();
+	PrepState state = prepStage->Input(); // Input‚ÌŒ‹‰Ê‚ğŒ©‚é
+	return HandleTransition(state);
 }
 
 bool PrepStageManager::Update()
 {
-	PrepState state = prepStage->Update();
+	PrepState state = prepStage->Update(); // Update‚ÌŒ‹‰Ê‚ğŒ©‚é
+	return HandleTransition(state);
+}
+
+bool PrepStageManager::HandleTransition(PrepState state)
+{
 	switch (state)
 	{
 	case PrepState::ToHome:
@@ -29,9 +35,9 @@ bool PrepStageManager::Update()
 		prepStage = std::make_unique<PrepMemberStage>(cursor, input, context);
 		break;
 	case PrepState::Complete:
-		return true; // €”õŠ®—¹‚ğScenePlay‚Ö“`‚¦‚é
+		return true;
 	default:
-		break; // None:‰½‚à‚µ‚È‚¢
+		break;
 	}
 	return false;
 }
@@ -45,3 +51,4 @@ void PrepStageManager::Sound()
 {
 	prepStage->Sound();
 }
+
