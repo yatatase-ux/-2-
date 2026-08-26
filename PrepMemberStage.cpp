@@ -1,43 +1,30 @@
 #include "PrepMemberStage.h"
 #include "Config.h" // DEBUG_ALLOW_BACK_TO_HOME
 #include "MonsterData.h"
+#include "RandomUtil.h"
 
 PREP_CONSTRUCTOR(PrepMemberStage)
 {
+	// プレイヤーのパーティのボタン初期化
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		partyButtons[i] = { 150.0f + i * 160.0f, 500.0f, 60.0f, GetColor(100,100,100) };
 	}
-	for (int i = 0; i < MEMBER_MAX; i++)
+	// CPUのパーティの初期化
+	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		enemyButtons[i] = { 400.0f + i * 200.0f, 150.0f, 50.0f, GetColor(200,0,0) };
+		enemyButtons[i] = { 150.0f + i * 160.0f, 150.0f, 50.0f, GetColor(200,0,0) };
 	}
+	// 戦闘開始ボタン
 	confirmButton = { WINDOW_W / 2.0f, 650.0f, 50.0f, GetColor(100,100,100) };
 
 	// CPUパーティをランダムに3体選出(重複なし)
 	int chosenIndices[MEMBER_MAX];
-	int chosenCount = 0;
-	while (chosenCount < MEMBER_MAX)
-	{
-		int candidate = GetRand(MonsterData::GetCount() - 1);
-
-		bool duplicate = false;
-		for (int i = 0; i < chosenCount; i++)
-		{
-			if (chosenIndices[i] == candidate) { duplicate = true; break; }
-		}
-		if (!duplicate)
-		{
-			chosenIndices[chosenCount] = candidate;
-			chosenCount++;
-		}
-	}
+	PickRandomDistinct(PARTY_MAX, MEMBER_MAX, chosenIndices);
 
 	for (int i = 0; i < MEMBER_MAX; i++)
 	{
-		const MonsterBaseData* mons = &MonsterData::GetByIndex(chosenIndices[i]);
-		context->eBattle[i].data = mons;
-		context->eBattle[i].CurrentHP = mons->HP;
+		context->eBattle[i] = context->enemyParty.mons[chosenIndices[i]]; // BattleMonsterごとコピー
 		context->eMember.mons[i] = &context->eBattle[i];
 	}
 	context->eMember.current = 0;
@@ -115,12 +102,17 @@ void PrepMemberStage::Draw()
 			context->playerParty->mons[i].data->Name, GetColor(0, 0, 0), 18.0f);
 	}
 
-	// CPU側3体(表示のみ)
-	for (int i = 0; i < MEMBER_MAX; i++)
+	// CPU側6体(表示のみ)
+	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		DrawCircleAA(enemyButtons[i].pos.x, enemyButtons[i].pos.y, enemyButtons[i].r, 100, GetColor(200, 0, 0), 1);
+		unsigned int color = GetColor(200, 0, 0);
+		if (DEBUG_SHOW_CPU_SELECTION && IsChosenForBattle(i))
+		{
+			color = GetColor(255, 255, 0); // デバッグ用ハイライト
+		}
+		DrawCircleAA(enemyButtons[i].pos.x, enemyButtons[i].pos.y, enemyButtons[i].r, 100, color, 1);
 		DrawCenterText(enemyButtons[i].pos.x, enemyButtons[i].pos.y,
-			context->eMember.mons[i]->data->Name, GetColor(255, 255, 255), 16.0f);
+			context->enemyParty.mons[i].data->Name, GetColor(255, 255, 255), 16.0f);
 	}
 
 	// 決定ボタン(3体選択済みの時だけ色を変えて分かるようにする)
@@ -141,4 +133,14 @@ bool PrepMemberStage::CursorInParty(int index)
 bool PrepMemberStage::CursorInConfirm()
 {
 	return CheckCircleHit(confirmButton.pos, confirmButton.r, cursor->GetPos(), 10.0f);
+}
+
+bool PrepMemberStage::IsChosenForBattle(int enemyPartyIndex)
+{
+	const MonsterBaseData* target = context->enemyParty.mons[enemyPartyIndex].data;
+	for (int i = 0; i < MEMBER_MAX; i++)
+	{
+		if (context->eBattle[i].data == target) return true;
+	}
+	return false;
 }
