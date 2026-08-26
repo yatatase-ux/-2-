@@ -284,5 +284,8 @@
     <ClInclude Include="Config.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
+    <ClInclude Include="RandomUtil.h">
+      <Filter>ヘッダー ファイル\Main＆Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

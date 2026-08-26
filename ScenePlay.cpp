@@ -1,38 +1,27 @@
 #include "ScenePlay.h"
+#include "RandomUtil.h"
+#include "MonsterData.h"
 
 SCENE_CONSTRUCTOR(ScenePlay)
 {
 	// プレイシーンの初期化処理
-	
-	// 戦闘参加怪獣の設定
-	const MonsterBaseData* pMons[3] = { MonsterData::FindByID(1),
-										MonsterData::FindByID(5), 
-										MonsterData::FindByID(9) };
+	context.playerParty = playerParty;	// SceneBaseが持つポインタをcontextにも渡す(コピーではなく同じ実体を指す)
+	GenerateRandomEnemyParty(); // CPUの6体をここで確定させる
 
-	const MonsterBaseData* eMons[3] = { MonsterData::FindByID(17),
-										MonsterData::FindByID(4), 
-										MonsterData::FindByID(12) };
-
-	InitMambers(pMons, pBattle, pMember, MEMBER_MAX);			// プレイヤーのパーティ初期化
-	InitMambers(eMons, eBattle, eMember, MEMBER_MAX);			// CPUのパーティ初期化
-	context.player = pMember.Active();							// プレイヤーの現在のモンスターをBattleContextに設定
-	context.enemy = eMember.Active();							// CPUの現在のモンスターをBattleContextに設定
-	context.player->isRevealed = true;							// プレイヤーのモンスターは初期状態で場に出ているので、isRevealedをtrueに設定
-	context.enemy->isRevealed = true;							// CPUのモンスターも同様にisRevealedをtrueに設定
-	
 
 	stage = PlayStage::Preparing;
-
-	// フェーズ管理マネージャークラスの初期化
 	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
-//	m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
+	// CPU側の初期化は PrepMemberStage のコンストラクタで行うため、ここでは不要
 }
 
 SCENE_INPUT(ScenePlay)
 {
 	if (stage == PlayStage::Preparing)
 	{
-		m_Prep->Input();
+		if (m_Prep->Input())
+		{
+			FinishPreparation();
+		}
 	}
 	else
 	{
@@ -43,17 +32,11 @@ SCENE_INPUT(ScenePlay)
 
 SCENE_UPDATE(ScenePlay)
 {
-	// プレイシーンの更新処理
 	if (stage == PlayStage::Preparing)
 	{
-		if (m_Prep->Update()) // 準備完了(6→3体まで決定)でtrueを返す想定
+		if (m_Prep->Update())
 		{
-			// 確定したメンバーでパーティを構築してから、戦闘フェーズへ切り替え
-		//	InitMambers(...);
-			context.player = pMember.Active();
-			context.enemy = eMember.Active();
-			m_Battle = std::make_unique<PhaseManager>(cursor, &pMember, &eMember, &context, input);
-			stage = PlayStage::Battling;
+			FinishPreparation();
 		}
 		return SceneState::None;
 	}
@@ -62,7 +45,6 @@ SCENE_UPDATE(ScenePlay)
 		if (m_Battle->Update()) return SceneState::End;
 		return SceneState::None;
 	}
-	return SceneState::None;
 }
 
 void ScenePlay::Draw()
@@ -134,5 +116,29 @@ void ScenePlay::InitMambers(const MonsterBaseData* mons[], BattleMonster battle[
 		battle[i].CurrentHP = mons[i]->HP;
 
 		member.mons[i] = &battle[i];
+	}
+}
+
+void ScenePlay::FinishPreparation()
+{
+	context.player = context.pMember.Active();
+	context.enemy = context.eMember.Active();
+	context.player->isRevealed = true;
+	context.enemy->isRevealed = true;
+
+	m_Battle = std::make_unique<PhaseManager>(cursor, &context.pMember, &context.eMember, &context, input);
+	stage = PlayStage::Battling;
+}
+
+void ScenePlay::GenerateRandomEnemyParty()
+{
+	int chosenIndices[PARTY_MAX];
+	PickRandomDistinct(MonsterData::GetCount(), PARTY_MAX, chosenIndices);
+
+	for (int i = 0; i < PARTY_MAX; i++)
+	{
+		const MonsterBaseData* mons = &MonsterData::GetByIndex(chosenIndices[i]);
+		context.enemyParty.mons[i].data = mons;
+		context.enemyParty.mons[i].CurrentHP = mons->HP;
 	}
 }

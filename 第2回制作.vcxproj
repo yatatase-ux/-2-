@@ -196,6 +196,7 @@
     <ClInclude Include="PrepPartyStage.h" />
     <ClInclude Include="PrepStageManager.h" />
     <ClInclude Include="PrepStageBase.h" />
+    <ClInclude Include="RandomUtil.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEnd.h" />
     <ClInclude Include="SceneManager.h" />

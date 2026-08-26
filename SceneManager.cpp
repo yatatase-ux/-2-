@@ -4,7 +4,7 @@ SceneManager::SceneManager()
 {
 	player = std::make_unique<Player>();
 	m_Input = std::make_unique<InputManager>();
-	nowScene = std::make_unique<SceneOP>(player->GetCursor(), m_Input.get());	// 最初のシーンをOPシーンに設定
+	nowScene = std::make_unique<SceneOP>(player->GetCursor(), m_Input.get(), &playerParty);	// 最初のシーンをOPシーンに設定
 
 	scene = Scene::OP;
 }
@@ -50,15 +50,15 @@ void SceneManager::CreateScene(SceneState now_scene)
 	switch (now_scene)
 	{
 	case SceneState::OP:
-		nowScene = std::make_unique<SceneOP>(player->GetCursor(), m_Input.get());
+		nowScene = std::make_unique<SceneOP>(player->GetCursor(), m_Input.get(), &playerParty); // 追加
 		scene = Scene::OP;
 		break;
 	case SceneState::Play:
-		nowScene = std::make_unique<ScenePlay>(player->GetCursor(), m_Input.get());
+		nowScene = std::make_unique<ScenePlay>(player->GetCursor(), m_Input.get(), &playerParty); // 追加
 		scene = Scene::Play;
 		break;
 	case SceneState::End:
-		nowScene = std::make_unique<SceneEnd>(player->GetCursor(), m_Input.get());
+		nowScene = std::make_unique<SceneEnd>(player->GetCursor(), m_Input.get(), &playerParty); // 追加
 		scene = Scene::End;
 		break;
 	}

@@ -22,10 +22,10 @@ class SceneManager
 protected:
 
 	std::unique_ptr<SceneBase> nowScene;	// 現在のシーンを管理するためのスマートポインタ
-
 	Scene scene;
-
 	KeyAct key;
+
+	Party playerParty;
 
 	std::unique_ptr<Player> player;
 	std::unique_ptr<InputManager> m_Input;

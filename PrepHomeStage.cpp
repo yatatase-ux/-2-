@@ -19,7 +19,7 @@ PREP_INPUT(PrepHomeStage)
 			bool isPartyFull = true;
 			for (int i = 0; i < PARTY_MAX; i++)
 			{
-				if (context->playerParty.mons[i].data == nullptr) { isPartyFull = false; break; }
+				if (context->playerParty->mons[i].data == nullptr) { isPartyFull = false; break; }
 			}
 			if (isPartyFull) return PrepState::ToMember;
 			// ‹ó‚«‚ª‚ ‚éê‡‚Í‰½‚à‚µ‚È‚¢(«—ˆ“I‚É‚ÍŒx•\¦‚È‚Ç‚ğ’Ç‰Á)

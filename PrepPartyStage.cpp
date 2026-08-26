@@ -86,7 +86,7 @@ void PrepPartyStage::Draw()
 	{
 		DrawCircleAA(slotButtons[i].pos.x, slotButtons[i].pos.y, slotButtons[i].r, 100, slotButtons[i].color, 1);
 
-		const MonsterBaseData* d = context->playerParty.mons[i].data;
+		const MonsterBaseData* d = context->playerParty->mons[i].data;
 		const char* label = (d != nullptr) ? d->Name : "空";
 		DrawCenterText(slotButtons[i].pos.x, slotButtons[i].pos.y, label, GetColor(0, 0, 0), 18.0f);
 	}
@@ -118,7 +118,7 @@ bool PrepPartyStage::IsAlreadyInParty(const MonsterBaseData* mons)
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		if (i == selectedSlot) continue; // 今入れ替えようとしている枠自身は比較しない
-		if (context->playerParty.mons[i].data == mons) return true;
+		if (context->playerParty->mons[i].data == mons) return true;
 	}
 	return false;
 }
@@ -130,8 +130,8 @@ void PrepPartyStage::TrySwap(int slotIndex, int rosterIndex)
 	selectedSlot = slotIndex; // IsAlreadyInPartyが「今の対象枠」を除外できるよう、先にセット
 	if (!IsAlreadyInParty(chosen))
 	{
-		context->playerParty.mons[slotIndex].data = chosen;
-		context->playerParty.mons[slotIndex].CurrentHP = chosen->HP;
+		context->playerParty->mons[slotIndex].data = chosen;
+		context->playerParty->mons[slotIndex].CurrentHP = chosen->HP;
 	}
 	// 重複していた場合は何もしない(将来的にはNG演出を追加)
 

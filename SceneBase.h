@@ -4,6 +4,7 @@
 #include "Cursor.h"
 #include "InputManager.h"
 #include "Player.h"
+#include "Party.h" 
 
 enum class SceneState
 {
@@ -19,12 +20,12 @@ protected:
 
 	Cursor* cursor;
 	InputManager* input;
+	Party* playerParty;
 
 public:
 
-	SceneBase(Cursor* arg_cursor, InputManager* arg_input)
-		:cursor(arg_cursor), input(arg_input){};
-	virtual ~SceneBase() {}
+	SceneBase(Cursor* arg_cursor, InputManager* arg_input, Party* arg_playerParty)
+		:cursor(arg_cursor), input(arg_input), playerParty(arg_playerParty) {};
 	virtual SceneState Input() = 0;	// ƒˆ‰¼‘zŠÖ”
 	virtual SceneState Update() = 0;	// ƒˆ‰¼‘zŠÖ”
 	virtual void Draw() = 0;	// ƒˆ‰¼‘zŠÖ”
@@ -32,15 +33,15 @@ public:
 };
 
 #define SCENE_CLASS(className)\
-	className(Cursor* arg_cursor, InputManager* arg_input);\
+	className(Cursor* arg_cursor, InputManager* arg_input, Party* arg_playerParty);\
 	SceneState Input() override;\
 	SceneState Update() override;\
 	void Draw() override;\
 	void Sound() override;
 
 #define SCENE_CONSTRUCTOR(className)\
-	className::className(Cursor* arg_cursor, InputManager* arg_input)\
-			:SceneBase(arg_cursor, arg_input)\
+	className::className(Cursor* arg_cursor, InputManager* arg_input, Party* arg_playerParty)\
+			:SceneBase(arg_cursor, arg_input, arg_playerParty)
 
 #define SCENE_INPUT(className)\
 	SceneState className::Input()

@@ -18,6 +18,9 @@ enum class PlayStage
 
 class ScenePlay : public SceneBase
 {
+
+private:
+
 	BattleMonster pMonster;
 	BattleMonster eMonster;	
 
@@ -32,6 +35,10 @@ class ScenePlay : public SceneBase
 	PlayStage stage;
 
 	BattleContext context;
+
+	void FinishPreparation();
+
+	void GenerateRandomEnemyParty();
 
 public:
 

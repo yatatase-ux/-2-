@@ -5,7 +5,11 @@
 
 struct BattleContext
 {
-	Party playerParty;   // PrepPartyStageが書き込む
+	Party* playerParty = nullptr;;   // PrepPartyStageが書き込む
+	Party enemyParty; // CPU側の6体。試合ごとにランダム生成し、プレイヤーと違い持ち越さない
+
+	BattleMonster eBattle[MEMBER_MAX];
+
 	Members pMember;     // PrepMemberStageが書き込む
 	Members eMember;     // CPU側(当面は仮データのまま)
 
