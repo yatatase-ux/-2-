@@ -42,3 +42,13 @@ const MonsterBaseData* MonsterData::FindByID(int id)
 
     return nullptr;
 }
+
+int MonsterData::GetCount()
+{
+    return MonsterSize;
+}
+
+const MonsterBaseData& MonsterData::GetByIndex(int index)
+{
+    return monster[index];
+}

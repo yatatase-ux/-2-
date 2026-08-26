@@ -5,7 +5,9 @@
 
 struct BattleContext
 {
-	Party playerParty;
+	Party playerParty;   // PrepPartyStageが書き込む
+	Members pMember;     // PrepMemberStageが書き込む
+	Members eMember;     // CPU側(当面は仮データのまま)
 
 	BattleMonster* player = nullptr;                        // プレイヤーの現在のモンスター
 	BattleMonster* enemy = nullptr;                         // CPUの現在のモンスター

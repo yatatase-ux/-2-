@@ -11,9 +11,9 @@ enum class StatusCondition
 
 struct BattleMonster
 {
-	const MonsterBaseData* data;							// モンスターの基本データへのポインタ
+	const MonsterBaseData* data = nullptr;							// モンスターの基本データへのポインタ
 
-	int CurrentHP;											// 現在のHP
+	int CurrentHP = 0;											// 現在のHP
 	int PATKRank = 0;										// 物理攻撃ランク
 	int PDEFRank = 0;										// 物理防御ランク
 	int MATKRank = 0;										// 特殊攻撃ランク

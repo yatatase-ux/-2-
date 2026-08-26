@@ -13,7 +13,17 @@ PREP_INPUT(PrepHomeStage)
 	if (input->Mouse().Push(MOUSE_LEFT))
 	{
 		if (CursorInButton(BtnParty))  return PrepState::ToParty;
-		if (CursorInButton(BtnMember)) return PrepState::ToMember;
+
+		if (CursorInButton(BtnMember))
+		{
+			bool isPartyFull = true;
+			for (int i = 0; i < PARTY_MAX; i++)
+			{
+				if (context->playerParty.mons[i].data == nullptr) { isPartyFull = false; break; }
+			}
+			if (isPartyFull) return PrepState::ToMember;
+			// ‹ó‚«‚ª‚ ‚éê‡‚Í‰½‚à‚µ‚È‚¢(«—ˆ“I‚É‚ÍŒx•\¦‚È‚Ç‚ğ’Ç‰Á)
+		}
 	}
 	return PrepState::None;
 }

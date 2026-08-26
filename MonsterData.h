@@ -11,8 +11,9 @@ protected:
 
 public:
 
-	//void ShowData();
-
 	static const MonsterBaseData* FindByID(int id);
+
+	static int GetCount();                             // ’Ç‰Á:‘”‚ğæ“¾
+	static const MonsterBaseData& GetByIndex(int index); // ’Ç‰Á:indexw’è‚Å1‘Ìæ“¾
 
 };
