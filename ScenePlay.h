@@ -21,29 +21,27 @@ class ScenePlay : public SceneBase
 
 private:
 
-	BattleMonster pMonster;
-	BattleMonster eMonster;	
+	std::unique_ptr<PrepStageManager> m_Prep;		// 準備フェーズ用マネージャー
+	std::unique_ptr<PhaseManager> m_Battle;			// バトルフェーズ用マネージャー
+	PlayStage stage;								// 今が準備かバトルかを判別する変数
 
-	BattleMonster pBattle[3];
-	Members pMember;
+	BattleContext context;							// バトルコンテキストの本体
 
-	BattleMonster eBattle[3];
-	Members eMember;
-
-	std::unique_ptr<PrepStageManager> m_Prep;     // 新規:準備フェーズ用マネージャー
-	std::unique_ptr<PhaseManager> m_Battle;
-	PlayStage stage;
-
-	BattleContext context;
-
+	/// <summary>
+	/// 準備完了時の処理
+	/// </summary>
 	void FinishPreparation();
 
+	/// <summary>
+	/// ランダムにCPUのパーティを設定する関数
+	/// </summary>
 	void GenerateRandomEnemyParty();
 
 public:
 
+	/// <summary>
+	/// クラスの基本関数の定義
+	/// </summary>
 	SCENE_CLASS(ScenePlay);
-
-	void InitMambers(const MonsterBaseData* mons[], BattleMonster battle[], Members& menber, int count);
 
 };

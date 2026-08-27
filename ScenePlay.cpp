@@ -2,27 +2,37 @@
 #include "RandomUtil.h"
 #include "MonsterData.h"
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name=""></param>
 SCENE_CONSTRUCTOR(ScenePlay)
 {
 	// プレイシーンの初期化処理
 	context.playerParty = playerParty;	// SceneBaseが持つポインタをcontextにも渡す(コピーではなく同じ実体を指す)
-	GenerateRandomEnemyParty(); // CPUの6体をここで確定させる
-
+	GenerateRandomEnemyParty();			// CPUの6体をここで確定させる
 
 	stage = PlayStage::Preparing;
 	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
+
 	// CPU側の初期化は PrepMemberStage のコンストラクタで行うため、ここでは不要
 }
 
+/// <summary>
+/// 入力処理
+/// </summary>
+/// <param name=""></param>
 SCENE_INPUT(ScenePlay)
 {
+	// 準備ステージのとき
 	if (stage == PlayStage::Preparing)
 	{
-		if (m_Prep->Input())
+		if (m_Prep->Input()) // 準備がComplete(完了)したら
 		{
 			FinishPreparation();
 		}
 	}
+	// バトルステージの時
 	else
 	{
 		m_Battle->Input();
@@ -30,8 +40,13 @@ SCENE_INPUT(ScenePlay)
 	return SceneState::None;
 }
 
+/// <summary>
+/// 更新処理
+/// </summary>
+/// <param name=""></param>
 SCENE_UPDATE(ScenePlay)
 {
+	// INPUTと同じ
 	if (stage == PlayStage::Preparing)
 	{
 		if (m_Prep->Update())
@@ -47,13 +62,17 @@ SCENE_UPDATE(ScenePlay)
 	}
 }
 
+/// <summary>
+/// 描画処理
+/// </summary>
 void ScenePlay::Draw()
 {
-
+	// 準備ステージの描画
 	if (stage == PlayStage::Preparing)
 	{
 		m_Prep->Draw();
 	}
+	// バトルステージの描画
 	else
 	{
 		// プレイシーンの描画処理
@@ -103,20 +122,12 @@ void ScenePlay::Draw()
 	}
 }
 
+/// <summary>
+/// 音声処理
+/// </summary>
 void ScenePlay::Sound()
 {
 
-}
-
-void ScenePlay::InitMambers(const MonsterBaseData* mons[], BattleMonster battle[], Members& member, int count)
-{
-	for (int i = 0; i < count; i++)
-	{
-		battle[i].data = mons[i];
-		battle[i].CurrentHP = mons[i]->HP;
-
-		member.mons[i] = &battle[i];
-	}
 }
 
 void ScenePlay::FinishPreparation()
