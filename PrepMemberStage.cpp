@@ -5,6 +5,7 @@
 
 PREP_CONSTRUCTOR(PrepMemberStage)
 {
+	for (int i = 0; i < PARTY_MAX; i++) memberOrder[i] = -1;
 	// プレイヤーのパーティのボタン初期化
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
@@ -39,30 +40,33 @@ PREP_INPUT(PrepMemberStage)
 		{
 			if (CursorInParty(i))
 			{
-				if (selected[i])
+				if (memberOrder[i] >= 0)
 				{
-					selected[i] = false;
+					// 選択解除:自分より後ろの順番を1つずつ繰り上げて詰める
+					int removedOrder = memberOrder[i];
+					memberOrder[i] = -1;
+					for (int j = 0; j < PARTY_MAX; j++)
+					{
+						if (memberOrder[j] > removedOrder) memberOrder[j]--;
+					}
 					selectedCount--;
 				}
 				else if (selectedCount < MEMBER_MAX)
 				{
-					selected[i] = true;
+					memberOrder[i] = selectedCount; // 現在の選択数がそのまま「何番目か」になる
 					selectedCount++;
 				}
 				return PrepState::None;
 			}
 		}
 
-		// 3体選ばれている時のみ、決定ボタンが機能する
 		if (selectedCount == MEMBER_MAX && CursorInConfirm())
 		{
-			int idx = 0;
 			for (int i = 0; i < PARTY_MAX; i++)
 			{
-				if (selected[i])
+				if (memberOrder[i] >= 0)
 				{
-					context->pMember.mons[idx] = &context->playerParty->mons[i];
-					idx++;
+					context->pMember.mons[memberOrder[i]] = &context->playerParty->mons[i]; // 選んだ順に配置
 				}
 			}
 			context->pMember.current = 0;
@@ -82,7 +86,7 @@ PREP_UPDATE(PrepMemberStage)
 {
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		if (selected[i])
+		if (memberOrder[i] >= 0)
 			partyButtons[i].color = GetColor(255, 255, 0);
 		else
 			partyButtons[i].color = CursorInParty(i) ? GetColor(200, 200, 0) : GetColor(100, 100, 100);
@@ -100,6 +104,12 @@ void PrepMemberStage::Draw()
 		DrawCircleAA(partyButtons[i].pos.x, partyButtons[i].pos.y, partyButtons[i].r, 100, partyButtons[i].color, 1);
 		DrawCenterText(partyButtons[i].pos.x, partyButtons[i].pos.y,
 			context->playerParty->mons[i].data->Name, GetColor(0, 0, 0), 18.0f);
+
+		if (memberOrder[i] >= 0) // 選択順を表示
+		{
+			DrawCenterFormatText(partyButtons[i].pos.x, partyButtons[i].pos.y - 50,
+				GetColor(0, 0, 0), 20.0f, "%d", memberOrder[i] + 1);
+		}
 	}
 
 	// CPU側6体(表示のみ)
@@ -110,9 +120,10 @@ void PrepMemberStage::Draw()
 		{
 			color = GetColor(255, 255, 0); // デバッグ用ハイライト
 		}
+
 		DrawCircleAA(enemyButtons[i].pos.x, enemyButtons[i].pos.y, enemyButtons[i].r, 100, color, 1);
 		DrawCenterText(enemyButtons[i].pos.x, enemyButtons[i].pos.y,
-			context->enemyParty.mons[i].data->Name, GetColor(255, 255, 255), 16.0f);
+			context->enemyParty.mons[i].data->Name, GetColor(0, 0, 0), 16.0f);
 	}
 
 	// 決定ボタン(3体選択済みの時だけ色を変えて分かるようにする)

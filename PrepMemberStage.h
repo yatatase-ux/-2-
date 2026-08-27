@@ -5,6 +5,7 @@ class PrepMemberStage : public PrepStageBase
 {
 private:
 
+	int memberOrder[PARTY_MAX]; // 各パーティ枠が何番目に選ばれたか(-1:未選択)
 	bool selected[PARTY_MAX] = { false };
 	int selectedCount = 0;
 	FloatCircle partyButtons[PARTY_MAX];   // 自分の6体(選択可能)
