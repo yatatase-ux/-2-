@@ -12,7 +12,19 @@ PHASE_CONSTRUCTOR(CommandPhase)
 		if (!pMembers->mons[i]->isFainted) aliveCount++;
 	bool isMatchPoint = (aliveCount <= 1);
 
-	CpuDecisionResult decision = cpuBrain.Decide(*context->enemy, *context->player, *eMembers, *pMembers, damage, isMatchPoint);
+	// プレイヤー行動の予測(CPUの立場をプレイヤーに、プレイヤーの立場をCPUにして評価)
+	int enemyAliveCount = 0;
+	for (int i = 0; i < MEMBER_MAX; i++)
+		if (!eMembers->mons[i]->isFainted) enemyAliveCount++;
+	bool isMatchPointForPlayer = (enemyAliveCount <= 1);
+
+	context->predictedPlayerDecision = cpuBrain.Decide(
+		*context->player, *context->enemy, *pMembers, *eMembers, damage, isMatchPointForPlayer);
+	bool predictedPlayerWillSwitch = (context->predictedPlayerDecision.switchToIndex >= 0);
+
+	// CPU自身の決定(予測を反映)
+	CpuDecisionResult decision = cpuBrain.Decide(
+		*context->enemy, *context->player, *eMembers, *pMembers, damage, isMatchPoint, predictedPlayerWillSwitch);
 
 	for (int i = 0; i < MOVE_SLOT_MAX; i++) context->enemyMoveScore[i] = decision.moveScores[i];
 	for (int i = 0; i < MEMBER_MAX - 1; i++) context->enemySwitchScore[i] = decision.switchScores[i];

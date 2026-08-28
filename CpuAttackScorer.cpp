@@ -8,7 +8,9 @@
 /// <param name="opponent">技を受ける側(プレイヤー)</param>
 /// <param name="damageCalc">ダメージ計算機の参照</param>
 /// <returns>計算されたスコア（期待ダメージを整数化した値）。補助技の場合は0を返す。</returns>
-int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent, Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint)
+int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent,
+	Members& opponentMembers, DamageCalculator& damageCalc,
+	bool isMatchPoint, bool opponentPredictedToSwitch)
 {
 	const MoveData& move = MoveTable[moveID];
 
@@ -20,6 +22,7 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	// 撃破ボーナス
 	if (damage >= opponent.CurrentHP)
 	{
+		// 相手が最後の一体なら更に加点
 		score += isMatchPoint ? 150.0f : 80.0f;
 	}
 
@@ -37,7 +40,12 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 		}
 	}
 
-	score += BenchConsistencyScore(move, opponent, opponentMembers, damageCalc);
+	float benchBonus = BenchConsistencyScore(move, opponent, opponentMembers, damageCalc);
+	if (opponentPredictedToSwitch)
+	{
+		benchBonus *= 4.0f; // 相手が交代してくると読んでいるなら、通り技の価値を引き上げる
+	}
+	score += benchBonus;
 
 	return (int)score;
 }

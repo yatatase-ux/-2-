@@ -104,6 +104,8 @@ void ScenePlay::Draw()
 				"交代候補:%s, Score:%d",
 				context.enemySwitchScore[i].name, context.enemySwitchScore[i].score);
 		}
+		DrawFormatString(850, 400, GetColor(0, 255, 255), "予測:プレイヤーは%s",
+			context.predictedPlayerDecision.switchToIndex >= 0 ? "交代してくる" : "技を使う");
 
 		//Player
 		DrawFormatString(

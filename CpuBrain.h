@@ -27,9 +27,11 @@ private:
 
 public:
 
-	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
-		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint);
+	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent, Members& opponentMembers,
+		DamageCalculator& damageCalc, bool isMatchPoint, bool opponentPredictedToSwitch = false);
+
 	CpuDecisionResult Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
-		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint);
+		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint,
+		bool opponentPredictedToSwitch = false); 
 
 };

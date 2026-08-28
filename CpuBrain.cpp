@@ -1,17 +1,20 @@
 #include "CpuBrain.h"
 #include "MoveData.h"
 
-int CpuBrain::ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent,
-	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint)
+int CpuBrain::ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent, Members& opponentMembers,
+	DamageCalculator& damageCalc, bool isMatchPoint, bool opponentPredictedToSwitch)
 {
 	const MoveData& move = MoveTable[moveID];
+
 	return (move.category == MoveCategory::Status)
 		? statusScorer.Score(moveID, self, opponent, damageCalc, effect)
-		: attackScorer.Score(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint);
+		: attackScorer.Score(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint, opponentPredictedToSwitch);
 }
 
 CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
-	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint)
+	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint,
+	bool opponentPredictedToSwitch)
+
 {
 	CpuDecisionResult result;
 
@@ -38,6 +41,8 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 		if (candidate == &self || candidate->isFainted) continue;
 
 		int score = switchScorer.Score(self, opponent, *candidate, damageCalc);
+		if (opponentPredictedToSwitch) score -= 100; // ‘Šè‚àŒğ‘ã‚ğ“Ç‚ñ‚Å‚¢‚é‚È‚çA‚±‚¿‚ç‚Í‹À‚Á‚½•û‚ª“¾
+
 		if (debugIdx < MEMBER_MAX - 1) result.switchScores[debugIdx] = { candidate->data->Name, score };
 		debugIdx++;
 
