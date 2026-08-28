@@ -10,6 +10,12 @@ SCENE_CONSTRUCTOR(ScenePlay)
 {
 	// プレイシーンの初期化処理
 	context.playerParty = playerParty;	// SceneBaseが持つポインタをcontextにも渡す(コピーではなく同じ実体を指す)
+	EffectApplier effect;
+	for (int i = 0; i < PARTY_MAX; i++)
+	{
+		effect.ResetForNewBattle(context.playerParty->mons[i]);
+	}
+	
 	GenerateRandomEnemyParty();			// CPUの6体をここで確定させる
 
 	stage = PlayStage::Preparing;

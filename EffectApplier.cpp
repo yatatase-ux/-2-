@@ -110,3 +110,17 @@ float EffectApplier::GetEffectiveSpeed(const BattleMonster& mon) const
 {
 	return mon.data->SPD * RankToMultiplier(mon.SPDRank);
 }
+
+void EffectApplier::ResetForNewBattle(BattleMonster& mon)
+{
+	if (mon.data == nullptr) return; // 空き枠はスキップ
+
+	mon.CurrentHP = mon.data->HP;
+	mon.isFainted = false;
+	mon.isRevealed = false;
+	mon.condition = StatusCondition::None; // 新しい試合なので、ここはリセットして良い
+	mon.selectedMoveID = -1;
+	mon.changeMonster = -1;
+
+	ResetBattleRanks(mon); // 既存の関数を再利用してランクもリセット
+}
