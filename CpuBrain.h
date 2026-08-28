@@ -32,6 +32,7 @@ public:
 
 	CpuDecisionResult Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
 		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint,
-		bool opponentPredictedToSwitch = false); 
+		bool opponentPredictedToSwitch = false,
+		bool checkOscillation = true);
 
 };

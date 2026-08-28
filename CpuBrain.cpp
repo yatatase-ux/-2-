@@ -13,7 +13,7 @@ int CpuBrain::ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent
 
 CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
 	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint,
-	bool opponentPredictedToSwitch)
+	bool opponentPredictedToSwitch, bool checkOscillation)
 
 {
 	CpuDecisionResult result;
@@ -26,7 +26,7 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 		int moveID = self.data->MoveID[i];
 		if (moveID < 0) { result.moveScores[i] = { -1, 0 }; continue; }
 
-		int score = ScoreMove(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint);
+		int score = ScoreMove(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint, opponentPredictedToSwitch);
 		result.moveScores[i] = { moveID, score };
 		if (score > bestMoveScore) { bestMoveScore = score; bestMoveID = moveID; }
 	}
@@ -49,8 +49,24 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 		if (score > bestSwitchScore) { bestSwitchScore = score; bestSwitchIndex = i; }
 	}
 
+	bool wantsToSwitch = (bestSwitchIndex >= 0 && bestSwitchScore > bestMoveScore);
+
+	if (wantsToSwitch && checkOscillation)
+	{
+		BattleMonster* candidate = selfMembers.mons[bestSwitchIndex];
+
+		// Œð‘ãæ‚ÌŽ‹“_‚Å1‰ñ‚¾‚¯•]‰¿‚·‚é(checkOscillation=false‚ÅÄ‹A‚ðŽ~‚ß‚é)
+		CpuDecisionResult candidateView = Decide(*candidate, opponent, selfMembers, opponentMembers,
+			damageCalc, isMatchPoint, false, false);
+
+		if (candidateView.switchToIndex >= 0)
+		{
+			wantsToSwitch = false; // Œð‘ãæ‚àŒð‘ã‚µ‚½‚ª‚Á‚Ä‚¢‚é‚È‚çA‹À‚Á‚Ä‹Z‚ð‘I‚Ô
+		}
+	}
+
 	// ‹Z vs Œð‘ãAÅI”äŠr
-	if (bestSwitchIndex >= 0 && bestSwitchScore > bestMoveScore)
+	if (wantsToSwitch)
 	{
 		result.switchToIndex = bestSwitchIndex;
 	}
