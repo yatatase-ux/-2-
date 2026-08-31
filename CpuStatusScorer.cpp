@@ -17,8 +17,7 @@ int CpuStatusScorer::CalcBestDamage(BattleMonster& attacker, BattleMonster& defe
 	return best;
 }
 
-int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent,
-	DamageCalculator& damageCalc, EffectApplier& effect)
+int CpuStatusScorer::Score(int moveID, const CpuEvalContext& ctx)
 {
 	const MoveData& move = MoveTable[moveID];	// ‹Zƒf[ƒ^‚Ìæ“¾
 
@@ -27,10 +26,10 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 		return 0;
 	}
 
-	BattleMonster* target = move.targetSelf ? &self : &opponent;	// ‘ÎÛw’è
+	BattleMonster* target = move.targetSelf ? &ctx.self : &ctx.opponent;	// ‘ÎÛw’è
 	float score = 0.0f;		// ƒXƒRƒA‚Ì‰Šú‰»
 
-	int bestCurrentDamage = CalcBestDamage(self, opponent, damageCalc); // ‡C‚Å‚àg‚¤
+	int bestCurrentDamage = CalcBestDamage(ctx.self, ctx.opponent, ctx.damageCalc); // ‡C‚Å‚àg‚¤
 
 	int* rankPtr = effect.GetRankPtr(*target, move.statIndex);		// ”\—Íƒ‰ƒ“ƒN‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾ <- g‚¤Û‚Í•K‚¸•œŒ³‚ğ–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
 	int originalRank = *rankPtr;			// Œ³‚Ìƒ‰ƒ“ƒN‚ğ•Û‘¶
@@ -38,15 +37,15 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	if (move.statIndex == StatType::Speed)
 	{
 		// ‡A‘¬‚³ŠÖŒW‚Ì‹t“]
-		float selfSpeedBefore = effect.GetEffectiveSpeed(self);
-		float opponentSpeedBefore = effect.GetEffectiveSpeed(opponent);
+		float selfSpeedBefore = effect.GetEffectiveSpeed(ctx.self);
+		float opponentSpeedBefore = effect.GetEffectiveSpeed(ctx.opponent);
 
 		*rankPtr += move.statChange;
 		if (*rankPtr > 6) *rankPtr = 6;
 		if (*rankPtr < -6) *rankPtr = -6;
 
-		float selfSpeedAfter = effect.GetEffectiveSpeed(self);
-		float opponentSpeedAfter = effect.GetEffectiveSpeed(opponent);
+		float selfSpeedAfter = effect.GetEffectiveSpeed(ctx.self);
+		float opponentSpeedAfter = effect.GetEffectiveSpeed(ctx.opponent);
 
 		*rankPtr = originalRank; // •œŒ³ <- •K‚¸•œŒ³‚ğ–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
 
@@ -60,14 +59,14 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	}
 	else
 	{
-		float incomingBefore = riskEvaluator.EstimateBestExpectedDamage(opponent, self, damageCalc);
+		float incomingBefore = riskEvaluator.EstimateBestExpectedDamage(ctx.opponent, ctx.self, ctx.damageCalc);
 
 		*rankPtr += move.statChange;
 		if (*rankPtr > 6) *rankPtr = 6;
 		if (*rankPtr < -6) *rankPtr = -6;
 
-		int damageAfter = CalcBestDamage(self, opponent, damageCalc);
-		float incomingAfter = riskEvaluator.EstimateBestExpectedDamage(opponent, self, damageCalc);
+		int damageAfter = CalcBestDamage(ctx.self, ctx.opponent, ctx.damageCalc);
+		float incomingAfter = riskEvaluator.EstimateBestExpectedDamage(ctx.opponent, ctx.self, ctx.damageCalc);
 
 		*rankPtr = originalRank; // •œŒ³ <- •K‚¸•œŒ³‚ğ–Y‚ê‚È‚¢‚æ‚¤‚É‚·‚é
 
@@ -78,11 +77,11 @@ int CpuStatusScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 	}
 
 	// ‡BÏ‚ñ‚¾ƒ^[ƒ“‚É“|‚³‚ê‚È‚¢‚©
-	float risk = riskEvaluator.EstimateKORisk(self, opponent, damageCalc);
+	float risk = riskEvaluator.EstimateKORisk(ctx.self, ctx.opponent, ctx.damageCalc);
 	score += (risk > 0.0f) ? (-300.0f * risk) : 10.0f;
 
 	// ‡CŠù‚É“|‚¹‚éó‹µ‚Å‚Í‚È‚¢‚©
-	bool canAlreadyKO = (bestCurrentDamage >= opponent.CurrentHP);
+	bool canAlreadyKO = (bestCurrentDamage >= ctx.opponent.CurrentHP);
 	score += canAlreadyKO ? -100.0f : 10.0f;
 
 	return (int)score;

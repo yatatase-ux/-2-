@@ -4,6 +4,7 @@
 #include "Party.h"
 #include "CpuRiskEvaluator.h"
 #include "EffectApplier.h"
+#include "CpuEvalContext.h"
 
 class CpuAttackScorer
 {
@@ -14,9 +15,7 @@ private:
 	
 public:
 
-	int Score(int moveID, BattleMonster& self, BattleMonster& opponent,
-          Members& opponentMembers, DamageCalculator& damageCalc,
-          bool isMatchPoint, bool opponentPredictedToSwitch = false);
+	int Score(int moveID, const CpuEvalContext& ctx);
 
 	float BenchConsistencyScore(const MoveData& move, BattleMonster& activeOpponent,
 								Members& opponentMembers, DamageCalculator& damageCalc);

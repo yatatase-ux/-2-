@@ -3,15 +3,17 @@
 #include "DamageCalculator.h"
 #include "EffectApplier.h"
 #include "CpuRiskEvaluator.h"
+#include "CpuEvalContext.h"
 
 class CpuStatusScorer
 {
 private:
 	CpuRiskEvaluator riskEvaluator;
+	EffectApplier effect; // ctxÇ≈ÇÕÇ»Ç≠é©ëOÇ≈éùÇ¬
+
 	int CalcBestDamage(BattleMonster& attacker, BattleMonster& defender,
 						DamageCalculator& damageCalc);
 
 public:
-	int Score(int moveID, BattleMonster& self, BattleMonster& opponent,
-		DamageCalculator& damageCalc, EffectApplier& effect);
+	int Score(int moveID, const CpuEvalContext& ctx);
 };

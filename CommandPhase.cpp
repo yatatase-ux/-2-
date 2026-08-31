@@ -18,13 +18,17 @@ PHASE_CONSTRUCTOR(CommandPhase)
 		if (!eMembers->mons[i]->isFainted) enemyAliveCount++;
 	bool isMatchPointForPlayer = (enemyAliveCount <= 1);
 
-	context->predictedPlayerDecision = cpuBrain.Decide(
-		*context->player, *context->enemy, *pMembers, *eMembers, damage, isMatchPointForPlayer);
+	// ①プレイヤー行動の予測用コンテキスト(self=プレイヤー、opponent=CPU)
+	CpuEvalContext predictCtx{ *context->player, *context->enemy, *pMembers, *eMembers, damage, isMatchPointForPlayer };
+	context->predictedPlayerDecision = cpuBrain.Decide(predictCtx);
 	bool predictedPlayerWillSwitch = (context->predictedPlayerDecision.switchToIndex >= 0);
 
-	// CPU自身の決定(予測を反映)
-	CpuDecisionResult decision = cpuBrain.Decide(
-		*context->enemy, *context->player, *eMembers, *pMembers, damage, isMatchPoint, predictedPlayerWillSwitch);
+	// ②CPU自身の決定用コンテキスト(self=CPU、opponent=プレイヤー)
+	CpuEvalContext ctx{ *context->enemy, *context->player, *eMembers, *pMembers, damage, isMatchPoint };
+	ctx.opponentPredictedToSwitch = predictedPlayerWillSwitch;
+	ctx.predictedOpponentDecision = &context->predictedPlayerDecision;
+
+	CpuDecisionResult decision = cpuBrain.Decide(ctx);
 
 	for (int i = 0; i < MOVE_SLOT_MAX; i++) context->enemyMoveScore[i] = decision.moveScores[i];
 	for (int i = 0; i < MEMBER_MAX - 1; i++) context->enemySwitchScore[i] = decision.switchScores[i];

@@ -8,30 +8,28 @@
 /// <param name="opponent">技を受ける側(プレイヤー)</param>
 /// <param name="damageCalc">ダメージ計算機の参照</param>
 /// <returns>計算されたスコア（期待ダメージを整数化した値）。補助技の場合は0を返す。</returns>
-int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& opponent,
-	Members& opponentMembers, DamageCalculator& damageCalc,
-	bool isMatchPoint, bool opponentPredictedToSwitch)
+int CpuAttackScorer::Score(int moveID, const CpuEvalContext& ctx)
 {
 	const MoveData& move = MoveTable[moveID];
 
-	int damage = damageCalc.CalcDamage(self, opponent, moveID);
+	int damage = ctx.damageCalc.CalcDamage(ctx.self, ctx.opponent, moveID);
 	// 命中率を加味した期待値(まだ命中判定自体は未実装なので係数として使うだけ)
 	float expected = damage * (move.Accuracy / 100.0f);
 	float score = expected;
 
 	// 撃破ボーナス
-	if (damage >= opponent.CurrentHP)
+	if (damage >= ctx.opponent.CurrentHP)
 	{
 		// 相手が最後の一体なら更に加点
-		score += isMatchPoint ? 150.0f : 80.0f;
+		score += ctx.isMatchPoint ? 150.0f : 80.0f;
 	}
 
 	// 先制技ボーナス
 	if (move.Priority > 0)
 	{
-		bool isLethalByThisMove = (damage >= opponent.CurrentHP); // 条件A(先制技で倒せる場合)
-		bool possiblyGoesSecond = (effect.GetEffectiveSpeed(self) <= effect.GetEffectiveSpeed(opponent)); // 後攻かどうか
-		bool willDieFirst = possiblyGoesSecond && (riskEvaluator.EstimateKORisk(self, opponent, damageCalc) > 0.0f); // 条件B(相手より遅いかつ倒される)
+		bool isLethalByThisMove = (damage >= ctx.opponent.CurrentHP); // 条件A(先制技で倒せる場合)
+		bool possiblyGoesSecond = (effect.GetEffectiveSpeed(ctx.self) <= effect.GetEffectiveSpeed(ctx.opponent)); // 後攻かどうか
+		bool willDieFirst = possiblyGoesSecond && (riskEvaluator.EstimateKORisk(ctx.self, ctx.opponent, ctx.damageCalc) > 0.0f); // 条件B(相手より遅いかつ倒される)
 
 		// 条件Aまたは条件Bを満たす場合、スコアにボーナスを加算
 		if (isLethalByThisMove || willDieFirst)
@@ -40,8 +38,8 @@ int CpuAttackScorer::Score(int moveID, BattleMonster& self, BattleMonster& oppon
 		}
 	}
 
-	float benchBonus = BenchConsistencyScore(move, opponent, opponentMembers, damageCalc);
-	if (opponentPredictedToSwitch)
+	float benchBonus = BenchConsistencyScore(move, ctx.opponent, ctx.opponentMembers, ctx.damageCalc);
+	if (ctx.opponentPredictedToSwitch)
 	{
 		benchBonus *= 4.0f; // 相手が交代してくると読んでいるなら、通り技の価値を引き上げる
 	}

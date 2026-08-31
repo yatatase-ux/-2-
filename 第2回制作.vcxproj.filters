@@ -287,5 +287,8 @@
     <ClInclude Include="RandomUtil.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
+    <ClInclude Include="CpuEvalContext.h">
+      <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,14 +8,7 @@
 #include "CpuStatusScorer.h"
 #include "CpuSwitchScorer.h"
 #include "CpuDebugTypes.h" 
-
-struct CpuDecisionResult
-{
-	int selectedMoveID = -1; // ‹Z‚ğ‘I‚ñ‚¾ê‡
-	int switchToIndex = -1;  // Œğ‘ã‚ğ‘I‚ñ‚¾ê‡(Members“à‚Ìindex)
-	MoveScoreDebug moveScores[MOVE_SLOT_MAX];
-	SwitchScoreDebug switchScores[MEMBER_MAX - 1]; // T‚¦‚Ì”(Œ»ó2)
-};
+#include "CpuRiskEvaluator.h"
 
 class CpuBrain
 {
@@ -27,12 +20,8 @@ private:
 
 public:
 
-	int ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent, Members& opponentMembers,
-		DamageCalculator& damageCalc, bool isMatchPoint, bool opponentPredictedToSwitch = false);
+	int ScoreMove(int moveID, const CpuEvalContext& ctx);
 
-	CpuDecisionResult Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
-		Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint,
-		bool opponentPredictedToSwitch = false,
-		bool checkOscillation = true);
+	CpuDecisionResult Decide(CpuEvalContext ctx, bool checkOscillation = true);
 
 };

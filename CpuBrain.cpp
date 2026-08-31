@@ -1,20 +1,16 @@
 #include "CpuBrain.h"
 #include "MoveData.h"
 
-int CpuBrain::ScoreMove(int moveID, BattleMonster& self, BattleMonster& opponent, Members& opponentMembers,
-	DamageCalculator& damageCalc, bool isMatchPoint, bool opponentPredictedToSwitch)
+int CpuBrain::ScoreMove(int moveID, const CpuEvalContext& ctx)
 {
 	const MoveData& move = MoveTable[moveID];
 
 	return (move.category == MoveCategory::Status)
-		? statusScorer.Score(moveID, self, opponent, damageCalc, effect)
-		: attackScorer.Score(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint, opponentPredictedToSwitch);
+		? statusScorer.Score(moveID, ctx)
+		: attackScorer.Score(moveID, ctx);
 }
 
-CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent, Members& selfMembers,
-	Members& opponentMembers, DamageCalculator& damageCalc, bool isMatchPoint,
-	bool opponentPredictedToSwitch, bool checkOscillation)
-
+CpuDecisionResult CpuBrain::Decide(CpuEvalContext ctx, bool checkOscillation)
 {
 	CpuDecisionResult result;
 
@@ -23,10 +19,10 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 	int bestMoveID = -1;
 	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
-		int moveID = self.data->MoveID[i];
+		int moveID = ctx.self.data->MoveID[i];
 		if (moveID < 0) { result.moveScores[i] = { -1, 0 }; continue; }
 
-		int score = ScoreMove(moveID, self, opponent, opponentMembers, damageCalc, isMatchPoint, opponentPredictedToSwitch);
+		int score = ScoreMove(moveID, ctx);
 		result.moveScores[i] = { moveID, score };
 		if (score > bestMoveScore) { bestMoveScore = score; bestMoveID = moveID; }
 	}
@@ -37,11 +33,11 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 	int debugIdx = 0;
 	for (int i = 0; i < MEMBER_MAX; i++)
 	{
-		BattleMonster* candidate = selfMembers.mons[i];
-		if (candidate == &self || candidate->isFainted) continue;
+		BattleMonster* candidate = ctx.selfMembers.mons[i];
+		if (candidate == &ctx.self || candidate->isFainted) continue;
 
-		int score = switchScorer.Score(self, opponent, *candidate, damageCalc);
-		if (opponentPredictedToSwitch) score -= 100; // 相手も交代を読んでいるなら、こちらは居座った方が得
+		int score = switchScorer.Score(ctx, *candidate);
+		if (ctx.opponentPredictedToSwitch) score -= 100; // 相手も交代を読んでいるなら、こちらは居座った方が得
 
 		if (debugIdx < MEMBER_MAX - 1) result.switchScores[debugIdx] = { candidate->data->Name, score };
 		debugIdx++;
@@ -53,11 +49,11 @@ CpuDecisionResult CpuBrain::Decide(BattleMonster& self, BattleMonster& opponent,
 
 	if (wantsToSwitch && checkOscillation)
 	{
-		BattleMonster* candidate = selfMembers.mons[bestSwitchIndex];
+		BattleMonster* candidate = ctx.selfMembers.mons[bestSwitchIndex];
 
-		// 交代先の視点で1回だけ評価する(checkOscillation=falseで再帰を止める)
-		CpuDecisionResult candidateView = Decide(*candidate, opponent, selfMembers, opponentMembers,
-			damageCalc, isMatchPoint, false, false);
+		// 交代先(candidate)を新しいselfとした、別のctxを作って評価する
+		CpuEvalContext candidateCtx{ *candidate, ctx.opponent, ctx.selfMembers, ctx.opponentMembers, ctx.damageCalc, ctx.isMatchPoint };
+		CpuDecisionResult candidateView = Decide(candidateCtx, false);
 
 		if (candidateView.switchToIndex >= 0)
 		{
