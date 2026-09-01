@@ -159,6 +159,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneOP.cpp" />
     <ClCompile Include="ScenePlay.cpp" />
+    <ClCompile Include="TurnAftermathProcessor.cpp" />
     <ClCompile Include="TurnOrderResolver.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -208,6 +209,7 @@
     <ClInclude Include="SceneOP.h" />
     <ClInclude Include="ScenePlay.h" />
     <ClInclude Include="Structure.h" />
+    <ClInclude Include="TurnAftermathProcessor.h" />
     <ClInclude Include="TurnOrderResolver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
