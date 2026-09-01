@@ -1,53 +1,35 @@
 #pragma once
-#include "PhaseBase.h"
-#include "DamageCalculator.h"
-#include "EffectApplier.h"
-#include "MoveData.h"
-
-enum
-{
-	Earlyer,
-	Later,
-
-	ActionMax
-};
-
+#include "PhaseBase.h"				// 親クラス
+// 依存クラス
+#include "ActionSlot.h"
+#include "TurnOrderResolver.h"
+#include "MoveExecutor.h"
+#include "TurnAftermathProcessor.h"
+#include "ActionPresenter.h"
 
 class ActionPhase : public PhaseBase
 {
 private:
 
-	DamageCalculator damage;
+	TurnOrderResolver turnOrderResolver;
+	MoveExecutor moveExecutor;
+	TurnAftermathProcessor aftermath;
+	ActionPresenter presenter;
 
-	BattleMonster* Mons[ActionMax];
-	int moveID[ActionMax];
+	TurnOrderResult turnOrder;
+	StatusTickResult statusResult;
 
 	int time;
 	int turn;
 	bool turnEnd;
 	bool monsDying;
+	bool showingStatusResult;
+	int statusTime;
 
-	const char* debugText[ActionMax] = {"", ""};
-
-	EffectApplier effect;
-
-	bool isSwitchAction[ActionMax] = { false, false };
-	const char* switchFromName[ActionMax] = { "", "" };
-	const char* switchToName[ActionMax] = { "", "" };
+	void ProcessTurn();
 
 public:
 
 	PHASE_CLASS(ActionPhase);
 
-	void DecideActionOrder();
-
-	void PerformSwitch(BattleMonster*& contextMon, Members* members, int slot);
-
-	void SetActionOrder(bool playerFirst);
-
-	void DamageAction();
-
-	void CheckFaint(BattleMonster* target);
-
-	void ExecuteMove(BattleMonster* attacker, BattleMonster* defender, int moveID);
 };
