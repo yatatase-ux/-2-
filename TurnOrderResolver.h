@@ -12,6 +12,7 @@ struct TurnOrderResult
 {
 	BattleMonster* mons[ActionMax];							// 先攻・後攻のモンスターを格納する配列
 	int moveID[ActionMax];									// 先攻・後攻の技IDを格納する配列
+	bool willHit[ActionMax] = { true, true };				// 技が命中するか(交代・まひで動けない場合はtrue固定)
 	bool isSwitchAction[ActionMax] = { false, false };		// 先攻・後攻の交代アクションフラグを格納する配列
 	const char* switchFromName[ActionMax] = { "", "" };		// 交代前のモンスター名を格納する配列
 	const char* switchToName[ActionMax] = { "", "" };		// 交代後のモンスター名を格納する配列
@@ -37,4 +38,9 @@ public:
 	/// 行動順を決定する
 	/// </summary>
 	TurnOrderResult Resolve(BattleContext* context, Members* pMembers, Members* eMembers);
+
+	/// <summary>
+	/// 行動順を決定する
+	/// </summary>
+	void SetActionOrder(bool playerFirst, BattleContext* context, TurnOrderResult& result);
 };

@@ -14,26 +14,24 @@ void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder
 	// 交代アクションかどうかを判定
 	if (turnOrder.isSwitchAction[slot])
 	{
-		// 交代アクションの場合、交代前後のモンスター名を描画
 		DrawFormatString(500, 250, GetColor(255, 255, 255),
 			"%s→%sへ交代", turnOrder.switchFromName[slot], turnOrder.switchToName[slot]);
 	}
-	// まひで行動不能かどうかを判定
 	else if (!turnOrder.canAct[slot])
 	{
-		// まひで行動不能の場合、行動不能のメッセージを描画
 		DrawFormatString(500, 250, GetColor(255, 255, 0),
 			"%s はまひで動けない！", turnOrder.mons[slot]->data->Name);
 	}
-	// 通常の攻撃アクションの場合
+	else if (!turnOrder.willHit[slot]) // 追加
+	{
+		DrawFormatString(500, 250, GetColor(255, 255, 0),
+			"%s の攻撃は外れた！", turnOrder.mons[slot]->data->Name);
+	}
 	else
 	{
-		// 通常の攻撃アクションの場合、技名と予測ダメージを描画
 		int d = moveExecutor.PreviewDamage(turnOrder.mons[slot], turnOrder.mons[other], turnOrder.moveID[slot]);
-		// 技名と予測ダメージを描画
 		DrawFormatString(500, 250, GetColor(255, 255, 255),
 			"%s(%s)", turnOrder.mons[slot]->data->Name, MoveTable[turnOrder.moveID[slot]].Name);
-		// 予測ダメージを描画
 		DrawFormatString(500, 280, GetColor(255, 255, 255),
 			"ダメージ：%d", d);
 	}

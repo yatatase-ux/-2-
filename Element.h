@@ -27,7 +27,7 @@ constexpr float TypeTable
 	//            NONE NORMAL FIRE WATER GRASS
 	/* NONE  */ { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f},
 	/* NORMAL*/ { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f},
-	/* FIRE  */ { 1.0f, 1.0f, 0.5f, 0.5f, 2.0f},
-	/* WATER */ { 1.0f, 1.0f, 2.0f, 0.5f, 0.5f},
-	/* GRASS */ { 1.0f, 1.0f, 0.5f, 2.0f, 0.5f}
+	/* FIRE  */ { 1.0f, 1.0f, 1.0f, 0.5f, 2.0f},
+	/* WATER */ { 1.0f, 1.0f, 2.0f, 1.0f, 0.5f},
+	/* GRASS */ { 1.0f, 1.0f, 0.5f, 2.0f, 1.0f}
 };

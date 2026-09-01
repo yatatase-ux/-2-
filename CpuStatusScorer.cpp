@@ -28,6 +28,7 @@ int CpuStatusScorer::Score(int moveID, const CpuEvalContext& ctx)
 
 	BattleMonster* target = move.targetSelf ? &ctx.self : &ctx.opponent;	// ‘ÎÛŽw’è
 	float score = 0.0f;		// ƒXƒRƒA‚Ì‰Šú‰»
+	bool hasEffect = false;
 
 	int bestCurrentDamage = CalcBestDamage(ctx.self, ctx.opponent, ctx.damageCalc); // ‡C‚Å‚àŽg‚¤
 
@@ -55,6 +56,7 @@ int CpuStatusScorer::Score(int moveID, const CpuEvalContext& ctx)
 		if (wasSlowerOrEqual && willBeFaster)
 		{
 			score += 70.0f;
+			hasEffect = true;
 		}
 	}
 	else
@@ -72,17 +74,33 @@ int CpuStatusScorer::Score(int moveID, const CpuEvalContext& ctx)
 
 		float offenseGain = (float)(damageAfter - bestCurrentDamage); // —^ƒ_ƒ‚ª‘‚¦‚½•ª
 		float defenseGain = incomingBefore - incomingAfter;           // ”íƒ_ƒ‚ªŒ¸‚Á‚½•ª
+		float rawGain = offenseGain + defenseGain;
 
-		score += offenseGain + defenseGain; // ’Êí‚Í‚Ç‚¿‚ç‚©•Ð•û‚¾‚¯‚ª“®‚­‚Í‚¸
+		score += rawGain; // ’Êí‚Í‚Ç‚¿‚ç‚©•Ð•û‚¾‚¯‚ª“®‚­‚Í‚¸
+		hasEffect = (rawGain > 0.0f);
 	}
 
 	// ‡BÏ‚ñ‚¾ƒ^[ƒ“‚É“|‚³‚ê‚È‚¢‚©
 	float risk = riskEvaluator.EstimateKORisk(ctx.self, ctx.opponent, ctx.damageCalc);
-	score += (risk > 0.0f) ? (-300.0f * risk) : 10.0f;
+	if (risk > 0.0f)
+	{
+		score += -300.0f * risk;
+	}
+	else if (hasEffect)
+	{
+		score += 10.0f;
+	}
 
 	// ‡CŠù‚É“|‚¹‚éó‹µ‚Å‚Í‚È‚¢‚©
 	bool canAlreadyKO = (bestCurrentDamage >= ctx.opponent.CurrentHP);
-	score += canAlreadyKO ? -100.0f : 10.0f;
+	if (canAlreadyKO)
+	{
+		score += -100.0f;
+	}
+	else if (hasEffect)
+	{
+		score += 10.0f;
+	}
 
 	return (int)score;
 }

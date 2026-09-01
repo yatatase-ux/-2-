@@ -1,5 +1,6 @@
 #include "TurnOrderResolver.h"
 #include "DxLib.h"
+#include "MoveData.h"
 
 /// <summary>
 /// 行動順決定処理
@@ -38,39 +39,41 @@ TurnOrderResult TurnOrderResolver::Resolve(BattleContext* context, Members* pMem
 	// 両者技の場合
 	else
 	{
-		float playerSpeed = effect.GetEffectiveSpeed(*context->player);		// 速度の実効値を取得
-		float enemySpeed = effect.GetEffectiveSpeed(*context->enemy);		// 速度の実効値を取得
+		int playerPriority = MoveTable[context->player->selectedMoveID].Priority;
+		int enemyPriority = MoveTable[context->enemy->selectedMoveID].Priority;
 
-		bool playerFirst;													// 先攻がプレイヤーかどうかを判定
-		if (playerSpeed > enemySpeed) playerFirst = true;					// プレイヤーの方が速い場合は先攻
-		else if (playerSpeed < enemySpeed) playerFirst = false;				// CPUの方が速い場合は後攻
-		else playerFirst = (GetRand(1) == 0);								// 同速の場合はランダムで先攻を決定		
+		bool playerFirst;
+		if (playerPriority != enemyPriority)
+		{
+			playerFirst = (playerPriority > enemyPriority);
+		}
+		else
+		{
+			float playerSpeed = effect.GetEffectiveSpeed(*context->player);
+			float enemySpeed = effect.GetEffectiveSpeed(*context->enemy);
 
-		// 行動順の結果を設定
-		if (playerFirst)	// プレイヤーが先攻の場合
-		{
-			result.debugText[Earlyer] = "プレイヤーのターン";
-			result.debugText[Later] = "CPUのターン";
-			result.mons[Earlyer] = context->player;
-			result.mons[Later] = context->enemy;
-			result.moveID[Earlyer] = context->player->selectedMoveID;
-			result.moveID[Later] = context->enemy->selectedMoveID;
+			if (playerSpeed > enemySpeed) playerFirst = true;
+			else if (playerSpeed < enemySpeed) playerFirst = false;
+			else playerFirst = (GetRand(1) == 0);
 		}
-		else				// CPUが先攻の場合
-		{
-			result.debugText[Earlyer] = "CPUのターン";
-			result.debugText[Later] = "プレイヤーのターン";
-			result.mons[Earlyer] = context->enemy;
-			result.mons[Later] = context->player;
-			result.moveID[Earlyer] = context->enemy->selectedMoveID;
-			result.moveID[Later] = context->player->selectedMoveID;
-		}
+
+		SetActionOrder(playerFirst, context, result);						// 先攻・後攻の行動順を設定
 	}
 
 	// まひ判定をここで一括確定(交代する側は判定不要)
 	for (int slot = 0; slot < ActionMax; slot++)
 	{
 		result.canAct[slot] = result.isSwitchAction[slot] ? true : effect.CheckCanAct(*result.mons[slot]);
+
+		if (!result.isSwitchAction[slot] && result.canAct[slot])
+		{
+			const MoveData& move = MoveTable[result.moveID[slot]];
+			result.willHit[slot] = (GetRand(99) < move.Accuracy);
+		}
+		else
+		{
+			result.willHit[slot] = true; // 交代中、またはまひで動けないなら無関係
+		}
 	}
 	return result;	// 行動順の結果を返す
 }
@@ -91,4 +94,29 @@ void TurnOrderResolver::PerformSwitch(BattleMonster*& contextMon, Members* membe
 	result.switchToName[slot] = newMon->data->Name;								// 交代後の名前を保存
 	result.mons[slot] = newMon;													// 交代後のモンスターをMonsに反映
 	result.debugText[slot] = isPlayerSide ? "プレイヤーのターン" : "CPUのターン";	// デバッグ用文字列を設定
+}
+
+/// <summary>
+/// 行動順を決定する
+/// </summary>
+void TurnOrderResolver::SetActionOrder(bool playerFirst, BattleContext* context, TurnOrderResult& result)
+{
+	if (playerFirst)
+	{
+		result.debugText[Earlyer] = "プレイヤーのターン";
+		result.debugText[Later] = "CPUのターン";
+		result.mons[Earlyer] = context->player;
+		result.mons[Later] = context->enemy;
+		result.moveID[Earlyer] = context->player->selectedMoveID;
+		result.moveID[Later] = context->enemy->selectedMoveID;
+	}
+	else
+	{
+		result.debugText[Earlyer] = "CPUのターン";
+		result.debugText[Later] = "プレイヤーのターン";
+		result.mons[Earlyer] = context->enemy;
+		result.mons[Later] = context->player;
+		result.moveID[Earlyer] = context->enemy->selectedMoveID;
+		result.moveID[Later] = context->player->selectedMoveID;
+	}
 }

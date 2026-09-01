@@ -102,11 +102,6 @@ float DamageCalculator::LethalProbability(const BattleMonster& attacker, const B
     return isLethal ? (move.Accuracy / 100.0f) : 0.0f;
 }
 
-bool DamageCalculator::CheckHit()
-{
-    return false;
-}
-
 void DamageCalculator::ApplyDamage()
 {
 

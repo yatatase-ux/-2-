@@ -80,5 +80,24 @@ MoveData MoveTable[] =
 		EffectType::StatUp, 100, true, StatType::Speed, 1 },
 	// 補助　命中：100　追加効果：素早さ1段階上昇
 
+	{ 21, "紅葉打ち", Type::Grass, MoveCategory::Physical, 75, 100, 0 }, 
+	// 物理　威力：75　命中：100
+
+	{ 22, "紅蓮の葉", Type::Grass, MoveCategory::Special,  75, 100, 0 }, 
+	// 特殊　威力：75　命中：100
+
+	{ 23, "熱湯拳",   Type::Fire,  MoveCategory::Physical, 75, 100, 0 }, 
+	// 物理　威力：75　命中：100
+	
+	{ 24, "熱湯",     Type::Fire,  MoveCategory::Special,  70,  95, 0, 
+		EffectType::Burn, 20, false }, 
+	// 特殊　威力：70　命中：95　追加効果：20%の確率でやけど
+
+	{ 25, "樹液流し", Type::Water, MoveCategory::Physical, 75, 100, 0 }, 
+	// 物理　威力：75　命中：100
+
+	{ 26, "森の雫",   Type::Water, MoveCategory::Special,  75, 100, 0 }, 
+	// 特殊　威力：75　命中：100
+
 };
 const int MoveTableSize = sizeof(MoveTable) / sizeof(MoveData);

@@ -42,8 +42,6 @@ public:
 
 	float LethalProbability(const BattleMonster& attacker, const BattleMonster& defender, int moveID);
 
-	bool CheckHit();
-
 	void ApplyDamage();
 
 	float BaseDamage(int power, int atk, int def);
