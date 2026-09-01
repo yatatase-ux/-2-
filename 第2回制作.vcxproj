@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
+    <ClCompile Include="ActionPresenter.cpp" />
     <ClCompile Include="ChangeMonsPhase.cpp" />
     <ClCompile Include="CpuAttackScorer.cpp" />
     <ClCompile Include="CpuBrain.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionPhase.h" />
+    <ClInclude Include="ActionPresenter.h" />
     <ClInclude Include="ActionSlot.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
