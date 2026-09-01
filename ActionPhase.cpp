@@ -167,7 +167,10 @@ void ActionPhase::DamageAction()
 		{
 			if (!isSwitchAction[Earlyer])
 			{
-				ExecuteMove(Mons[Earlyer], Mons[Later], moveID[Earlyer]);
+				if (effect.CheckCanAct(*Mons[Earlyer])) // まひで行動不能の場合は攻撃しない
+				{
+					ExecuteMove(Mons[Earlyer], Mons[Later], moveID[Earlyer]);
+				}
 			}
 			// 交代の場合、交代自体はDecideActionOrderで既に完了しているので何もしない
 
@@ -203,11 +206,28 @@ void ActionPhase::DamageAction()
 		{
 			if (!isSwitchAction[Later])
 			{
-				ExecuteMove(Mons[Later], Mons[Earlyer], moveID[Later]);
+				if (effect.CheckCanAct(*Mons[Later])) // まひで行動不能の場合は攻撃しない
+				{
+					ExecuteMove(Mons[Later], Mons[Earlyer], moveID[Later]);
+				}
 			}
 			// 交代の場合、交代自体はDecideActionOrderで既に完了しているので何もしない
 
 			CheckFaint(Mons[Earlyer]);
+
+			// 双方の行動が終わった後、どく・やけどの継続ダメージを処理
+			if (!monsDying) // 通常攻撃で既に決着していれば継続ダメージは処理しない
+			{
+				effect.ApplyStatusDamage(*Mons[Earlyer]);
+				CheckFaint(Mons[Earlyer]);
+
+				if (!monsDying) // Earlyerの継続ダメージで倒れていなければ、続けてLaterも処理
+				{
+					effect.ApplyStatusDamage(*Mons[Later]);
+					CheckFaint(Mons[Later]);
+				}
+			}
+
 			turnEnd = true;
 		}
 		return;

@@ -26,5 +26,12 @@ public:
 	// 速度の実効値を取得するヘルパー関数
 	float GetEffectiveSpeed(const BattleMonster& mon) const;
 
+	// 新しいバトルのためにモンスターをリセットする関数
 	void ResetForNewBattle(BattleMonster& mon);
+
+	// どく・やけどの継続ダメージ。与えたダメージ量を返す
+	int ApplyStatusDamage(BattleMonster& target);  
+	
+	// まひで行動不能かどうか。true=行動できる
+	bool CheckCanAct(BattleMonster& target);       
 };

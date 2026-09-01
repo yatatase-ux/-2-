@@ -40,9 +40,6 @@
     <Filter Include="ソース ファイル\バトル">
       <UniqueIdentifier>{2d573594-5693-47fb-801f-429ba4c24879}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\バトル">
-      <UniqueIdentifier>{e98a7163-64a5-4aff-9ff9-5bcc66358682}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\フェーズ">
       <UniqueIdentifier>{51fbd763-33a0-4aa7-8e4c-cbbf556e0a00}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,15 @@
     </Filter>
     <Filter Include="ソース ファイル\フェーズ\準備">
       <UniqueIdentifier>{ee9edb54-109b-4844-8d07-74740fe28bc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\フェーズ\戦闘\Action">
+      <UniqueIdentifier>{7acc57f9-eced-489e-aa6f-7b724fc3a98c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\バトル">
+      <UniqueIdentifier>{e98a7163-64a5-4aff-9ff9-5bcc66358682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\フェーズ\戦闘\Action">
+      <UniqueIdentifier>{c4f4adad-cc62-4b82-8d1a-dd24b874016d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +132,6 @@
     <ClCompile Include="CpuSwitchScorer.cpp">
       <Filter>ソース ファイル\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="ActionPhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
-    </ClCompile>
     <ClCompile Include="ChangeMonsPhase.cpp">
       <Filter>ソース ファイル\フェーズ\戦闘</Filter>
     </ClCompile>
@@ -158,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="PrepHomeStage.cpp">
       <Filter>ソース ファイル\フェーズ\準備</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionPhase.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="TurnOrderResolver.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +251,6 @@
     <ClInclude Include="CpuDebugTypes.h">
       <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
-    <ClInclude Include="ActionPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
-    </ClInclude>
     <ClInclude Include="ChangeMonsPhase.h">
       <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
     </ClInclude>
@@ -289,6 +295,15 @@
     </ClInclude>
     <ClInclude Include="CpuEvalContext.h">
       <Filter>ヘッダー ファイル\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionPhase.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionSlot.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnOrderResolver.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

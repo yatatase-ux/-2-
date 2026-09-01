@@ -45,14 +45,17 @@ CpuDecisionResult CpuBrain::Decide(CpuEvalContext ctx, bool checkOscillation)
 		if (score > bestSwitchScore) { bestSwitchScore = score; bestSwitchIndex = i; }
 	}
 
-	bool wantsToSwitch = (bestSwitchIndex >= 0 && bestSwitchScore > bestMoveScore);
+	bool wantsToSwitch = (bestSwitchIndex >= 0 && bestSwitchScore > bestMoveScore);	// Œð‘ã‚µ‚½•û‚ª“¾‚È‚çŒð‘ã‚·‚é
 
 	if (wantsToSwitch && checkOscillation)
 	{
 		BattleMonster* candidate = ctx.selfMembers.mons[bestSwitchIndex];
 
 		// Œð‘ãæ(candidate)‚ðV‚µ‚¢self‚Æ‚µ‚½A•Ê‚Ìctx‚ðì‚Á‚Ä•]‰¿‚·‚é
-		CpuEvalContext candidateCtx{ *candidate, ctx.opponent, ctx.selfMembers, ctx.opponentMembers, ctx.damageCalc, ctx.isMatchPoint };
+		CpuEvalContext candidateCtx{ *candidate, ctx.opponent, ctx.selfMembers, ctx.opponentMembers,
+									ctx.damageCalc, ctx.isMatchPoint };
+		candidateCtx.opponentPredictedToSwitch = ctx.opponentPredictedToSwitch; // ‘ŠŽè‚ÌŒð‘ã—\‘ª‚Í‚»‚Ì‚Ü‚Üˆø‚«Œp‚®
+		candidateCtx.predictedOpponentDecision = ctx.predictedOpponentDecision; // ‘ŠŽè‚Ìs“®—\‘ª‚à‚»‚Ì‚Ü‚Üˆø‚«Œp‚®
 		CpuDecisionResult candidateView = Decide(candidateCtx, false);
 
 		if (candidateView.switchToIndex >= 0)

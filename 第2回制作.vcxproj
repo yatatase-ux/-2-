@@ -158,10 +158,12 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneOP.cpp" />
     <ClCompile Include="ScenePlay.cpp" />
+    <ClCompile Include="TurnOrderResolver.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionPhase.h" />
+    <ClInclude Include="ActionSlot.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
     <ClInclude Include="Config.h" />
@@ -204,6 +206,7 @@
     <ClInclude Include="SceneOP.h" />
     <ClInclude Include="ScenePlay.h" />
     <ClInclude Include="Structure.h" />
+    <ClInclude Include="TurnOrderResolver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

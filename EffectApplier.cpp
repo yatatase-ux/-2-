@@ -1,4 +1,5 @@
 #include "EffectApplier.h"
+#include "DxLib.h"
 
 void EffectApplier::ApplyStatChange(BattleMonster& target, StatType stat, int change)
 {
@@ -123,4 +124,23 @@ void EffectApplier::ResetForNewBattle(BattleMonster& mon)
 	mon.changeMonster = -1;
 
 	ResetBattleRanks(mon); // 既存の関数を再利用してランクもリセット
+}
+
+int EffectApplier::ApplyStatusDamage(BattleMonster& target)
+{
+	if (target.condition != StatusCondition::Poison && target.condition != StatusCondition::Burn)
+	{
+		return 0;
+	}
+
+	int dmg = target.data->HP / 8; // 最大HPの1/8。
+	target.CurrentHP -= dmg;
+	if (target.CurrentHP < 0) target.CurrentHP = 0;
+	return dmg;
+}
+
+bool EffectApplier::CheckCanAct(BattleMonster& target)
+{
+	if (target.condition != StatusCondition::Paralysis) return true;
+	return GetRand(99) >= 30; // 30%の確率で行動不能
 }
