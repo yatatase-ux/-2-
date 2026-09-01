@@ -168,6 +168,9 @@
     <ClCompile Include="TurnOrderResolver.cpp">
       <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
     </ClCompile>
+    <ClCompile Include="MoveExecutor.cpp">
+      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -303,6 +306,9 @@
       <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="TurnOrderResolver.h">
+      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveExecutor.h">
       <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
     </ClInclude>
   </ItemGroup>

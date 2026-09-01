@@ -138,6 +138,7 @@
     <ClCompile Include="CpuSwitchScorer.cpp" />
     <ClCompile Include="EffectApplier.cpp" />
     <ClCompile Include="EndGamePhase.cpp" />
+    <ClCompile Include="MoveExecutor.cpp" />
     <ClCompile Include="PhaseManager.cpp" />
     <ClCompile Include="CheckFaintPhase.cpp" />
     <ClCompile Include="CommandPhase.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="CpuSwitchScorer.h" />
     <ClInclude Include="EffectApplier.h" />
     <ClInclude Include="EndBattlePhase.h" />
+    <ClInclude Include="MoveExecutor.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="PhaseManager.h" />
     <ClInclude Include="CheckFaintPhase.h" />
