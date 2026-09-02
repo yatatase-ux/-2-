@@ -1,42 +1,36 @@
 #include "ChangeMonsPhase.h"
 
-PHASE_CONSTRUCTOR(ChangeMonsPhase)
+PHASE_CONSTRUCTOR(ChangeMonsPhase),
+buttons{
+	Button(1000.0f, 350.0f, 250.0f, 75.0f, pMembers->mons[0]->data->Name, GetColor(200,200,200), GetColor(255,255,255)),
+	Button(1000.0f, 435.0f, 250.0f, 75.0f, pMembers->mons[1]->data->Name, GetColor(200,200,200), GetColor(255,255,255)),
+	Button(1000.0f, 520.0f, 250.0f, 75.0f, pMembers->mons[2]->data->Name, GetColor(200,200,200), GetColor(255,255,255))
+}
 {
+	// コンストラクタの時点でも瀕死状態を反映しておく(1フレーム目の入力判定のため)
 	for (int i = 0; i < 3; i++)
 	{
-		buttons[i].pos.x = 1000.0f;
-		buttons[i].pos.y = 350.0f + i * 85.0f;
-		buttons[i].color = GetColor(200, 200, 200);
+		buttons[i].SetDisabled(pMembers->mons[i]->isFainted);
 	}
 }
 
 PhaseState ChangeMonsPhase::Input()
 {
-	// 強制交代でなければキャンセル可能
 	if (!context->isForcedSwitch && input->Mouse().Push(MOUSE_RIGHT))
 		return PhaseState::COMMAND;
 
-	for (int i = 0; i < MEMBER_MAX; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		if (CursorInButton(i))
+		if (buttons[i].Input(cursor, input))
 		{
-			if (input->Mouse().Push(MOUSE_LEFT))
+			if (context->isForcedSwitch)
 			{
-				// もし場のモンスターが瀕死なら
-				if (context->isForcedSwitch)
-				{
-					context->player = pMembers->mons[i];	// 強制交代の場合、選択されたモンスターを即座に場に出す
-					context->player->isRevealed = true;		// 強制交代で場に出たモンスターは、isRevealedをtrueに設定
-					context->isForcedSwitch = false;		// 強制交代フラグをリセット
-					return PhaseState::COMMAND;				// 行動を消費せずコマンド選択へ
-				}
-				// シンプルに交代するだけなら
-				else
-				{
-					context->player->changeMonster = i;		// 選択されたモンスターを交代先として設定
-					return PhaseState::ACTION;				// 通常交代は行動を消費
-				}
+				context->player = pMembers->mons[i];
+				context->isForcedSwitch = false;
+				return PhaseState::COMMAND;
 			}
+			context->player->changeMonster = i;
+			return PhaseState::ACTION;
 		}
 	}
 	return PhaseState::NONE;
@@ -44,18 +38,11 @@ PhaseState ChangeMonsPhase::Input()
 
 PhaseState ChangeMonsPhase::Update()
 {
-	for (int colorChange = 0; colorChange < 3; colorChange++)
+	for (int i = 0; i < 3; i++)
 	{
-		if (CursorInButton(colorChange))
-		{
-			ChangeColor(colorChange);
-		}
-		else
-		{
-			buttons[colorChange].color = GetColor(100, 100, 100);
-		}
+		buttons[i].SetDisabled(pMembers->mons[i]->isFainted);
+		buttons[i].Update(cursor);
 	}
-
 	return PhaseState::NONE;
 }
 
@@ -63,32 +50,11 @@ void ChangeMonsPhase::Draw()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		DrawFillBox(buttons[i].pos.x, buttons[i].pos.y,
-			buttons[i].pos.x + 250.0f, buttons[i].pos.y + 75.0f,
-			buttons[i].color);
-
-
-		DrawCenterText(buttons[i].pos.x + 125.0f, buttons[i].pos.y + 37.5f,
-						pMembers->mons[i]->data->Name, GetColor(0, 0, 0), 30.0f);
+		buttons[i].Draw();
 	}
 }
 
 void ChangeMonsPhase::Sound()
 {
 
-}
-
-bool ChangeMonsPhase::CursorInButton(int moveID)
-{
-	if (pMembers->mons[moveID]->isFainted) return false; // 瀕死は選択不可
-	if (CheckPointBoxHit(cursor->GetPos(), buttons[moveID].pos, { 250.0f, 75.0f }))
-	{
-		return true;
-	}
-	return false;
-}
-
-void ChangeMonsPhase::ChangeColor(int moveID)
-{
-	buttons[moveID].color = GetColor(255, 255, 255);
 }

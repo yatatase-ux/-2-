@@ -2,51 +2,64 @@
 
 PREP_CONSTRUCTOR(PrepPartyStage)
 {
-	// 下段:パーティ6枠を横並びに配置
+	// 下段:パーティ6枠。持ち越し済みのパーティ内容をラベルに反映
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		slotButtons[i] = { 150.0f + i * 160.0f, 620.0f, 60.0f, GetColor(100,100,100) };
+		float x = 150.0f + i * 160.0f;
+		float y = 620.0f;
+		const MonsterBaseData* d = context->playerParty->mons[i].data;
+		const char* label = (d != nullptr) ? d->Name : "空";
+		slotButtons[i] = Button(x, y, 60.0f, label, GetColor(100, 100, 100), GetColor(200, 200, 0));
 	}
 
-	// 上段:選択可能な怪獣を格子状に配置(1行6体想定、要調整)
+	// 上段:選択可能な怪獣一覧
 	const int columns = 6;
-	rosterButtons.resize(MonsterData::GetCount());
+	rosterButtons.reserve(MonsterData::GetCount());
 	for (int i = 0; i < MonsterData::GetCount(); i++)
 	{
 		int row = i / columns;
 		int col = i % columns;
-		rosterButtons[i] = { 150.0f + col * 160.0f, 100.0f + row * 130.0f, 50.0f, GetColor(150,150,150) };
+		float x = 150.0f + col * 160.0f;
+		float y = 100.0f + row * 130.0f;
+		rosterButtons.emplace_back(x, y, 50.0f, MonsterData::GetByIndex(i).Name, GetColor(150, 150, 150), GetColor(200, 200, 0));
 	}
 }
 
 PREP_INPUT(PrepPartyStage)
 {
-	if (input->Mouse().Push(MOUSE_LEFT))
+	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		// パーティ枠をクリック
-		for (int i = 0; i < PARTY_MAX; i++)
+		if (slotButtons[i].Input(cursor, input))
 		{
-			if (CursorInSlot(i))
+			if (selectedRosterIndex >= 0)
 			{
-				if (selectedRosterIndex >= 0)
-					TrySwap(i, selectedRosterIndex); // 怪獣→枠の順で選んでいた場合、ここで確定
-				else
-					selectedSlot = i; // 枠だけ選択(選び直しも兼ねる)
-				return PrepState::None;
+				TrySwap(i, selectedRosterIndex);
 			}
+			else
+			{
+				if (selectedSlot >= 0) slotButtons[selectedSlot].SetSelected(false);
+				selectedSlot = i;
+				slotButtons[i].SetSelected(true);
+			}
+			return PrepState::None;
 		}
+	}
 
-		// 怪獣一覧をクリック
-		for (int i = 0; i < MonsterData::GetCount(); i++)
+	for (int i = 0; i < (int)rosterButtons.size(); i++)
+	{
+		if (rosterButtons[i].Input(cursor, input))
 		{
-			if (CursorInRoster(i))
+			if (selectedSlot >= 0)
 			{
-				if (selectedSlot >= 0)
-					TrySwap(selectedSlot, i); // 枠→怪獣の順で選んでいた場合、ここで確定
-				else
-					selectedRosterIndex = i; // 怪獣だけ選択(選び直しも兼ねる)
-				return PrepState::None;
+				TrySwap(selectedSlot, i);
 			}
+			else
+			{
+				if (selectedRosterIndex >= 0) rosterButtons[selectedRosterIndex].SetSelected(false);
+				selectedRosterIndex = i;
+				rosterButtons[i].SetSelected(true);
+			}
+			return PrepState::None;
 		}
 	}
 
@@ -62,17 +75,11 @@ PREP_UPDATE(PrepPartyStage)
 {
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		bool isSelected = (i == selectedSlot);
-		slotButtons[i].color = isSelected ? GetColor(255, 255, 0)
-			: CursorInSlot(i) ? GetColor(200, 200, 0)
-			: GetColor(100, 100, 100);
+		slotButtons[i].Update(cursor);
 	}
-	for (int i = 0; i < MonsterData::GetCount(); i++)
+	for (int i = 0; i < (int)rosterButtons.size(); i++)
 	{
-		bool isSelected = (i == selectedRosterIndex);
-		rosterButtons[i].color = isSelected ? GetColor(255, 255, 0)
-			: CursorInRoster(i) ? GetColor(200, 200, 0)
-			: GetColor(150, 150, 150);
+		rosterButtons[i].Update(cursor);
 	}
 	return PrepState::None;
 }
@@ -81,21 +88,13 @@ void PrepPartyStage::Draw()
 {
 	DrawCenterText(WINDOW_W / 2, 40, "Party", GetColor(255, 255, 255), 40.0f);
 
-	// パーティ枠(中身の名前 or 「空」)
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		DrawCircleAA(slotButtons[i].pos.x, slotButtons[i].pos.y, slotButtons[i].r, 100, slotButtons[i].color, 1);
-
-		const MonsterBaseData* d = context->playerParty->mons[i].data;
-		const char* label = (d != nullptr) ? d->Name : "空";
-		DrawCenterText(slotButtons[i].pos.x, slotButtons[i].pos.y, label, GetColor(0, 0, 0), 18.0f);
+		slotButtons[i].Draw();
 	}
-
-	// 選択可能な怪獣一覧
-	for (int i = 0; i < MonsterData::GetCount(); i++)
+	for (int i = 0; i < (int)rosterButtons.size(); i++)
 	{
-		DrawCircleAA(rosterButtons[i].pos.x, rosterButtons[i].pos.y, rosterButtons[i].r, 100, rosterButtons[i].color, 1);
-		DrawCenterText(rosterButtons[i].pos.x, rosterButtons[i].pos.y, MonsterData::GetByIndex(i).Name, GetColor(0, 0, 0), 16.0f);
+		rosterButtons[i].Draw();
 	}
 }
 
@@ -103,21 +102,11 @@ void PrepPartyStage::Sound()
 {
 }
 
-bool PrepPartyStage::CursorInSlot(int index)
-{
-	return CheckCircleHit(slotButtons[index].pos, slotButtons[index].r, cursor->GetPos(), 10.0f);
-}
-
-bool PrepPartyStage::CursorInRoster(int index)
-{
-	return CheckCircleHit(rosterButtons[index].pos, rosterButtons[index].r, cursor->GetPos(), 10.0f);
-}
-
 bool PrepPartyStage::IsAlreadyInParty(const MonsterBaseData* mons)
 {
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
-		if (i == selectedSlot) continue; // 今入れ替えようとしている枠自身は比較しない
+		if (i == selectedSlot) continue;
 		if (context->playerParty->mons[i].data == mons) return true;
 	}
 	return false;
@@ -127,14 +116,17 @@ void PrepPartyStage::TrySwap(int slotIndex, int rosterIndex)
 {
 	const MonsterBaseData* chosen = &MonsterData::GetByIndex(rosterIndex);
 
-	selectedSlot = slotIndex; // IsAlreadyInPartyが「今の対象枠」を除外できるよう、先にセット
+	selectedSlot = slotIndex; // IsAlreadyInPartyが対象枠を除外できるよう先にセット
 	if (!IsAlreadyInParty(chosen))
 	{
 		context->playerParty->mons[slotIndex].data = chosen;
 		context->playerParty->mons[slotIndex].CurrentHP = chosen->HP;
+		slotButtons[slotIndex].SetLabel(chosen->Name); // 追加:ラベルを更新
 	}
-	// 重複していた場合は何もしない(将来的にはNG演出を追加)
+
+	slotButtons[slotIndex].SetSelected(false);
+	rosterButtons[rosterIndex].SetSelected(false);
 
 	selectedSlot = -1;
-	selectedRosterIndex = -1; // 両方リセットして次の選択に備える
+	selectedRosterIndex = -1;
 }

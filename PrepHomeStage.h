@@ -1,5 +1,6 @@
 #pragma once
 #include "PrepStageBase.h"
+#include "Button.h"
 
 enum
 {
@@ -12,9 +13,16 @@ enum
 class PrepHomeStage : public PrepStageBase
 {
 private:
-	FloatCircle button[HOME_BUTTON_MAX];
+
+	Button partyButton;
+	Button memberButton;
+	bool showWarning = false;
+	int warningTimer = 0;
+
+	bool IsPartyFull();
+
 public:
+
 	PREP_CLASS(PrepHomeStage);
-	bool CursorInButton(int type);
-	void ChangeButtonColor(int type, bool inFlag);
+
 };

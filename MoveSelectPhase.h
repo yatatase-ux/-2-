@@ -1,6 +1,6 @@
 #pragma once
 #include "PhaseBase.h"
-#include "Function.h"
+#include "Button.h"
 
 struct MoveButton
 {
@@ -12,12 +12,9 @@ struct MoveButton
 class MoveSelectPhase : public PhaseBase
 {
 public:
-	MoveButton moveButtons[4];
+	Button moveButtons[MOVE_SLOT_MAX];
 
 public:
 	PHASE_CLASS(MoveSelectPhase);
 
-	bool CursorInMoveButton(int moveID);
-
-	void ChangeColor(int moveID);
 };

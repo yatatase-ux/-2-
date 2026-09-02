@@ -177,6 +177,9 @@
     <ClCompile Include="ActionPresenter.cpp">
       <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>ソース ファイル\フェーズ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -322,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="ActionPresenter.h">
       <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ヘッダー ファイル\フェーズ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

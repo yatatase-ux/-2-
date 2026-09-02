@@ -1,62 +1,65 @@
 #include "PrepHomeStage.h"
 
-PREP_CONSTRUCTOR(PrepHomeStage)
+PREP_CONSTRUCTOR(PrepHomeStage),
+	partyButton(WINDOW_W / 4,	   WINDOW_H / 2, 150.0f, "パーティ", GetColor(175, 0, 0), GetColor(255, 255, 0)),
+	memberButton(WINDOW_W / 4 * 3, WINDOW_H / 2, 150.0f, "戦闘", GetColor(0, 175, 0), GetColor(255, 255, 0))
 {
-	button[BtnParty] = { 700.0f, 400.0f, 75.0f, GetColor(175,0,0) };
-	button[BtnMember] = { 700.0f, 575.0f, 75.0f, GetColor(0,175,0) };
+	memberButton.SetDisabled(!IsPartyFull()); // コンストラクタ時点でも反映(1フレーム目対策)
 }
 
 PREP_INPUT(PrepHomeStage)
 {
-	// クリック判定・遷移
+	if (partyButton.Input(cursor, input)) return PrepState::ToParty;
+	if (memberButton.Input(cursor, input)) return PrepState::ToMember;
 
-	if (input->Mouse().Push(MOUSE_LEFT))
+	// 揃っていない状態でメンバーボタンを押そうとしたら警告
+	if (!IsPartyFull() && memberButton.IsHovered(cursor) && input->Mouse().Push(MOUSE_LEFT))
 	{
-		if (CursorInButton(BtnParty))  return PrepState::ToParty;
-
-		if (CursorInButton(BtnMember))
-		{
-			bool isPartyFull = true;
-			for (int i = 0; i < PARTY_MAX; i++)
-			{
-				if (context->playerParty->mons[i].data == nullptr) { isPartyFull = false; break; }
-			}
-			if (isPartyFull) return PrepState::ToMember;
-			// 空きがある場合は何もしない(将来的には警告表示などを追加)
-		}
+		showWarning = true;
+		warningTimer = 120;
 	}
+
 	return PrepState::None;
 }
 
 PREP_UPDATE(PrepHomeStage)
 {
-	for (int i = 0; i < HOME_BUTTON_MAX; i++)
+	memberButton.SetDisabled(!IsPartyFull());
+	partyButton.Update(cursor);
+	memberButton.Update(cursor);
+
+	if (warningTimer > 0)
 	{
-		ChangeButtonColor(i, CursorInButton(i));
+		warningTimer--;
+		if (warningTimer <= 0) showWarning = false;
 	}
+
 	return PrepState::None;
 }
 
 void PrepHomeStage::Draw()
 {
-	for (int i = 0; i < HOME_BUTTON_MAX; i++)
+	partyButton.Draw();
+	memberButton.Draw();
+
+	if (showWarning)
 	{
-		DrawCircleAA(button[i].pos.x, button[i].pos.y, button[i].r, 100, button[i].color, 1);
+		int w = 220;
+		DrawFillBox (w, 350, WINDOW_W - w, 450, GetColor(255, 255, 0));
+		DrawCenterText(WINDOW_W / 2, 400, "パーティが6体揃っていません！", GetColor(255, 0, 0), 50.0f);
 	}
-	DrawCenterText(button[BtnParty].pos.x, button[BtnParty].pos.y, "パーティ", GetColor(255, 255, 255), 24.0f);
-	DrawCenterText(button[BtnMember].pos.x, button[BtnMember].pos.y, "戦闘", GetColor(255, 255, 255), 24.0f);
 }
 
 void PrepHomeStage::Sound()
 {
+
 }
 
-bool PrepHomeStage::CursorInButton(int type)
+bool PrepHomeStage::IsPartyFull()
 {
-	return CheckCircleHit(button[type].pos, 75.0f, cursor->GetPos(), 10.0f);
-}
-
-void PrepHomeStage::ChangeButtonColor(int type, bool inFlag)
-{
-	button[type].color = inFlag ? GetColor(0, 0, 0) : GetColor(150, 150, 150);
+	for (int i = 0; i < PARTY_MAX; i++)
+	{
+		if (context->playerParty->mons[i].data == nullptr) return false;
+	}
+	return true;
 }

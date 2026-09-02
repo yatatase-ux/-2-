@@ -3,12 +3,19 @@
 
 PHASE_CONSTRUCTOR(MoveSelectPhase)
 {
-	for (int init = 0; init < 4; init++)
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
-		moveButtons[init].pos.x = 1000.0f;
-		moveButtons[init].pos.y = 350.0f + init * 85.0f;
-		moveButtons[init].color = GetColor(0, 200, 255);
-		moveButtons[init].moveID = context->player->data->MoveID[init];
+		float x = 1000.0f;
+		float y = 350.0f + i * 85.0f;
+		int moveID = context->player->data->MoveID[i];
+
+		const char* label = (moveID >= 0) ? MoveTable[moveID].Name : "";
+		moveButtons[i] = Button(x, y, 250.0f, 75.0f, label, GetColor(0, 200, 255), GetColor(0, 255, 255));
+
+		if (moveID < 0)
+		{
+			moveButtons[i].SetDisabled(true); // 空スロットは押せないようにする
+		}
 	}
 }
 
@@ -16,77 +23,34 @@ PhaseState MoveSelectPhase::Input()
 {
 	if (input->Mouse().Push(MOUSE_RIGHT)) return PhaseState::COMMAND;
 
-	for (int colorChange = 0; colorChange < 4; colorChange++)
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
-		if (CursorInMoveButton(colorChange))
+		if (moveButtons[i].Input(cursor, input))
 		{
-			if (input->Mouse().Push(MOUSE_LEFT))
-			{
-				context->player->selectedMoveID = context->player->data->MoveID[colorChange];
-				if (context->player->selectedMoveID >= 0)
-				{
-					// 技選択が有効な場合、次のフェーズに進む
-					return PhaseState::ACTION;
-				}
-			}
+			context->player->selectedMoveID = context->player->data->MoveID[i];
+			return PhaseState::ACTION;
 		}
 	}
-
-
 	return PhaseState::NONE;
 }
 
 PhaseState MoveSelectPhase::Update()
 {
-	for(int colorChange = 0; colorChange < 4; colorChange++)
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
-		if(CursorInMoveButton(colorChange))
-		{
-			ChangeColor(colorChange);
-		}
-		else
-		{
-			moveButtons[colorChange].color = GetColor(0, 200, 255);
-		}
+		moveButtons[i].Update(cursor);
 	}
-
 	return PhaseState::NONE;
 }
 
 void MoveSelectPhase::Draw()
 {
-	for (int move = 0; move < 4; move++)
+	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
-		DrawFillBox(moveButtons[move].pos.x, moveButtons[move].pos.y, 
-					moveButtons[move].pos.x + 250.0f, moveButtons[move].pos.y + 75.0f, 
-					moveButtons[move].color);
-
-		int moveID = context->player->data->MoveID[move];
-
-		if (moveID >= 0)
-		{
-			const MoveData& moveData = MoveTable[moveID];
-
-			DrawCenterText(moveButtons[move].pos.x + 125.0f, moveButtons[move].pos.y + 37.5f, moveData.Name, GetColor(0, 0, 0), 24.0f);
-		}
+		moveButtons[i].Draw();
 	}
 }
 
 void MoveSelectPhase::Sound()
 {
-	
-}
-
-bool MoveSelectPhase::CursorInMoveButton(int moveID)
-{
-	if (CheckPointBoxHit(cursor->GetPos(), moveButtons[moveID].pos, { 250.0f, 75.0f }))
-	{
-		return true;
-	}
-	return false;
-}
-
-void MoveSelectPhase::ChangeColor(int moveID)
-{
-	moveButtons[moveID].color = GetColor(0, 255, 255);
 }
