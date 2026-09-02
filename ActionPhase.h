@@ -7,6 +7,8 @@
 #include "TurnAftermathProcessor.h"
 #include "ActionPresenter.h"
 
+#include "Commentator.h"
+
 class ActionPhase : public PhaseBase
 {
 private:
@@ -25,6 +27,12 @@ private:
 	bool monsDying;
 	bool showingStatusResult;
 	int statusTime;
+
+	Commentator commentator;
+	char baseLineText[ActionMax][128];
+	const char* reactionLine[ActionMax] = { nullptr, nullptr };
+
+	int CountAlive(Members* members);
 
 	void ProcessTurn();
 

@@ -73,6 +73,12 @@
     <Filter Include="ヘッダー ファイル\フェーズ\戦闘\Action">
       <UniqueIdentifier>{c4f4adad-cc62-4b82-8d1a-dd24b874016d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\実況">
+      <UniqueIdentifier>{491b7c24-5ca7-4a2a-8d6a-2e3eb27c8843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\実況">
+      <UniqueIdentifier>{68bc6fc0-1043-42ec-939c-9591d0c9ece3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -179,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>ソース ファイル\フェーズ</Filter>
+    </ClCompile>
+    <ClCompile Include="Commentator.cpp">
+      <Filter>ソース ファイル\実況</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackCommentary.cpp">
+      <Filter>ソース ファイル\実況</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusCommentary.cpp">
+      <Filter>ソース ファイル\実況</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +343,18 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>ヘッダー ファイル\フェーズ</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentarySituation.h">
+      <Filter>ヘッダー ファイル\実況</Filter>
+    </ClInclude>
+    <ClInclude Include="Commentator.h">
+      <Filter>ヘッダー ファイル\実況</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackCommentary.h">
+      <Filter>ヘッダー ファイル\実況</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusCommentary.h">
+      <Filter>ヘッダー ファイル\実況</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

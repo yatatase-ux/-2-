@@ -5,6 +5,30 @@ PHASE_CONSTRUCTOR(ActionPhase)
 	// 行動順を決定する
 	turnOrder = turnOrderResolver.Resolve(context, pMembers, eMembers);
 
+	// CPU側の攻撃技選択にのみ実況を生成(1回だけ)
+	for (int slot = 0; slot < ActionMax; slot++)
+	{
+		reactionLine[slot] = nullptr;
+		baseLineText[slot][0] = '\0';
+
+		if (turnOrder.isSwitchAction[slot]) continue; // 交代は既存の「→交代」表示のまま
+		if (!turnOrder.canAct[slot]) continue;         // まひは既存表示のまま
+		if (!turnOrder.willHit[slot]) continue;        // 外れは既存表示のまま
+
+		int otherSlot = (slot == Earlyer) ? Later : Earlyer;
+		BattleMonster* actor = turnOrder.mons[slot];
+		BattleMonster* target = turnOrder.mons[otherSlot];
+		int moveID = turnOrder.moveID[slot];
+
+		sprintf_s(baseLineText[slot], "%sは%sを選択！", actor->data->Name, MoveTable[moveID].Name);
+
+		bool isMatchPoint = (actor == context->enemy)
+			? (CountAlive(pMembers) <= 1)
+			: (CountAlive(eMembers) <= 1);
+
+		reactionLine[slot] = commentator.Comment(*actor, *target, moveID, isMatchPoint);
+	}
+
 	time = 120;						// ターン処理の時間を設定する
 	turn = Earlyer;					// 先攻の処理から開始する
 	turnEnd = false;				// ターン終了フラグを初期化する
@@ -39,13 +63,24 @@ void ActionPhase::Draw()
 
 	if (time > 0)
 	{
-		presenter.DrawTurnPreview(turn, turnOrder, moveExecutor);
+		presenter.DrawTurnPreview(turn, turnOrder, moveExecutor,
+									baseLineText[turn], reactionLine[turn]);
 	}
 }
 
 void ActionPhase::Sound()
 {
 
+}
+
+int ActionPhase::CountAlive(Members* members)
+{
+	int count = 0;
+	for (int i = 0; i < MEMBER_MAX; i++)
+	{
+		if (!members->mons[i]->isFainted) count++;
+	}
+	return count;
 }
 
 /// <summary>

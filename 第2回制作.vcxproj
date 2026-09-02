@@ -131,8 +131,10 @@
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="ActionPresenter.cpp" />
+    <ClCompile Include="AttackCommentary.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ChangeMonsPhase.cpp" />
+    <ClCompile Include="Commentator.cpp" />
     <ClCompile Include="CpuAttackScorer.cpp" />
     <ClCompile Include="CpuBrain.cpp" />
     <ClCompile Include="CpuRiskEvaluator.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneOP.cpp" />
     <ClCompile Include="ScenePlay.cpp" />
+    <ClCompile Include="StatusCommentary.cpp" />
     <ClCompile Include="TurnAftermathProcessor.cpp" />
     <ClCompile Include="TurnOrderResolver.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -169,9 +172,12 @@
     <ClInclude Include="ActionPhase.h" />
     <ClInclude Include="ActionPresenter.h" />
     <ClInclude Include="ActionSlot.h" />
+    <ClInclude Include="AttackCommentary.h" />
     <ClInclude Include="BattleContext.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
+    <ClInclude Include="CommentarySituation.h" />
+    <ClInclude Include="Commentator.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CpuAttackScorer.h" />
     <ClInclude Include="CpuBrain.h" />
@@ -212,6 +218,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneOP.h" />
     <ClInclude Include="ScenePlay.h" />
+    <ClInclude Include="StatusCommentary.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="TurnAftermathProcessor.h" />
     <ClInclude Include="TurnOrderResolver.h" />
