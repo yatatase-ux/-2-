@@ -10,6 +10,7 @@
 void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder, MoveExecutor& moveExecutor,
 	const char* baseLine, const char* reactionLine)
 {
+	DrawBox(0, text.x - 50, WINDOW_W, WINDOW_H, GetColor(80, 80, 80), true);
 	DrawString(500, 220, turnOrder.debugText[slot], GetColor(255, 255, 255));
 
 	if (turnOrder.isSwitchAction[slot])
