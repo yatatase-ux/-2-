@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="ActionPresenter.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ChangeMonsPhase.cpp" />
     <ClCompile Include="CpuAttackScorer.cpp" />
     <ClCompile Include="CpuBrain.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="ActionPresenter.h" />
     <ClInclude Include="ActionSlot.h" />
     <ClInclude Include="BattleContext.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CpuAttackScorer.h" />

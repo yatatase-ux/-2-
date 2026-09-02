@@ -3,6 +3,7 @@
 #include "DamageCalculator.h"
 #include "CpuBrain.h"
 #include "EffectApplier.h"
+#include "Button.h"
 
 enum
 {
@@ -17,16 +18,13 @@ private:
 
 	DamageCalculator damage;
 
-	FloatCircle button[BUTTOM_MAX];
-
 	CpuBrain cpuBrain;
+
+	Button fightButton;
+	Button changeButton;
 
 public:
 
 	PHASE_CLASS(CommandPhase);
 
-
-	bool CursorInButton(int type);
-
-	void ChangeButtomColor(int type, bool InFlag);
 };

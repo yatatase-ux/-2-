@@ -1,10 +1,10 @@
 #include "CommandPhase.h"
 #include "MonsterBaseData.h"
 
-PHASE_CONSTRUCTOR(CommandPhase)
+PHASE_CONSTRUCTOR(CommandPhase),
+	fightButton(1150.0f, 425.0f, 75.0f, "‚½‚½‚©‚¤", GetColor(175, 0, 0), GetColor(255, 0, 0)),
+	changeButton(1150.0f, 600.0f, 75.0f, "Œð‘ã", GetColor(0, 175, 0), GetColor(0, 255, 0))
 {
-	button[Fight] = { 1150.0f, 425.0f, 75.0f, GetColor(175,0,0) };
-	button[Change] = { 1150.0f, 600.0f, 75.0f, GetColor(0,175,0) };
 	context->player->selectedMoveID = -1;
 
 	int aliveCount = 0;
@@ -52,16 +52,8 @@ PHASE_CONSTRUCTOR(CommandPhase)
 /// </summary>
 PhaseState CommandPhase::Input()
 {
-	bool click = input->Mouse().Push(MOUSE_LEFT);
-
-	if (click)
-	{
-		if (CursorInButton(Fight))
-			return PhaseState::MOVE_SELECT;
-
-		if (CursorInButton(Change))
-			return PhaseState::CHANGE_MONS;
-	}
+	if (fightButton.Input(cursor, input)) return PhaseState::MOVE_SELECT;
+	if (changeButton.Input(cursor, input)) return PhaseState::CHANGE_MONS;
 
 	return PhaseState::NONE;
 
@@ -104,17 +96,8 @@ PhaseState CommandPhase::Input()
 /// </summary>
 PhaseState CommandPhase::Update()
 {
-	for (int in = 0; in < BUTTOM_MAX; in++)
-	{
-		if (CursorInButton(in))
-		{
-			ChangeButtomColor(in, true);
-		}
-		else
-		{
-			ChangeButtomColor(in, false);
-		}
-	}
+	fightButton.Update(cursor);
+	changeButton.Update(cursor);
 
 	return PhaseState::NONE;
 }
@@ -124,10 +107,8 @@ PhaseState CommandPhase::Update()
 /// </summary>
 void CommandPhase::Draw()
 {
-	for (int draw = 0; draw < BUTTOM_MAX; draw++)
-	{
-		DrawCircleAA(button[draw].pos.x, button[draw].pos.y, button[draw].r, 100, button[draw].color, 1);
-	}
+	fightButton.Draw();
+	changeButton.Draw();
 
 //	DrawFormatString(20, 20, GetColor(255, 255, 255), "%d", mouse_input);
 }
@@ -138,43 +119,4 @@ void CommandPhase::Draw()
 void CommandPhase::Sound()
 {
 	
-}
-
-bool CommandPhase::CursorInButton(int type)
-{
-	if (CheckCircleHit(button[type].pos, 75.0f, cursor->GetPos(), 10.0f))
-	{
-		return true;
-	}
-	return false;
-}
-
-void CommandPhase::ChangeButtomColor(int type, bool InFlag)
-{
-	if (InFlag)
-	{
-		switch (type)
-		{
-		case Fight:
-			button[Fight].color = GetColor(255, 0, 0);
-			break;
-
-		case Change:
-			button[Change].color = GetColor(0, 255, 0);
-			break;
-		}
-	}
-	else
-	{
-		switch (type)
-		{
-		case Fight:
-			button[Fight].color = GetColor(175, 0, 0);
-			break;
-
-		case Change:
-			button[Change].color = GetColor(0, 175, 0);
-			break;
-		}
-	}
 }
