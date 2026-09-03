@@ -15,7 +15,7 @@ void PhaseManager::Input()
 
 	ChangePhase(change_phase);
 
-	DrawPhaseForDebug(currentPhase);
+//	DrawPhaseForDebug(currentPhase);
 }
 
 /// <summary>

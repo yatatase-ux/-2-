@@ -73,6 +73,9 @@ SCENE_UPDATE(ScenePlay)
 /// </summary>
 void ScenePlay::Draw()
 {
+	FloatXY p = cursor->GetPos();
+	DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
+
 	// 準備ステージの描画
 	if (stage == PlayStage::Preparing)
 	{
@@ -84,49 +87,49 @@ void ScenePlay::Draw()
 		// プレイシーンの描画処理
 		m_Battle->Draw();
 
-		//CPU
-		DrawFormatString(
-			1100,
-			100,
-			GetColor(255, 255, 255),
-			"HP : %d",
-			context.enemy->CurrentHP);
-		DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
-		for (int i = 0; i < MOVE_SLOT_MAX; i++)
-		{
-			int moveID = context.enemyMoveScore[i].moveID;
-			const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // 技が無いスロット対策
+		////CPU
+		//DrawFormatString(
+		//	1100,
+		//	100,
+		//	GetColor(255, 255, 255),
+		//	"HP : %d",
+		//	context.enemy->CurrentHP);
+		//DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
+		//for (int i = 0; i < MOVE_SLOT_MAX; i++)
+		//{
+		//	int moveID = context.enemyMoveScore[i].moveID;
+		//	const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "---"; // 技が無いスロット対策
 
-			DrawFormatString(
-				850,
-				150 + i * 30,
-				GetColor(255, 255, 255),
-				"技:%s, Score:%d",
-				moveName, context.enemyMoveScore[i].score);
-		}
-		for (int i = 0; i < MEMBER_MAX - 1; i++)
-		{
-			DrawFormatString(850, 280 + i * 30, GetColor(255, 255, 0),
-				"交代候補:%s, Score:%d",
-				context.enemySwitchScore[i].name, context.enemySwitchScore[i].score);
-		}
-		DrawFormatString(850, 400, GetColor(0, 255, 255), "予測:プレイヤーは%s",
-			context.predictedPlayerDecision.switchToIndex >= 0 ? "交代してくる" : "技を使う");
+		//	DrawFormatString(
+		//		850,
+		//		150 + i * 30,
+		//		GetColor(255, 255, 255),
+		//		"技:%s, Score:%d",
+		//		moveName, context.enemyMoveScore[i].score);
+		//}
+		//for (int i = 0; i < MEMBER_MAX - 1; i++)
+		//{
+		//	DrawFormatString(850, 280 + i * 30, GetColor(255, 255, 0),
+		//		"交代候補:%s, Score:%d",
+		//		context.enemySwitchScore[i].name, context.enemySwitchScore[i].score);
+		//}
+		//DrawFormatString(850, 400, GetColor(0, 255, 255), "予測:プレイヤーは%s",
+		//	context.predictedPlayerDecision.switchToIndex >= 0 ? "交代してくる" : "技を使う");
 
-		//Player
-		DrawFormatString(
-			100,
-			400,
-			GetColor(255, 255, 255),
-			"HP : %d",
-			context.player->CurrentHP);
-		DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
-		DrawFormatString(
-			100,
-			500,
-			GetColor(255, 255, 255),
-			"物理攻撃ランク : %d",
-			context.player->PATKRank);
+		////Player
+		//DrawFormatString(
+		//	100,
+		//	400,
+		//	GetColor(255, 255, 255),
+		//	"HP : %d",
+		//	context.player->CurrentHP);
+		//DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
+		//DrawFormatString(
+		//	100,
+		//	500,
+		//	GetColor(255, 255, 255),
+		//	"物理攻撃ランク : %d",
+		//	context.player->PATKRank);
 	}
 }
 

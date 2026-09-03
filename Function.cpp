@@ -225,10 +225,12 @@ bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY bo
 /// <param name="maxWidth">バーの最大幅</param>
 /// <param name="value">現在の値</param>
 /// <param name="maxValue">基準となる最大値</param>
-void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue)
+/// <param name="color">色</param>
+void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue, unsigned int color)
 {
 	float ratio = (float)value / maxValue;
-	if (ratio > 1.0f) ratio = 1.0f; // 極端な値でも枠からはみ出さないようクランプ
+	if (ratio > 1.0f) ratio = 1.0f;
+	if (ratio < 0.0f) ratio = 0.0f;
 	float width = maxWidth * ratio;
-	DrawFillBox((int)x, (int)y, (int)(x + width), (int)(y + 20.0f), GetColor(255, 255, 0));
+	DrawFillBox((int)x, (int)y, (int)(x + width), (int)(y + 20.0f), color);
 }

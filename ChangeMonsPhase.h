@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "MonsterDetail.h"
 #include "MoveDetail.h"
+#include "BattleHUD.h"
 
 class ChangeMonsPhase : public PhaseBase
 {
@@ -18,6 +19,8 @@ protected:
 
 	const FloatXY detailBoxStart = { 50.0f, 50.0f };
 	const FloatXY detailBoxEnd = { 900.0f, 650.0f };
+
+	BattleHUD battleHUD;
 
 public:
 

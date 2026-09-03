@@ -1,7 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "PhaseBase.h"
 #include "Button.h"
 #include "MoveDetail.h"
+#include "BattleHUD.h"
 
 struct MoveButton
 {
@@ -16,7 +17,9 @@ public:
 	Button moveButtons[MOVE_SLOT_MAX];
 
 	MoveDetail moveDetail;
-	int detailMoveIndex = -1; // -1:”ñ•\¦B0?3‚È‚ç‚»‚ÌƒXƒƒbƒg‚Ì‹Z‚ğ•\¦’†
+	int detailMoveIndex = -1; // -1:éè¡¨ç¤ºã€‚0ã€œ3ãªã‚‰ãã®ã‚¹ãƒ­ãƒƒãƒˆã®æŠ€ã‚’è¡¨ç¤ºä¸­
+
+	BattleHUD battleHUD;
 
 public:
 	PHASE_CLASS(MoveSelectPhase);

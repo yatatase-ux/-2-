@@ -52,4 +52,4 @@ bool CheckPointBoxHit(FloatXY point, FloatXY box_pos, FloatXY box_size);
 bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY box_size);
 
 // ステータスバーの表示
-void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue);
+void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue, unsigned int color = GetColor(255, 255, 0));

@@ -105,6 +105,8 @@ PhaseState ChangeMonsPhase::Update()
 
 void ChangeMonsPhase::Draw()
 {
+	battleHUD.Draw(*context->player, *context->enemy);
+
 	for (int i = 0; i < MEMBER_MAX; i++)
 	{
 		buttons[i].Draw();

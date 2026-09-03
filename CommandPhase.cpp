@@ -41,6 +41,8 @@ PhaseState CommandPhase::Update()
 
 void CommandPhase::Draw()
 {
+	battleHUD.Draw(*context->player, *context->enemy);
+
 	fightButton.Draw();
 	changeButton.Draw();
 }

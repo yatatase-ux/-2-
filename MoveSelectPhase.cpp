@@ -71,6 +71,8 @@ PhaseState MoveSelectPhase::Update()
 
 void MoveSelectPhase::Draw()
 {
+	battleHUD.Draw(*context->player, *context->enemy);
+
 	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		moveButtons[i].Draw();

@@ -52,6 +52,8 @@ PhaseState CheckFaintPhase::Update()
 
 void CheckFaintPhase::Draw()
 {
+    battleHUD.Draw(*context->player, *context->enemy);
+
 	DrawString(500, 250, "Dead Monster", GetColor(255, 255, 255));
 }
 

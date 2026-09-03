@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="ActionPhase.cpp" />
     <ClCompile Include="ActionPresenter.cpp" />
+    <ClCompile Include="BattleHUD.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ChangeMonsPhase.cpp" />
     <ClCompile Include="CommentaryData.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="ActionPresenter.h" />
     <ClInclude Include="ActionSlot.h" />
     <ClInclude Include="BattleContext.h" />
+    <ClInclude Include="BattleHUD.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ChangeMonsPhase.h" />
     <ClInclude Include="CommentaryBase.h" />

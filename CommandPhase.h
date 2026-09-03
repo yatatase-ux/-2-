@@ -4,6 +4,7 @@
 #include "CpuBrain.h"
 #include "Button.h"
 #include "Commentator.h"
+#include "BattleHUD.h"
 
 class CommandPhase : public PhaseBase
 {
@@ -27,6 +28,8 @@ private:
 
 	// ‡B À‹µ:CPU‚ÌŒˆ’è——R‚ğ”»’èE‹L˜^‚·‚é(‡A‚ÌŒ‹‰Ê‚Æ‡@‚Ì—\‘ª‚ğ—¼•ûg‚¤)
 	void DetermineCommentary(const CpuDecisionResult& decision, const CpuDecisionResult& predicted);
+
+	BattleHUD battleHUD;
 
 public:
 

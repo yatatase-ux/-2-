@@ -6,6 +6,7 @@
 #include "TurnAftermathProcessor.h"
 #include "ActionPresenter.h"
 #include "Commentator.h"
+#include "BattleHUD.h"
 
 class ActionPhase : public PhaseBase
 {
@@ -29,6 +30,8 @@ private:
 	bool monsDying;
 	bool showingStatusResult;
 	int statusTime;
+
+	BattleHUD battleHUD;
 
 	void ProcessTurn();
 
