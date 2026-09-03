@@ -60,7 +60,7 @@ PhaseState ActionPhase::Update()
 
 void ActionPhase::Draw()
 {
-	battleHUD.Draw(*context->player, *context->enemy); // íŽž•\Ž¦‚ÌHUD
+	battleHUD.Draw(*context->player, *context->enemy);
 
 	if (showingStatusResult)
 	{

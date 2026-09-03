@@ -2,28 +2,30 @@
 #include "DxLib.h"
 #include "Function.h"
 
-void BattleHUD::DrawMonsterPanel(BattleMonster& mon, float x, float y, float width, bool isPlayerSide)
+void BattleHUD::DrawStatusBar(BattleMonster& mon, float x, float y, float width, bool alignLeft)
 {
-	// 名前(プレイヤー側は左揃え、CPU側は右揃え。互いに向き合うイメージ)
-	if (isPlayerSide)
+	if (alignLeft)
 		DrawLeftFormatText(x, y, GetColor(0, 0, 0), 30, "%s", mon.data->Name);
 	else
-		DrawRightFormatText(x + width, y, GetColor(0, 0, 0), 30, "%s", mon.data->Name);
+		DrawLeftFormatText(x, y, GetColor(0, 0, 0), 30, "%s", mon.data->Name);
 
-	// HPバー(名前の下)
 	float barY = y + 25.0f;
 	DrawFillBox((int)x, (int)barY, (int)(x + width), (int)(barY + 20.0f), GetColor(80, 80, 80)); // 減った分の下地
 	DrawStatBar(x, barY, width, mon.CurrentHP, mon.data->HP, GetColor(80, 200, 80)); // HPは緑
+}
 
-	// 画像(仮の円、バーの下)
-	float imgCenterY = y + 120.0f;
-	DrawCircleAA((int)(x + width * 0.5f), (int)imgCenterY, 60, 100, GetColor(150, 150, 200), 1);
+void BattleHUD::DrawMonsterImage(float centerX, float centerY, float radius)
+{
+	DrawCircleAA((int)centerX, (int)centerY, (int)radius, 100, GetColor(150, 150, 200), 1);
 }
 
 void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 {
-	// CPU側(右上)
-	DrawMonsterPanel(enemy, 800.0f, 30.0f, 400.0f, false);
-	// プレイヤー側(左寄り、画面上半分の下の方)
-	DrawMonsterPanel(player, 80.0f, 350.0f, 400.0f, true);
+	// プレイヤー側:実況欄の上端近くにHPバー、その右上あたりに怪獣
+	DrawMonsterImage(450.0f, 480.0f, 100.0f);
+	DrawStatusBar(player, 60.0f, 500.0f, 250.0f, true);
+
+	// CPU側:右上隅にHPバー、その左下あたりに怪獣
+	DrawMonsterImage(1000.0f, 150.0f, 100.0f);
+	DrawStatusBar(enemy, 950.0f, 40.0f, 250.0f, false);
 }
