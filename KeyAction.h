@@ -1,12 +1,16 @@
 #pragma once
 #include "DxLib.h"
 
-const int USE_KEY_MAX = 1;
-
+// ====================================================================
+// キー入力
+// ====================================================================
 enum {
 	SPACE,
-};
+	SHIFT,
 
+	USE_KEY_MAX
+};
+ 
 class KeyAct
 {
 protected:
@@ -14,9 +18,10 @@ protected:
 	int key_type[USE_KEY_MAX] =
 	{
 		KEY_INPUT_SPACE,
+		KEY_INPUT_LSHIFT,
 	};
 
-	bool key_sw[USE_KEY_MAX] = { false};
+	bool key_sw[USE_KEY_MAX] = { false, false};
 
 public:
 
@@ -61,10 +66,14 @@ public:
 
 };
 
-const int MOUSE_KEY_MAX = 2;
+// ====================================================================
+// マウス入力
+// ====================================================================
 enum {
 	MOUSE_LEFT,
-	MOUSE_RIGHT
+	MOUSE_RIGHT,
+
+	MOUSE_KEY_MAX
 };
 
 class MouseAct
