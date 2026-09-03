@@ -1,25 +1,27 @@
 #pragma once
-#include "PhaseBase.h"				// 親クラス
-// 依存クラス
+#include "PhaseBase.h"
 #include "ActionSlot.h"
 #include "TurnOrderResolver.h"
 #include "MoveExecutor.h"
 #include "TurnAftermathProcessor.h"
 #include "ActionPresenter.h"
-
 #include "Commentator.h"
 
 class ActionPhase : public PhaseBase
 {
 private:
-
 	TurnOrderResolver turnOrderResolver;
 	MoveExecutor moveExecutor;
 	TurnAftermathProcessor aftermath;
 	ActionPresenter presenter;
+	Commentator commentator;
 
 	TurnOrderResult turnOrder;
 	StatusTickResult statusResult;
+
+	char baseLineText[ActionMax][128];
+	const char* reasoningOnlyLine[ActionMax] = { nullptr, nullptr };
+	const char* followUpLine[ActionMax] = { nullptr, nullptr };
 
 	int time;
 	int turn;
@@ -27,12 +29,6 @@ private:
 	bool monsDying;
 	bool showingStatusResult;
 	int statusTime;
-
-	Commentator commentator;
-	char baseLineText[ActionMax][128];
-	const char* reactionLine[ActionMax] = { nullptr, nullptr };
-
-	int CountAlive(Members* members);
 
 	void ProcessTurn();
 

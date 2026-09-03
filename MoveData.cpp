@@ -78,7 +78,7 @@ MoveData MoveTable[] =
 
 	{ 20, "気合い十分", Type::Normal, MoveCategory::Status,   0, 100, 1,
 		EffectType::StatUp, 100, true, StatType::Speed, 1 },
-	// 補助　命中：100　追加効果：素早さ1段階上昇
+	// 補助　命中：100　優先度+1　追加効果：素早さ1段階上昇
 
 	{ 21, "紅葉打ち", Type::Grass, MoveCategory::Physical, 75, 100, 0 }, 
 	// 物理　威力：75　命中：100
@@ -98,6 +98,18 @@ MoveData MoveTable[] =
 
 	{ 26, "森の雫",   Type::Water, MoveCategory::Special,  75, 100, 0 }, 
 	// 特殊　威力：75　命中：100
+
+	{ 27, "火花",     Type::Fire,   MoveCategory::Physical, 40, 100, 1 },
+	// 物理　威力：40　命中：100　優先度+1
+
+	{ 28, "波飛沫",   Type::Water,  MoveCategory::Physical, 40, 100, 1 },
+	// 物理　威力：40　命中：100　優先度+1
+
+	{ 29, "葉打ち",   Type::Grass,  MoveCategory::Physical, 40, 100, 1 },
+	// 物理　威力：40　命中：100　優先度+1
+
+	{ 30, "神速の一撃", Type::Normal, MoveCategory::Physical, 40, 100, 1 },
+	// 物理　威力：40　命中：100　優先度+2
 
 };
 const int MoveTableSize = sizeof(MoveTable) / sizeof(MoveData);

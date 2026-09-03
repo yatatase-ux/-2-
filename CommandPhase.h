@@ -2,23 +2,15 @@
 #include "PhaseBase.h"
 #include "DamageCalculator.h"
 #include "CpuBrain.h"
-#include "EffectApplier.h"
 #include "Button.h"
-
-enum
-{
-	Fight,
-	Change,
-	BUTTOM_MAX
-};
+#include "Commentator.h"
 
 class CommandPhase : public PhaseBase
 {
 private:
-
 	DamageCalculator damage;
-
 	CpuBrain cpuBrain;
+	Commentator commentator;
 
 	Button fightButton;
 	Button changeButton;
@@ -26,5 +18,4 @@ private:
 public:
 
 	PHASE_CLASS(CommandPhase);
-
 };

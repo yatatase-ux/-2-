@@ -120,7 +120,7 @@ void PrepMemberStage::Draw()
 		if (memberOrder[i] >= 0)
 		{
 			FloatXY p = partyButtons[i].GetPos();
-			DrawCenterFormatText(p.x, p.y - 90.0f, GetColor(255, 255, 255), 24.0f, "%d", memberOrder[i] + 1);
+			DrawCenterFormatText(p.x, p.y - 90.0f, GetColor(0, 0, 0), 24.0f, "%d", memberOrder[i] + 1);
 		}
 	}
 

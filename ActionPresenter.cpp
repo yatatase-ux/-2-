@@ -1,16 +1,11 @@
 #include "ActionPresenter.h"
 #include "MoveData.h"
-#include "Config.h" // DEBUG_SHOW_DAMAGE
-
+#include "Config.h"
 #include "DxLib.h"
 
-/// <summary>
-/// ターンの行動プレビューを描画する
-/// </summary>
 void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder, MoveExecutor& moveExecutor,
-	const char* baseLine, const char* reactionLine)
+	const char* baseLine, const char* reasoningOnlyLine, const char* followUpLine)
 {
-	DrawBox(0, text.x - 50, WINDOW_W, WINDOW_H, GetColor(80, 80, 80), true);
 	DrawString(500, 220, turnOrder.debugText[slot], GetColor(255, 255, 255));
 
 	if (turnOrder.isSwitchAction[slot])
@@ -30,13 +25,20 @@ void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder
 	}
 	else
 	{
-		DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 255), textSize, "%s", baseLine);
-		if (reactionLine != nullptr)
+		if (reasoningOnlyLine != nullptr)
 		{
-			DrawCenterFormatText(text.x, text.y + textSize, GetColor(255, 255, 0), textSize, "%s", reactionLine);
+			DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 255), textSize, "%s", reasoningOnlyLine);
+		}
+		else
+		{
+			DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 255), textSize, "%s", baseLine);
 		}
 
-		// デバッグ用ダメージ数値(画面左上、実況欄とは独立)
+		if (followUpLine != nullptr)
+		{
+			DrawCenterFormatText(text.x, text.y + textSize, GetColor(255, 200, 0), textSize, "%s", followUpLine);
+		}
+
 		if (DEBUG_SHOW_DAMAGE)
 		{
 			int otherSlot = (slot == Earlyer) ? Later : Earlyer;
@@ -46,23 +48,16 @@ void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder
 	}
 }
 
-/// <summary>
-/// 状態異常の継続ダメージを描画する
-/// </summary>
 void ActionPresenter::DrawStatusTick(const StatusTickResult& tick)
 {
-	// 状態異常の継続ダメージが発生した場合、名前とダメージ量を描画
 	if (tick.name[Earlyer] != nullptr)
 	{
-		// 状態異常の継続ダメージが発生した場合、名前とダメージ量を描画
 		DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 0), textSize,
 			"%s は状態異常のダメージ：%d", tick.name[Earlyer], tick.damage[Earlyer]);
 	}
-	// 状態異常の継続ダメージが発生した場合、名前とダメージ量を描画
 	if (tick.name[Later] != nullptr)
 	{
-		// 状態異常の継続ダメージが発生した場合、名前とダメージ量を描画
-		DrawCenterFormatText(text.x, text.y + 60, GetColor(255, 255, 0), textSize,
+		DrawCenterFormatText(text.x, text.y + textSize, GetColor(255, 255, 0), textSize,
 			"%s は状態異常のダメージ：%d", tick.name[Later], tick.damage[Later]);
 	}
 }

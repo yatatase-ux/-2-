@@ -100,6 +100,6 @@ void Button::Draw()
 
 	if (label[0] != '\0')
 	{
-		DrawCenterText(centerX, centerY, label, GetColor(255, 255, 255), 20.0f); // フォントサイズは仮
+		DrawCenterText(centerX, centerY, label, GetColor(0, 0, 0), 20.0f); // フォントサイズは仮
 	}
 }

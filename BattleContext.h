@@ -2,7 +2,7 @@
 #include "BattleMonster.h"
 #include "Party.h"          // MEMBER_MAXを使うため明示的に追加(以前はCpuBrain.h経由の間接includeだったため)
 #include "CpuDebugTypes.h"  // CpuBrain.h全体ではなく、必要な構造体だけをinclude
-#include "CpuBrain.h"
+#include "CommentarySituation.h" // CommentarySituationの定義
 
 struct BattleContext
 {
@@ -25,4 +25,7 @@ struct BattleContext
 	SwitchScoreDebug enemySwitchScore[MEMBER_MAX - 1];		// CPUの交代スコアデバッグ情報(控えの数分)
 
 	CpuDecisionResult predictedPlayerDecision;				// プレイヤー行動予測のデバッグ表示用
+
+	CommentarySituation cpuReasoning = CommentarySituation::None;	// 
+	char cpuReasoningLine[128] = "";								// 
 };
