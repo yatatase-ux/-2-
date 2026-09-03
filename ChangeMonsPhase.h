@@ -1,7 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "PhaseBase.h"
 #include "Button.h"
 #include "MonsterDetail.h"
+#include "MoveDetail.h"
 
 class ChangeMonsPhase : public PhaseBase
 {
@@ -10,7 +11,13 @@ protected:
 	Button buttons[3];
 
 	MonsterDetail monsterDetail;
-	int detailIndex = -1; // -1:”ñ•\¦B0?2‚È‚ç‚»‚Ìƒ{ƒ^ƒ“(Œğ‘ãŒó•â)‚ğ•\¦’†
+	MoveDetail moveDetail;
+	int detailIndex = -1;       // -1:éè¡¨ç¤ºã€‚0ã€œ2ãªã‚‰äº¤ä»£å€™è£œã®è©³ç´°ã‚’è¡¨ç¤ºä¸­
+	bool showingMoveDetail = false;
+	int detailMoveID = -1;
+
+	const FloatXY detailBoxStart = { 50.0f, 50.0f };
+	const FloatXY detailBoxEnd = { 900.0f, 650.0f };
 
 public:
 

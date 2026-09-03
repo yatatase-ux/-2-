@@ -16,25 +16,55 @@ buttons{
 
 PhaseState ChangeMonsPhase::Input()
 {
+	// 技詳細が開いている間は、右クリックで閉じる操作だけを受け付ける(一番内側の層)
+	if (showingMoveDetail)
+	{
+		if (input->Mouse().Push(MOUSE_RIGHT))
+		{
+			showingMoveDetail = false;
+		}
+		return PhaseState::NONE;
+	}
+
 	if (!context->isForcedSwitch && input->Mouse().Push(MOUSE_RIGHT))
 		return PhaseState::COMMAND;
 
-	// SHIFTを押している間は、詳細表示の切り替えだけを行う(通常の交代選択はさせない)
+	// 怪獣詳細が開いている間、技ボックスへのクリックを優先的にチェックする
+	if (detailIndex >= 0)
+	{
+		FloatXY boxPos, boxSize;
+		for (int i = 0; i < MOVE_SLOT_MAX; i++)
+		{
+			// カーソルが乗っている時だけPushを呼ぶ(短絡評価で、乗っていなければPush自体呼ばれない)
+			if (monsterDetail.GetMoveBoxRect(i, detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y, boxPos, boxSize)
+				&& CheckPointBoxHit(cursor->GetPos(), boxPos, boxSize)
+				&& input->Mouse().Push(MOUSE_LEFT))
+			{
+				int moveID = pMembers->mons[detailIndex]->data->MoveID[i];
+				if (moveID >= 0)
+				{
+					detailMoveID = moveID;
+					showingMoveDetail = true;
+				}
+				return PhaseState::NONE;
+			}
+		}
+	}
+
+	// SHIFT+左クリックで、怪獣詳細を切り替える
 	if (input->Key().Check(SHIFT))
 	{
 		for (int i = 0; i < MEMBER_MAX; i++)
 		{
-			if (buttons[i].Input(cursor, input)) // Pushはここで1回だけ呼ばれる
+			if (buttons[i].Input(cursor, input))
 			{
 				if (detailIndex == i)
 				{
-					// 同じボタンをもう一度押した:閉じる
 					buttons[i].SetSelected(false);
 					detailIndex = -1;
 				}
 				else
 				{
-					// 別のボタンに切り替える
 					if (detailIndex >= 0) buttons[detailIndex].SetSelected(false);
 					buttons[i].SetSelected(true);
 					detailIndex = i;
@@ -42,10 +72,11 @@ PhaseState ChangeMonsPhase::Input()
 				return PhaseState::NONE;
 			}
 		}
-		return PhaseState::NONE; // SHIFT押下中は、以降の通常選択処理には進ませない
+		return PhaseState::NONE;
 	}
 
-	for (int i = 0; i < 3; i++)
+	// 通常の交代選択処理
+	for (int i = 0; i < MEMBER_MAX; i++)
 	{
 		if (buttons[i].Input(cursor, input))
 		{
@@ -74,7 +105,7 @@ PhaseState ChangeMonsPhase::Update()
 
 void ChangeMonsPhase::Draw()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < MEMBER_MAX; i++)
 	{
 		buttons[i].Draw();
 	}
@@ -82,9 +113,15 @@ void ChangeMonsPhase::Draw()
 	if (detailIndex >= 0)
 	{
 		const MonsterBaseData* data = pMembers->mons[detailIndex]->data;
-		// 赤い丸があった範囲に合わせて配置
-		DrawFillBox(50, 50, 900, 650, GetColor(50, 100, 180));
-		monsterDetail.Draw(*data, 50, 50, 900, 650);
+
+		DrawFillBox(detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y, GetColor(50, 100, 180));
+		monsterDetail.Draw(*data, detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y);
+
+		if (showingMoveDetail)
+		{
+			DrawFillBox(150, 150, 800, 450, GetColor(220, 220, 220)); // 仮座標
+			moveDetail.Draw(MoveTable[detailMoveID], 180.0f, 180.0f);
+		}
 	}
 }
 
