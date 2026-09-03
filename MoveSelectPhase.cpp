@@ -23,6 +23,32 @@ PhaseState MoveSelectPhase::Input()
 {
 	if (input->Mouse().Push(MOUSE_RIGHT)) return PhaseState::COMMAND;
 
+	// SHIFTを押している間は、詳細表示の切り替えだけを行う(通常の技選択はさせない)
+	if (input->Key().Check(SHIFT))
+	{
+		for (int i = 0; i < MOVE_SLOT_MAX; i++)
+		{
+			if (moveButtons[i].Input(cursor, input)) // Pushはここで1回だけ呼ばれる
+			{
+				if (detailMoveIndex == i)
+				{
+					// 同じボタンをもう一度押した:閉じる
+					moveButtons[i].SetSelected(false);
+					detailMoveIndex = -1;
+				}
+				else
+				{
+					// 別のボタンに切り替える:前のハイライトを消して、新しい方をハイライト
+					if (detailMoveIndex >= 0) moveButtons[detailMoveIndex].SetSelected(false);
+					moveButtons[i].SetSelected(true);
+					detailMoveIndex = i;
+				}
+				return PhaseState::NONE;
+			}
+		}
+		return PhaseState::NONE; // SHIFT押下中は、以降の通常選択処理には進ませない
+	}
+
 	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		if (moveButtons[i].Input(cursor, input))
@@ -41,13 +67,21 @@ PhaseState MoveSelectPhase::Update()
 		moveButtons[i].Update(cursor);
 	}
 	return PhaseState::NONE;
-}
+} 
 
 void MoveSelectPhase::Draw()
 {
 	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		moveButtons[i].Draw();
+	}
+
+	if (detailMoveIndex >= 0)
+	{
+		int moveID = context->player->data->MoveID[detailMoveIndex];
+		// 矩形パネル(空いている左側のスペースに配置)
+		DrawFillBox(100, 150, 950, 470, GetColor(50, 100, 180));
+		moveDetail.Draw(MoveTable[moveID], 150.0f, 180.0f);
 	}
 }
 

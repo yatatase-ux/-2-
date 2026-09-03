@@ -4,12 +4,12 @@
 
 PREP_CONSTRUCTOR(PrepMemberStage),
 partyButtons{
-	Button(150.0f, 500.0f, 60.0f, context->playerParty->mons[0].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(310.0f, 500.0f, 60.0f, context->playerParty->mons[1].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(470.0f, 500.0f, 60.0f, context->playerParty->mons[2].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(630.0f, 500.0f, 60.0f, context->playerParty->mons[3].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(790.0f, 500.0f, 60.0f, context->playerParty->mons[4].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(950.0f, 500.0f, 60.0f, context->playerParty->mons[5].data->Name, GetColor(100,100,100), GetColor(200,200,0))
+	Button(150.0f, 520.0f, 60.0f, context->playerParty->mons[0].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(310.0f, 520.0f, 60.0f, context->playerParty->mons[1].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(470.0f, 520.0f, 60.0f, context->playerParty->mons[2].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(630.0f, 520.0f, 60.0f, context->playerParty->mons[3].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(790.0f, 520.0f, 60.0f, context->playerParty->mons[4].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(950.0f, 520.0f, 60.0f, context->playerParty->mons[5].data->Name, GetColor(100,100,100), GetColor(200,200,0))
 },
 enemyButtons{
 	Button(150.0f, 150.0f, 50.0f, context->enemyParty.mons[0].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
@@ -47,6 +47,8 @@ confirmButton(WINDOW_W / 2.0f, 650.0f, 50.0f, "戦闘開始", GetColor(100, 100, 100
 
 PREP_INPUT(PrepMemberStage)
 {
+	DetailInput();
+
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		if (partyButtons[i].Input(cursor, input))
@@ -128,9 +130,49 @@ void PrepMemberStage::Draw()
 	{
 		enemyButtons[i].Draw();
 	}
+
+	if (detailTarget != nullptr)
+	{
+		DrawFillBox(100, 210, WINDOW_W - 100, 452, GetColor(50, 100, 180));
+		memberDetail.Draw(*detailTarget, 100.0f, 210.0f); // 座標は仮
+	}
 	confirmButton.Draw();
 }
 
 void PrepMemberStage::Sound()
 {
+}
+
+PrepState PrepMemberStage::DetailInput()
+{
+	// SHIFTを押している間は、詳細表示の切り替えだけを行う(通常の選択操作はさせない)
+	if (input->Key().Check(SHIFT))
+	{
+		// プレイヤー側6体をチェック
+		for (int i = 0; i < PARTY_MAX; i++)
+		{
+			const MonsterBaseData* candidate = context->playerParty->mons[i].data;
+			if (candidate == nullptr) continue; // 空枠は対象外
+
+			if (partyButtons[i].Input(cursor, input)) // ここで初めてPushが呼ばれ、正しくクリックを検出する
+			{
+				// トグル:今表示中の対象と同じなら閉じる、違えば切り替える
+				detailTarget = (detailTarget == candidate) ? nullptr : candidate;
+				return PrepState::None;
+			}
+		}
+
+		// CPU側6体をチェック
+		for (int i = 0; i < PARTY_MAX; i++)
+		{
+			const MonsterBaseData* candidate = context->enemyParty.mons[i].data;
+			if (enemyButtons[i].Input(cursor, input))
+			{
+				detailTarget = (detailTarget == candidate) ? nullptr : candidate;
+				return PrepState::None;
+			}
+		}
+
+		return PrepState::None; // SHIFT押下中は、以降の通常選択処理には進ませない
+	}
 }

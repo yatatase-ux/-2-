@@ -27,41 +27,19 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 
 PREP_INPUT(PrepPartyStage)
 {
-	for (int i = 0; i < PARTY_MAX; i++)
+	if (showingDetail)
 	{
-		if (slotButtons[i].Input(cursor, input))
-		{
-			if (selectedRosterIndex >= 0)
-			{
-				TrySwap(i, selectedRosterIndex);
-			}
-			else
-			{
-				if (selectedSlot >= 0) slotButtons[selectedSlot].SetSelected(false);
-				selectedSlot = i;
-				slotButtons[i].SetSelected(true);
-			}
-			return PrepState::None;
-		}
+		ShowMoveDetail();
+		return PrepState::None; // 詳細表示中は、これ以降には絶対に進ませない
 	}
 
-	for (int i = 0; i < (int)rosterButtons.size(); i++)
+	if (input->Key().Check(SHIFT))
 	{
-		if (rosterButtons[i].Input(cursor, input))
-		{
-			if (selectedSlot >= 0)
-			{
-				TrySwap(selectedSlot, i);
-			}
-			else
-			{
-				if (selectedRosterIndex >= 0) rosterButtons[selectedRosterIndex].SetSelected(false);
-				selectedRosterIndex = i;
-				rosterButtons[i].SetSelected(true);
-			}
-			return PrepState::None;
-		}
+		ShowMonsterDetail();
+		return PrepState::None; // SHIFT押下中も、通常操作はさせない
 	}
+
+	DefaultInput();
 
 	if (input->Mouse().Push(MOUSE_RIGHT))
 	{
@@ -96,6 +74,26 @@ void PrepPartyStage::Draw()
 	{
 		rosterButtons[i].Draw();
 	}
+
+	// 詳細表示中は、最後に上書きするように描画する(常に一番手前に見えるように)
+	if (showingDetail && detailTarget != nullptr)
+	{
+		// 半透明の黒で背景を覆う
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+		DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+		DrawFillBox(detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y, GetColor(128, 128, 128));
+		monsterDetail.Draw(*detailTarget, detailBoxStart.x, detailBoxStart.y, 
+								detailBoxEnd.x, detailBoxEnd.y);
+
+		if (showingMoveDetail)
+		{
+			// 技詳細をさらに上に重ねて表示
+			DrawFillBox(200, 200, 980, 500, GetColor(220, 220, 220));
+			moveDetail.Draw(MoveTable[detailMoveID], 230.0f, 230.0f);
+		}
+	}
 }
 
 void PrepPartyStage::Sound()
@@ -129,4 +127,95 @@ void PrepPartyStage::TrySwap(int slotIndex, int rosterIndex)
 
 	selectedSlot = -1;
 	selectedRosterIndex = -1;
+}
+
+void PrepPartyStage::DefaultInput()
+{
+	// 以下、これまで通りの通常操作(枠選択・怪獣選択・入れ替え)
+	for (int i = 0; i < PARTY_MAX; i++)
+	{
+		if (slotButtons[i].Input(cursor, input))
+		{
+			if (selectedRosterIndex >= 0)
+			{
+				TrySwap(i, selectedRosterIndex);
+			}
+			else
+			{
+				if (selectedSlot >= 0) slotButtons[selectedSlot].SetSelected(false);
+				selectedSlot = i;
+				slotButtons[i].SetSelected(true);
+			}
+		}
+	}
+
+	for (int i = 0; i < (int)rosterButtons.size(); i++)
+	{
+		if (rosterButtons[i].Input(cursor, input))
+		{
+			if (selectedSlot >= 0)
+			{
+				TrySwap(selectedSlot, i);
+			}
+			else
+			{
+				if (selectedRosterIndex >= 0) rosterButtons[selectedRosterIndex].SetSelected(false);
+				selectedRosterIndex = i;
+				rosterButtons[i].SetSelected(true);
+			}
+		}
+	}
+}
+
+void PrepPartyStage::ShowMonsterDetail()
+{
+	// (if (input->Key().Check(SHIFT)) は削除。呼び出し元で既に判定済みのため)
+	for (int i = 0; i < (int)rosterButtons.size(); i++)
+	{
+		if (rosterButtons[i].Input(cursor, input))
+		{
+			showingDetail = true;
+			detailTarget = &MonsterData::GetByIndex(i);
+			return; // 1つ見つかったら十分
+		}
+	}
+}
+
+void PrepPartyStage::ShowMoveDetail()
+{
+	// (if (showingDetail) は削除。呼び出し元で既に判定済みのため)
+	if (input->Mouse().Push(MOUSE_RIGHT))
+	{
+		if (showingMoveDetail)
+		{
+			showingMoveDetail = false;
+		}
+		else
+		{
+			showingDetail = false;
+			detailTarget = nullptr;
+		}
+		return;
+	}
+
+	if (!showingMoveDetail && input->Mouse().Push(MOUSE_LEFT))
+	{
+		for (int i = 0; i < MOVE_SLOT_MAX; i++)
+		{
+			FloatXY boxPos, boxSize;
+			if (monsterDetail.GetMoveBoxRect(i, detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y, boxPos, boxSize))
+			{
+				if (CheckPointBoxHit(cursor->GetPos(), boxPos, boxSize))
+				{
+					int moveID = detailTarget->MoveID[i];
+					if (moveID >= 0)
+					{
+						detailMoveID = moveID;
+						showingMoveDetail = true;
+					}
+					break;
+				}
+			}
+		}
+	}
 }

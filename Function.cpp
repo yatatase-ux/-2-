@@ -94,6 +94,84 @@ void DrawCenterFormatText(float x, float y, unsigned int color, float size, cons
 	DrawStringF(draw_x, draw_y, buffer, color);
 }
 
+/// <summary>
+/// 左揃えで文字列を描画する関数
+/// </summary>
+/// <param name="x">X座標(文字列の左端)</param>
+/// <param name="y">Y座標(文字列の垂直方向の中心。DrawCenterTextと合わせてある)</param>
+/// <param name="text">描画する文字列</param>
+/// <param name="color">文字色</param>
+/// <param name="size">文字サイズ</param>
+void DrawLeftText(float x, float y, const char* text, unsigned int color, float size)
+{
+	SetFontSize(size);
+	float draw_y = y - size / 2.0f;
+	DrawStringF(x, draw_y, text, color);
+}
+
+/// <summary>
+/// 左揃えで文字列と変数を描画する関数
+/// </summary>
+/// <param name="x">X座標(文字列の左端)</param>
+/// <param name="y">Y座標(文字列の垂直方向の中心)</param>
+/// <param name="color">文字色</param>
+/// <param name="size">文字サイズ</param>
+/// <param name="format">書式指定文字列</param>
+void DrawLeftFormatText(float x, float y, unsigned int color, float size, const char* format, ...)
+{
+	char buffer[256];
+	va_list args;
+	va_start(args, format);
+	vsprintf_s(buffer, sizeof(buffer), format, args);
+	va_end(args);
+
+	SetFontSize(size);
+	float draw_y = y - size / 2.0f;
+	DrawStringF(x, draw_y, buffer, color);
+}
+
+/// <summary>
+/// 右揃えで文字列を描画する関数
+/// </summary>
+/// <param name="x">X座標(文字列の右端)</param>
+/// <param name="y">Y座標(文字列の垂直方向の中心。DrawCenterTextと合わせてある)</param>
+/// <param name="text">描画する文字列</param>
+/// <param name="color">文字色</param>
+/// <param name="size">文字サイズ</param>
+void DrawRightText(float x, float y, const char* text, unsigned int color, float size)
+{
+	SetFontSize(size);
+	int GT_s = strlen(text);
+	int GT_w = GetDrawStringWidth(text, GT_s);
+	float draw_x = x - (float)GT_w; // 右端がxに来るよう、文字列の幅ぶん左にずらす
+	float draw_y = y - size / 2.0f;
+	DrawStringF(draw_x, draw_y, text, color);
+}
+
+/// <summary>
+/// 右揃えで文字列と変数を描画する関数
+/// </summary>
+/// <param name="x">X座標(文字列の右端)</param>
+/// <param name="y">Y座標(文字列の垂直方向の中心)</param>
+/// <param name="color">文字色</param>
+/// <param name="size">文字サイズ</param>
+/// <param name="format">書式指定文字列</param>
+void DrawRightFormatText(float x, float y, unsigned int color, float size, const char* format, ...)
+{
+	char buffer[256];
+	va_list args;
+	va_start(args, format);
+	vsprintf_s(buffer, sizeof(buffer), format, args);
+	va_end(args);
+
+	SetFontSize(size);
+	int GT_s = strlen(buffer);
+	int GT_w = GetDrawStringWidth(buffer, GT_s);
+	float draw_x = x - (float)GT_w;
+	float draw_y = y - size / 2.0f;
+	DrawStringF(draw_x, draw_y, buffer, color);
+}
+
 //---------------------------------------------------------------------------------
 //	点と円の当たり判定（座標に Float2 を渡すバージョン）
 //---------------------------------------------------------------------------------
@@ -137,4 +215,20 @@ bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY bo
 	}
 
 	return false;
+}
+
+/// <summary>
+/// 値を割合に変換し、ステータスバー(黄色の矩形)を描画する関数
+/// </summary>
+/// <param name="x">バー左端のX座標</param>
+/// <param name="y">バー上端のY座標</param>
+/// <param name="maxWidth">バーの最大幅</param>
+/// <param name="value">現在の値</param>
+/// <param name="maxValue">基準となる最大値</param>
+void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue)
+{
+	float ratio = (float)value / maxValue;
+	if (ratio > 1.0f) ratio = 1.0f; // 極端な値でも枠からはみ出さないようクランプ
+	float width = maxWidth * ratio;
+	DrawFillBox((int)x, (int)y, (int)(x + width), (int)(y + 20.0f), GetColor(255, 255, 0));
 }

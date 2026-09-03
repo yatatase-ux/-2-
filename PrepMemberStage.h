@@ -1,6 +1,7 @@
 #pragma once
 #include "PrepStageBase.h"
 #include "Button.h"
+#include "MemberDetail.h"
 
 class PrepMemberStage : public PrepStageBase
 {
@@ -12,9 +13,13 @@ private:
 	Button enemyButtons[PARTY_MAX]; // CPUの6体(表示のみ)
 	Button confirmButton;			// 戦闘開始ボタン
 
+	MemberDetail memberDetail;
+	const MonsterBaseData* detailTarget = nullptr; // nullptrなら非表示
+
+	PrepState DetailInput();
+
 public:
+
 	PREP_CLASS(PrepMemberStage);
-	bool CursorInParty(int index);
-	bool CursorInConfirm();
-	bool IsChosenForBattle(int enemyPartyIndex);
+
 };

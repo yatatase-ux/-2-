@@ -20,6 +20,15 @@ constexpr const char* ElementName[] =
 	"Grass"
 };
 
+constexpr const char* ElementNameJP[] =
+{
+	"‚È‚µ", // None(–¢g—p)
+	"–³",   // Normal(–³‘®«)
+	"‰Î",   // Fire
+	"…",   // Water
+	"‘"    // Grass
+};
+
 constexpr float TypeTable
 [(int)Type::Type_MAX]
 [(int)Type::Type_MAX] = 

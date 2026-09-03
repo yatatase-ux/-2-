@@ -19,6 +19,32 @@ PhaseState ChangeMonsPhase::Input()
 	if (!context->isForcedSwitch && input->Mouse().Push(MOUSE_RIGHT))
 		return PhaseState::COMMAND;
 
+	// SHIFTを押している間は、詳細表示の切り替えだけを行う(通常の交代選択はさせない)
+	if (input->Key().Check(SHIFT))
+	{
+		for (int i = 0; i < MEMBER_MAX; i++)
+		{
+			if (buttons[i].Input(cursor, input)) // Pushはここで1回だけ呼ばれる
+			{
+				if (detailIndex == i)
+				{
+					// 同じボタンをもう一度押した:閉じる
+					buttons[i].SetSelected(false);
+					detailIndex = -1;
+				}
+				else
+				{
+					// 別のボタンに切り替える
+					if (detailIndex >= 0) buttons[detailIndex].SetSelected(false);
+					buttons[i].SetSelected(true);
+					detailIndex = i;
+				}
+				return PhaseState::NONE;
+			}
+		}
+		return PhaseState::NONE; // SHIFT押下中は、以降の通常選択処理には進ませない
+	}
+
 	for (int i = 0; i < 3; i++)
 	{
 		if (buttons[i].Input(cursor, input))
@@ -51,6 +77,14 @@ void ChangeMonsPhase::Draw()
 	for (int i = 0; i < 3; i++)
 	{
 		buttons[i].Draw();
+	}
+
+	if (detailIndex >= 0)
+	{
+		const MonsterBaseData* data = pMembers->mons[detailIndex]->data;
+		// 赤い丸があった範囲に合わせて配置
+		DrawFillBox(50, 50, 900, 650, GetColor(50, 100, 180));
+		monsterDetail.Draw(*data, 50, 50, 900, 650);
 	}
 }
 

@@ -142,6 +142,7 @@
     <ClCompile Include="CpuSwitchScorer.cpp" />
     <ClCompile Include="EffectApplier.cpp" />
     <ClCompile Include="EndGamePhase.cpp" />
+    <ClCompile Include="MemberDetail.cpp" />
     <ClCompile Include="MonsterDetail.cpp" />
     <ClCompile Include="MoveDetail.cpp" />
     <ClCompile Include="MoveExecutor.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="CpuSwitchScorer.h" />
     <ClInclude Include="EffectApplier.h" />
     <ClInclude Include="EndBattlePhase.h" />
+    <ClInclude Include="MemberDetail.h" />
     <ClInclude Include="MonsterDetail.h" />
     <ClInclude Include="MoveDetail.h" />
     <ClInclude Include="MoveExecutor.h" />

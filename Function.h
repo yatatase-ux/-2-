@@ -27,6 +27,21 @@ bool CheckCircleHit(FloatXY circle1, float radius1, FloatXY circle2, float radiu
 /// <param name="size">文字サイズ</param>
 void DrawCenterText(float x, float y, const char* text, unsigned int color, float size);
 
+// 中央揃えで文字列と変数を描画する関数
+void DrawCenterFormatText(float x, float y, unsigned int color, float size, const char* format, ...);
+
+// 左揃えで文字列を描画する関数
+void DrawLeftText(float x, float y, const char* text, unsigned int color, float size);
+
+// 左揃えで文字列と変数を描画する関数
+void DrawLeftFormatText(float x, float y, unsigned int color, float size, const char* format, ...);
+
+// 右揃えで文字列を描画する関数
+void DrawRightText(float x, float y, const char* text, unsigned int color, float size);
+
+// 右揃えで文字列と変数を描画する関数
+void DrawRightFormatText(float x, float y, unsigned int color, float size, const char* format, ...);
+
 //	点と円の当たり判定（座標に Float2 を渡すバージョン）
 bool CheckPointCircleHit(FloatXY point, FloatXY circle, float radius);
 
@@ -36,5 +51,5 @@ bool CheckPointBoxHit(FloatXY point, FloatXY box_pos, FloatXY box_size);
 //	円と四角の当たり判定（座標と大きさに Float2 を渡すバージョン）
 bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY box_size);
 
-// 中央揃えで文字列と変数を描画する関数
-void DrawCenterFormatText(float x, float y, unsigned int color, float size, const char* format, ...);
+// ステータスバーの表示
+void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue);

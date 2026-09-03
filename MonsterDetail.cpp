@@ -1,47 +1,92 @@
-#include "MonsterDetail.h"
+ï»¿#include "MonsterDetail.h"
 #include "MoveData.h"
 #include "DxLib.h"
 #include "Function.h"
 
 void MonsterDetail::DrawStatBar(float x, float y, float maxWidth, int value, int maxValue)
 {
-	// ’l‚ğŠ„‡‚É•ÏŠ·‚µAƒo[‚Ì’·‚³‚ğŒˆ‚ß‚é(‹É’[‚È’l‚Å‚à˜g‚©‚ç‚Í‚İo‚³‚È‚¢‚æ‚¤1.0‚ÅƒNƒ‰ƒ“ƒv)
+	// å€¤ã‚’å‰²åˆã«å¤‰æ›ã—ã€ãƒãƒ¼ã®é•·ã•ã‚’æ±ºã‚ã‚‹(æ¥µç«¯ãªå€¤ã§ã‚‚æ ã‹ã‚‰ã¯ã¿å‡ºã•ãªã„ã‚ˆã†1.0ã§ã‚¯ãƒ©ãƒ³ãƒ—)
 	float ratio = (float)value / maxValue;
 	if (ratio > 1.0f) ratio = 1.0f;
 	float width = maxWidth * ratio;
 	DrawFillBox((int)x, (int)y, (int)(x + width), (int)(y + 20.0f), GetColor(255, 255, 0));
 }
 
-void MonsterDetail::Draw(const MonsterBaseData& data, float x, float y)
+// MonsterDetail.cpp
+void MonsterDetail::Draw(const MonsterBaseData& data, float x, float y, float width, float height)
 {
-	// ‰öb–¼
-	DrawFormatString((int)x, (int)y, GetColor(0, 0, 0), "%s", data.Name);
+	FloatXY bSize = { width - x, height - y };
 
-	// ‰æ‘œ(–¢À‘•‚Ì‚½‚ßA‰¼‚Ì‰~‚Å‘ã—p)
-	DrawCircleAA((int)(x + 150), (int)(y + 200), 100, 100, GetColor(150, 150, 200), 1);
+	// ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã¯ã™ã¹ã¦bSize.x(å¹…)åŸºæº–ã®å‰²åˆã§è¨ˆç®—ã™ã‚‹
+	// ä¿‚æ•°ã¯ã€PrepPartyStage(bSize.x=1080)ã§å¾“æ¥ã®ãƒ™ã‚¿æ›¸ãã‚µã‚¤ã‚º(60/30/35)ã¨ä¸€è‡´ã™ã‚‹ã‚ˆã†é€†ç®—ã—ãŸå€¤
+	float nameSize = bSize.x * 0.0556f;      // 1080 * 0.0556 â‰’ 60
+	float statLabelSize = bSize.x * 0.0278f; // 1080 * 0.0278 â‰’ 30
+	float moveTextSize = bSize.x * 0.0324f;  // 1080 * 0.0324 â‰’ 35
 
-	// ƒXƒe[ƒ^ƒX6€–Ú‚ğƒo[•\¦
-	const char* statNames[] = { "HP", "•¨—UŒ‚", "•¨—–hŒä", "–‚–@UŒ‚", "–‚–@–hŒä", "‘f‘‚³" };
-	int statValues[] = { data.HP, data.PATK, data.PDEF, data.MATK, data.MDEF, data.SPD };
-	const int barMaxValue = 150; // ƒo[‚ÌŠî€‚Æ‚È‚éÅ‘å’l(‰¼BƒvƒŒƒCƒeƒXƒg‚µ‚È‚ª‚ç’²®)
+	// æ€ªç£å(å·¦ä¸Šã€é«˜ã•ã®ç´„9.7%ã®ã‚µã‚¤ã‚º)
+	FloatXY nPos = { x + (bSize.x * 0.25f), y + (bSize.y * 0.1f) };
+	DrawCenterFormatText(nPos.x, nPos.y, GetColor(0, 0, 0), nameSize, "%s", data.Name);
 
-	for (int i = 0; i < 6; i++)
+	// å±æ€§(åå‰ã®ä¸‹ã€ä¸­å¤®å¯„ã‚Š)
+	FloatXY tPos = { x + (bSize.x * 0.75f), y + (bSize.y * 0.1f) };
+	if (data.element[1] == Type::None)
 	{
-		float rowY = y + 100 + i * 40.0f;
-		DrawFormatString((int)(x + 350), (int)rowY, GetColor(0, 0, 0), "%s", statNames[i]);
-		DrawStatBar(x + 480, rowY, 250.0f, statValues[i], barMaxValue);
+		DrawCenterFormatText(tPos.x, tPos.y, GetColor(0, 0, 0), nameSize,
+			"å±æ€§ï¼š%s", ElementNameJP[(int)data.element[0]]);
+	}
+	else
+	{
+		DrawCenterFormatText(tPos.x, tPos.y, GetColor(0, 0, 0), nameSize,
+			"å±æ€§ï¼š%s | %s", ElementNameJP[(int)data.element[0]], ElementNameJP[(int)data.element[1]]);
 	}
 
-	// Šo‚¦‚Ä‚¢‚é‹Z4‚Â(–¼‘O‚Ì‚İ)
+	// ç”»åƒ(å·¦ä¸‹å¯„ã‚Šã®å††ã€ä»®)
+	FloatXY cPos = { x + (bSize.x * 0.25f), y + (bSize.y * 0.6f) };
+	float imgRadius = bSize.y * 0.25f;
+	DrawCircleAA(cPos.x, cPos.y, (int)imgRadius, 100, GetColor(150, 150, 200), 1);
+
+	// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹6é …ç›®(ä¸­å¤®ã€œå³å¯„ã‚Š)
+	const char* statNames[] = { "HP", "ç‰©ç†æ”»æ’ƒ", "ç‰©ç†é˜²å¾¡", "é­”æ³•æ”»æ’ƒ", "é­”æ³•é˜²å¾¡", "ç´ æ—©ã•" };
+	int statValues[] = { data.HP, data.PATK, data.PDEF, data.MATK, data.MDEF, data.SPD };
+	const int barMaxValue = 150;
+	for (int i = 0; i < 6; i++)
+	{
+		FloatXY labelPos = { x + (bSize.x * 0.73f), y + (bSize.y * 0.25f) + i * (bSize.y * 0.07f) };
+		FloatXY barPos = { x + (bSize.x * 0.75f), labelPos.y - 10.0f };
+		float barWidth = bSize.x * 0.25f;
+		DrawRightFormatText(labelPos.x, labelPos.y, GetColor(0, 0, 0), statLabelSize, "%s", statNames[i]);
+		DrawStatBar(barPos.x, barPos.y, barWidth, statValues[i], barMaxValue);
+	}
+
+	// æŠ€4ã¤(å³å´ã€2Ã—2)
 	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		int moveID = data.MoveID[i];
 		const char* moveName = (moveID >= 0) ? MoveTable[moveID].Name : "";
-		int col = i % 2;
-		int row = i / 2;
-		float boxX = x + 480 + col * 220.0f;
-		float boxY = y + 350 + row * 60.0f;
-		DrawFillBox((int)boxX, (int)boxY, (int)(boxX + 200), (int)(boxY + 50), GetColor(100, 200, 255));
-		DrawCenterText(boxX + 100, boxY + 25, moveName, GetColor(0, 0, 0), 20.0f);
+
+		FloatXY boxPos, boxSize;
+		ComputeMoveBoxRect(i, bSize, x, y, boxPos, boxSize);
+
+		DrawFillBox((int)boxPos.x, (int)boxPos.y, (int)(boxPos.x + boxSize.x), (int)(boxPos.y + boxSize.y), GetColor(100, 200, 255));
+		DrawCenterText(boxPos.x + boxSize.x * 0.5f, boxPos.y + boxSize.y * 0.5f, moveName, GetColor(0, 0, 0), moveTextSize);
 	}
+}
+
+void MonsterDetail::ComputeMoveBoxRect(int index, const FloatXY& bSize, float x, float y, FloatXY& outPos, FloatXY& outSize)
+{
+	int col = index % 2;
+	int row = index / 2;
+	outSize = { bSize.x * 0.20f, bSize.y * 0.15f };
+	outPos = {
+		x + (bSize.x * 0.55f) + col * (outSize.x + bSize.x * 0.02f),
+		y + (bSize.y * 0.65f) + row * (outSize.y + bSize.y * 0.03f)
+	};
+}
+
+bool MonsterDetail::GetMoveBoxRect(int index, float x, float y, float width, float height, FloatXY& outPos, FloatXY& outSize)
+{
+	if (index < 0 || index >= MOVE_SLOT_MAX) return false;
+	FloatXY bSize = { width - x, height - y };
+	ComputeMoveBoxRect(index, bSize, x, y, outPos, outSize);
+	return true;
 }
