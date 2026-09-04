@@ -24,18 +24,29 @@ PHASE_CONSTRUCTOR(ActionPhase)
 	if (context->cpuReasoning != CommentarySituation::None)
 	{
 		bool cpuIsEarlyer = (turnOrder.mons[Earlyer] == context->enemy);
-		int playerSlot = cpuIsEarlyer ? Later : Earlyer;
-		bool playerActuallySwitched = turnOrder.isSwitchAction[playerSlot];
-		int playerActualMoveID = playerActuallySwitched ? -1 : turnOrder.moveID[playerSlot];
 
-		bool hit = commentator.CheckHit(context->cpuReasoning, context->predictedPlayerDecision,
-			playerActuallySwitched, playerActualMoveID);
-
-		if (cpuIsEarlyer)
+		if (context->cpuReasoning == CommentarySituation::SwitchMatchingRead)
 		{
-			reasoningOnlyLine[Earlyer] = context->cpuReasoningLine;
+			// この状況は答え合わせ不要:CPUのターンに理由をそのまま出すだけで完結する
+			int cpuSlot = cpuIsEarlyer ? Earlyer : Later;
+			reasoningOnlyLine[cpuSlot] = context->cpuReasoningLine;
 		}
-		followUpLine[Later] = commentator.PickFollowUpLine(context->cpuReasoning, hit, cpuIsEarlyer);
+		else
+		{
+			// 既存のStayReadingSwitch/SwitchAvoidingThreat(2段階構成)は変更なし
+			int playerSlot = cpuIsEarlyer ? Later : Earlyer;
+			bool playerActuallySwitched = turnOrder.isSwitchAction[playerSlot];
+			int playerActualMoveID = playerActuallySwitched ? -1 : turnOrder.moveID[playerSlot];
+
+			bool hit = commentator.CheckHit(context->cpuReasoning, context->predictedPlayerDecision,
+				playerActuallySwitched, playerActualMoveID);
+
+			if (cpuIsEarlyer)
+			{
+				reasoningOnlyLine[Earlyer] = context->cpuReasoningLine;
+			}
+			followUpLine[Later] = commentator.PickFollowUpLine(context->cpuReasoning, hit, cpuIsEarlyer);
+		}
 	}
 
 	time = 120;
@@ -53,8 +64,14 @@ PhaseState ActionPhase::Input()
 PhaseState ActionPhase::Update()
 {
 	ProcessTurn();
-	if (monsDying) return PhaseState::CHECK_FAINT;
-	if (turnEnd) return PhaseState::COMMAND;
+
+	battleHUD.UpdateHPAnimation(*context->player);
+	battleHUD.UpdateHPAnimation(*context->enemy);
+	bool animDone = battleHUD.IsHPAnimDone(*context->player) && battleHUD.IsHPAnimDone(*context->enemy);
+
+	if (monsDying && animDone) return PhaseState::CHECK_FAINT;
+	if (turnEnd && animDone) return PhaseState::COMMAND;
+
 	return PhaseState::NONE;
 }
 
@@ -82,8 +99,13 @@ void ActionPhase::Sound()
 {
 }
 
+/// <summary>
+/// ターン決定
+/// </summary>
 void ActionPhase::ProcessTurn()
 {
+	if (monsDying || turnEnd) return;		// 既に決着がついていたら処理しない
+
 	if (showingStatusResult)
 	{
 		statusTime--;

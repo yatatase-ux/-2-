@@ -102,8 +102,10 @@ void CommandPhase::DetermineCommentary(const CpuDecisionResult& decision, const 
 {
 	// context->enemy はこの時点でもまだ「交代前の(これから退く)個体」を指している
 	// (②の中で changeMonster フィールドは設定されたが、ポインタ自体はまだ差し替わっていないため)
-	context->cpuReasoning = commentator.ClassifyReasoning(decision, predicted,
-		*context->enemy, *pMembers, damage, context->cpuReasoningLine, sizeof(context->cpuReasoningLine));
+	context->cpuReasoning = commentator.ClassifyReasoning(
+		decision, context->predictedPlayerDecision,
+		*context->enemy, *pMembers, *eMembers, damage, // eMembers を追加
+		context->cpuReasoningLine, sizeof(context->cpuReasoningLine));
 
 	// 予測に基づく理由(交代読み関連)が何も見つからなかった場合のみ、
 	// 「危険を承知で先制技を選んだか(LastStand)」を追加でチェックする

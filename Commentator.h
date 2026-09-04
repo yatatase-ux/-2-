@@ -15,7 +15,7 @@ private:
 
 public:
 	CommentarySituation ClassifyReasoning(const CpuDecisionResult& decision, const CpuDecisionResult& predicted,
-		BattleMonster& enemyBeforeSwitch, Members& pMembers,
+		BattleMonster& enemyBeforeSwitch, Members& pMembers, Members& eMembers,
 		DamageCalculator& damageCalc, char* lineBuffer, int bufferSize);
 
 	bool CheckHit(CommentarySituation reasoning, const CpuDecisionResult& predicted,

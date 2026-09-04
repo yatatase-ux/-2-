@@ -117,6 +117,7 @@ void EffectApplier::ResetForNewBattle(BattleMonster& mon)
 	if (mon.data == nullptr) return; // 空き枠はスキップ
 
 	mon.CurrentHP = mon.data->HP;
+	mon.displayedHP = (float)mon.CurrentHP;
 	mon.isFainted = false;
 	mon.isRevealed = false;
 	mon.condition = StatusCondition::None; // 新しい試合なので、ここはリセットして良い

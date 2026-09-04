@@ -29,4 +29,6 @@ struct BattleMonster
 
 	bool isRevealed = false;								// 一度でも場に出たかを表すフラッグ
 
+	float displayedHP = 0.0f;								// 表示するHP
+
 };

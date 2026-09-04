@@ -6,13 +6,27 @@
 void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder, MoveExecutor& moveExecutor,
 	const char* baseLine, const char* reasoningOnlyLine, const char* followUpLine)
 {
+	// 背景を暗くして文字を見やすくする
 	DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
-	DrawString(500, 220, turnOrder.debugText[slot], GetColor(255, 255, 255));
+	// デバッグ用の文字列を画面上に表示する
+//	DrawString(500, 220, turnOrder.debugText[slot], GetColor(255, 255, 255));
 
 	if (turnOrder.isSwitchAction[slot])
 	{
-		DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 255), textSize,
-			"%s→%sへ交代！", turnOrder.switchFromName[slot], turnOrder.switchToName[slot]);
+		if (reasoningOnlyLine != nullptr)
+		{
+			DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 255), textSize, "%s", reasoningOnlyLine);
+		}
+		else
+		{
+			DrawCenterFormatText(text.x, text.y, GetColor(255, 255, 255), textSize,
+				"%s→%sへ交代！", turnOrder.switchFromName[slot], turnOrder.switchToName[slot]);
+		}
+
+		if (followUpLine != nullptr)
+		{
+			DrawCenterFormatText(text.x, text.y + textSize, GetColor(255, 200, 0), textSize, "%s", followUpLine);
+		}
 	}
 	else if (!turnOrder.canAct[slot])
 	{

@@ -4,6 +4,9 @@
 #include "DamageCalculator.h"
 #include "EffectApplier.h"
 
+/// <summary>
+/// 技の処理
+/// </summary>
 class MoveExecutor
 {
 private:
@@ -16,4 +19,5 @@ public:
 	int PreviewDamage(BattleMonster* attacker, BattleMonster* defender, int moveID); // 表示用の予測
 	
 	int Execute(BattleMonster* attacker, BattleMonster* defender, int moveID);       // 実際に技を実行し、与えたダメージ量を返す
+
 };

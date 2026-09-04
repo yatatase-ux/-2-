@@ -5,7 +5,7 @@
 #include <cstdio>
 
 CommentarySituation Commentator::ClassifyReasoning(const CpuDecisionResult& decision, const CpuDecisionResult& predicted,
-	BattleMonster& enemyBeforeSwitch, Members& pMembers,
+	BattleMonster& enemyBeforeSwitch, Members& pMembers, Members& eMembers,
 	DamageCalculator& damageCalc, char* lineBuffer, int bufferSize)
 {
 	lineBuffer[0] = '\0';
@@ -36,6 +36,22 @@ CommentarySituation Commentator::ClassifyReasoning(const CpuDecisionResult& deci
 			sprintf_s(lineBuffer, bufferSize, "%s", lines[GetRand(2)]);
 			return CommentarySituation::SwitchAvoidingThreat;
 		}
+	}
+
+	if (decision.switchToIndex >= 0 && predicted.switchToIndex >= 0)
+	{
+		// 相手の交代を読んで、自分も有利な相手に入れ替えた
+		BattleMonster* predictedTarget = pMembers.mons[predicted.switchToIndex];
+		BattleMonster* ownTarget = eMembers.mons[decision.switchToIndex];
+
+		static const char* templates[] = {
+			"%sへの交代を読んで、有利な%sに入れ替えました！",
+			"%sを見据えて、こちらも%sへ交代！",
+			"相手の入れ替えを予測し、%sを迎え撃つべく%sを選出！"
+		};
+		sprintf_s(lineBuffer, bufferSize, templates[GetRand(2)],
+			predictedTarget->data->Name, ownTarget->data->Name);
+		return CommentarySituation::SwitchMatchingRead;
 	}
 
 	return CommentarySituation::None;
