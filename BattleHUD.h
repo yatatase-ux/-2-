@@ -12,6 +12,9 @@ private:
 	// ランクアイコンを指定位置に描画する
 	void DrawRankIcons(BattleMonster& mon, float x, float y);
 
+	// 状態異常マークを指定位置に描画する
+	void DrawConditionMark(BattleMonster& mon, float x, float y);
+
 public:
 
 	void Draw(BattleMonster& player, BattleMonster& enemy);

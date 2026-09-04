@@ -26,6 +26,7 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 	{
 		DrawMonsterImage(450.0f, 480.0f, 100.0f);
 		DrawStatusBar(player, 60.0f, 500.0f, 250.0f);
+		DrawConditionMark(player, 220.0f, 500.0f);
 		DrawRankIcons(player, 75.0f, 570.0f); // HPバーのすぐ下
 	}
 
@@ -34,6 +35,7 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 		// CPU側:右上隅にHPバー、その左下あたりに怪獣
 		DrawMonsterImage(1000.0f, 150.0f, 100.0f);
 		DrawStatusBar(enemy, 950.0f, 40.0f, 250.0f);
+		DrawConditionMark(enemy, 1110.0f, 40.0f);
 		DrawRankIcons(enemy, 965.0f, 110.0f); // HPバーのすぐ下
 	}
 }
@@ -70,4 +72,35 @@ void BattleHUD::DrawRankIcons(BattleMonster& mon, float x, float y)
 
 		drawX += spacing; // 表示した分だけ、次のアイコンの位置をずらす
 	}
+}
+
+// 状態異常マークを描画する
+void BattleHUD::DrawConditionMark(BattleMonster& mon, float x, float y)
+{
+	if (mon.condition == StatusCondition::None) return; // 状態異常が無ければ何も描かない
+
+	const char* label = "";
+	unsigned int color = 0;
+
+	switch (mon.condition)
+	{
+	case StatusCondition::Poison:
+		label = "毒";
+		color = GetColor(150, 50, 200); // 紫
+		break;
+	case StatusCondition::Paralysis:
+		label = "痺";
+		color = GetColor(220, 200, 30); // 黄
+		break;
+	case StatusCondition::Burn:
+		label = "火";
+		color = GetColor(230, 120, 30); // 橙
+		break;
+	default:
+		return;
+	}
+
+	float radius = 18.0f;
+	DrawCircleAA((int)x, (int)y, (int)radius, 100, color, TRUE);
+	DrawCenterFormatText(x, y, GetColor(255, 255, 255), 20.0f, "%s", label);
 }
