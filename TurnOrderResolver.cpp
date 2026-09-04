@@ -86,6 +86,9 @@ void TurnOrderResolver::PerformSwitch(BattleMonster*& contextMon, Members* membe
 {
 	const char* fromName = contextMon->data->Name;								// 交代前の名前を保存
 	BattleMonster* newMon = members->mons[contextMon->changeMonster];			// 交代後のモンスターを取得
+
+	effect.ResetBattleRanks(*newMon);											// 交代後のモンスターのランクをリセット
+
 	contextMon = newMon;														// 交代後のモンスターをBattleContextに反映
 	newMon->isRevealed = true;													// 交代後のモンスターを場に出たことにする
 

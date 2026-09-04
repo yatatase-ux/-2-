@@ -79,6 +79,12 @@
     <Filter Include="ソース ファイル\実況">
       <UniqueIdentifier>{68bc6fc0-1043-42ec-939c-9591d0c9ece3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\詳細表示">
+      <UniqueIdentifier>{30e8c464-82ca-40eb-9eff-c5906bc69488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\詳細表示">
+      <UniqueIdentifier>{a5429462-4a67-4004-a573-64b77117df9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -189,10 +195,19 @@
     <ClCompile Include="Commentator.cpp">
       <Filter>ソース ファイル\実況</Filter>
     </ClCompile>
-    <ClCompile Include="AttackCommentary.cpp">
-      <Filter>ソース ファイル\実況</Filter>
+    <ClCompile Include="BattleHUD.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="StatusCommentary.cpp">
+    <ClCompile Include="MoveDetail.cpp">
+      <Filter>ソース ファイル\詳細表示</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDetail.cpp">
+      <Filter>ソース ファイル\詳細表示</Filter>
+    </ClCompile>
+    <ClCompile Include="MemberDetail.cpp">
+      <Filter>ソース ファイル\詳細表示</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentaryData.cpp">
       <Filter>ソース ファイル\実況</Filter>
     </ClCompile>
   </ItemGroup>
@@ -350,10 +365,22 @@
     <ClInclude Include="Commentator.h">
       <Filter>ヘッダー ファイル\実況</Filter>
     </ClInclude>
-    <ClInclude Include="AttackCommentary.h">
+    <ClInclude Include="BattleHUD.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MemberDetail.h">
+      <Filter>ヘッダー ファイル\詳細表示</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDetail.h">
+      <Filter>ヘッダー ファイル\詳細表示</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveDetail.h">
+      <Filter>ヘッダー ファイル\詳細表示</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentaryBase.h">
       <Filter>ヘッダー ファイル\実況</Filter>
     </ClInclude>
-    <ClInclude Include="StatusCommentary.h">
+    <ClInclude Include="CommentaryData.h">
       <Filter>ヘッダー ファイル\実況</Filter>
     </ClInclude>
   </ItemGroup>

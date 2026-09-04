@@ -82,8 +82,8 @@ void MoveSelectPhase::Draw()
 	{
 		int moveID = context->player->data->MoveID[detailMoveIndex];
 		// 矩形パネル(空いている左側のスペースに配置)
-		DrawFillBox(100, 150, 950, 470, GetColor(50, 100, 180));
-		moveDetail.Draw(MoveTable[moveID], 150.0f, 180.0f);
+//		DrawFillBox(100, 150, 950, 470, GetColor(50, 100, 180));
+		moveDetail.Draw(MoveTable[moveID], 100.0f, 150.0f, 950.0f, 470.0f);
 	}
 }
 

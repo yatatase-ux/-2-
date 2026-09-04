@@ -37,14 +37,14 @@ PhaseState ChangeMonsPhase::Input()
 		{
 			// カーソルが乗っている時だけPushを呼ぶ(短絡評価で、乗っていなければPush自体呼ばれない)
 			if (monsterDetail.GetMoveBoxRect(i, detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y, boxPos, boxSize)
-				&& CheckPointBoxHit(cursor->GetPos(), boxPos, boxSize)
-				&& input->Mouse().Push(MOUSE_LEFT))
+				&& CheckPointBoxHit(cursor->GetPos(), boxPos, boxSize)	// カーソルがボックス上にあるか
+				&& input->Mouse().Push(MOUSE_LEFT))						// 左クリックされたか
 			{
-				int moveID = pMembers->mons[detailIndex]->data->MoveID[i];
+				int moveID = pMembers->mons[detailIndex]->data->MoveID[i];	// 技IDを取得
 				if (moveID >= 0)
 				{
-					detailMoveID = moveID;
-					showingMoveDetail = true;
+					detailMoveID = moveID;									// 技IDをセット
+					showingMoveDetail = true;								// 技詳細表示フラグを立てる
 				}
 				return PhaseState::NONE;
 			}
@@ -60,14 +60,14 @@ PhaseState ChangeMonsPhase::Input()
 			{
 				if (detailIndex == i)
 				{
-					buttons[i].SetSelected(false);
-					detailIndex = -1;
+					buttons[i].SetSelected(false);										// 同じボタンをもう一度押した:閉じる
+					detailIndex = -1;													// detailIndexを-1にして詳細非表示にする
 				}
 				else
 				{
-					if (detailIndex >= 0) buttons[detailIndex].SetSelected(false);
-					buttons[i].SetSelected(true);
-					detailIndex = i;
+					if (detailIndex >= 0) buttons[detailIndex].SetSelected(false);		// 別のボタンに切り替える:前のハイライトを消す
+					buttons[i].SetSelected(true);										// 新しい方をハイライト
+					detailIndex = i;													// detailIndexを押されたボタンのインデックスに更新して詳細表示する
 				}
 				return PhaseState::NONE;
 			}
@@ -82,14 +82,17 @@ PhaseState ChangeMonsPhase::Input()
 		{
 			if (context->isForcedSwitch)
 			{
-				context->player = pMembers->mons[i];
-				context->isForcedSwitch = false;
-				return PhaseState::COMMAND;
+				context->player = pMembers->mons[i];		// 強制交代の場合、選択したモンスターを即座に場に出す
+				effect.ResetBattleRanks(*context->player);	// 強制交代の場合、ランクをリセットする
+				context->isForcedSwitch = false;			// 強制交代フラグを解除する
+				return PhaseState::COMMAND;					// 強制交代の場合、交代後の行動選択に戻る
 			}
-			context->player->changeMonster = i;
-			return PhaseState::ACTION;
+			context->player->changeMonster = i;				// 通常交代の場合、選択したモンスターをchangeMonsterにセットする
+			return PhaseState::ACTION;						// 通常交代の場合、行動実行フェーズに進む
 		}
 	}
+
+
 	return PhaseState::NONE;
 }
 
@@ -121,8 +124,8 @@ void ChangeMonsPhase::Draw()
 
 		if (showingMoveDetail)
 		{
-			DrawFillBox(150, 150, 800, 450, GetColor(220, 220, 220)); // 仮座標
-			moveDetail.Draw(MoveTable[detailMoveID], 180.0f, 180.0f);
+//			DrawFillBox(150, 150, 800, 450, GetColor(220, 220, 220)); // 仮座標
+			moveDetail.Draw(MoveTable[detailMoveID], 150.0f, 150.0f, 800.0f, 450.0f); // 技詳細を描画
 		}
 	}
 }

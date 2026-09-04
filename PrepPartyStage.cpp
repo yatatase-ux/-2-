@@ -90,8 +90,8 @@ void PrepPartyStage::Draw()
 		if (showingMoveDetail)
 		{
 			// ‹ZÚ×‚ğ‚³‚ç‚Éã‚Éd‚Ë‚Ä•\¦
-			DrawFillBox(200, 200, 980, 500, GetColor(220, 220, 220));
-			moveDetail.Draw(MoveTable[detailMoveID], 230.0f, 230.0f);
+//			DrawFillBox(200, 200, 980, 500, GetColor(220, 220, 220));
+			moveDetail.Draw(MoveTable[detailMoveID], 200.0f, 200.0f, 980.0f, 500.0f);
 		}
 	}
 }

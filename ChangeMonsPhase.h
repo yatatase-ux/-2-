@@ -4,6 +4,7 @@
 #include "MonsterDetail.h"
 #include "MoveDetail.h"
 #include "BattleHUD.h"
+#include "EffectApplier.h"
 
 class ChangeMonsPhase : public PhaseBase
 {
@@ -21,6 +22,8 @@ protected:
 	const FloatXY detailBoxEnd = { 900.0f, 650.0f };
 
 	BattleHUD battleHUD;
+
+	EffectApplier effect;
 
 public:
 
