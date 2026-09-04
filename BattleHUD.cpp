@@ -34,7 +34,7 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 		// CPU側:右上隅にHPバー、その左下あたりに怪獣
 		DrawMonsterImage(1000.0f, 150.0f, 100.0f);
 		DrawStatusBar(enemy, 950.0f, 40.0f, 250.0f);
-		DrawRankIcons(enemy, 950.0f, 95.0f); // HPバーのすぐ下
+		DrawRankIcons(enemy, 965.0f, 110.0f); // HPバーのすぐ下
 	}
 }
 

@@ -2,16 +2,16 @@
 #include "DxLib.h"
 #include <cstdio>
 
-void MoveDetail::Draw(const MoveData& move, float x, float y, float width, float height)
+void MoveDetail::Draw(const MoveData& move, float x1, float y1, float x2, float y2)
 {
 	int BoxColor = (move.element == Type::Fire ) ? GetColor(255,  40,  15) : // 火属性は赤
 				   (move.element == Type::Water) ? GetColor( 30, 144, 255) : // 水属性は青
 				   (move.element == Type::Grass) ? GetColor( 34, 139,  34) : // 草属性は緑
 												   GetColor(220, 220, 220) ; // 無属性は灰色
 
-	DrawFillBox((int)x, (int)y, (int)width, (int)height, BoxColor);
+	DrawFillBox((int)x1, (int)y1, (int)x2, (int)y2, BoxColor);
 
-	FloatXY bSize = { width - x, height - y };
+	FloatXY bSize = { x2 - x1, y2 - y1 };
 
 	// フォントサイズはbSize.x(幅)基準の割合で計算する
 	float nameSize = bSize.x * 0.059f;   // 850 * 0.059 ≒ 50
@@ -19,11 +19,11 @@ void MoveDetail::Draw(const MoveData& move, float x, float y, float width, float
 	float effectSize = bSize.x * 0.028f; // 850 * 0.028 ≒ 24
 
 	// 技名(左上寄り、大きめの文字で強調)
-	FloatXY nPos = { x + (bSize.x * 0.29f), y + (bSize.y * 0.15f) };
+	FloatXY nPos = { x1 + (bSize.x * 0.29f), y1 + (bSize.y * 0.15f) };
 	DrawCenterFormatText(nPos.x, nPos.y, GetColor(0, 0, 0), nameSize, "%s", move.Name);
 
 	// 物理・特殊・補助のカテゴリーを表示
-	FloatXY cPos = { x + (bSize.x * 0.29f), y + (bSize.y * 0.30f) };
+	FloatXY cPos = { x1 + (bSize.x * 0.29f), y1 + (bSize.y * 0.30f) };
 	const char* categoryText = (move.category == MoveCategory::Physical) ? "物理" :
 								(move.category == MoveCategory::Special) ? "特殊" :
 																		   "補助" ;
@@ -35,8 +35,8 @@ void MoveDetail::Draw(const MoveData& move, float x, float y, float width, float
 	DrawCenterFormatText(cPos.x, cPos.y, GetColor(0, 0, 0), valueSize, "%s", categoryText);
 
 	// 威力・命中率(名前の右側にまとめて配置)
-	FloatXY powerPos = { x + (bSize.x * 0.62f), y + (bSize.y * 0.14f) };
-	FloatXY accPos = { x + (bSize.x * 0.62f), y + (bSize.y * 0.28f) };
+	FloatXY powerPos = { x1 + (bSize.x * 0.62f), y1 + (bSize.y * 0.14f) };
+	FloatXY accPos = { x1 + (bSize.x * 0.62f), y1 + (bSize.y * 0.28f) };
 	if (move.category != MoveCategory::Status)
 	{
 		DrawCenterFormatText(powerPos.x, powerPos.y, GetColor(0, 0, 0), valueSize, "威力：%d", move.Power);
@@ -48,7 +48,7 @@ void MoveDetail::Draw(const MoveData& move, float x, float y, float width, float
 	DrawCenterFormatText(accPos.x, accPos.y, GetColor(0, 0, 0), valueSize, "命中率：%d", move.Accuracy);
 
 	// 追加効果の説明文を組み立てる
-	DrawEffect(move, x, y, bSize, effectSize);
+	DrawEffect(move, x1, y1, bSize, effectSize);
 }
 
 void MoveDetail::DrawEffect(const MoveData& move, float x, float y, FloatXY bSize, float effectSize)
