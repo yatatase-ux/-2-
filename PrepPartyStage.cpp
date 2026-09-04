@@ -119,7 +119,8 @@ void PrepPartyStage::TrySwap(int slotIndex, int rosterIndex)
 	{
 		context->playerParty->mons[slotIndex].data = chosen;
 		context->playerParty->mons[slotIndex].CurrentHP = chosen->HP;
-		slotButtons[slotIndex].SetLabel(chosen->Name); // 追加:ラベルを更新
+		context->playerParty->mons[slotIndex].displayedHP = (float)chosen->HP;
+		slotButtons[slotIndex].SetLabel(chosen->Name); // ラベルを更新
 	}
 
 	slotButtons[slotIndex].SetSelected(false);

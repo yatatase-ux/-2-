@@ -11,6 +11,8 @@ public:
 
 	EffectApplier effect;
 
+	int time;
+
 public:
 
 	PHASE_CLASS(CheckFaintPhase);

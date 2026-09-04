@@ -162,5 +162,6 @@ void ScenePlay::GenerateRandomEnemyParty()
 		const MonsterBaseData* mons = &MonsterData::GetByIndex(chosenIndices[i]);
 		context.enemyParty.mons[i].data = mons;
 		context.enemyParty.mons[i].CurrentHP = mons->HP;
+		context.enemyParty.mons[i].displayedHP = (float)context.enemyParty.mons[i].CurrentHP;
 	}
 }
