@@ -1,16 +1,19 @@
 #pragma once
 #include "PhaseBase.h"
+
+#include "Commentator.h"
+#include "BattleHUD.h"
+
 #include "ActionSlot.h"
 #include "TurnOrderResolver.h"
 #include "MoveExecutor.h"
 #include "TurnAftermathProcessor.h"
 #include "ActionPresenter.h"
-#include "Commentator.h"
-#include "BattleHUD.h"
 
 class ActionPhase : public PhaseBase
 {
 private:
+
 	TurnOrderResolver turnOrderResolver;
 	MoveExecutor moveExecutor;
 	TurnAftermathProcessor aftermath;
@@ -33,7 +36,11 @@ private:
 
 	BattleHUD battleHUD;
 
+	bool waitingForHPAnim = false;
+
 	void ProcessTurn();
+
+	void AdvanceAfterAction();
 
 public:
 

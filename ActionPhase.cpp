@@ -64,14 +64,8 @@ PhaseState ActionPhase::Input()
 PhaseState ActionPhase::Update()
 {
 	ProcessTurn();
-
-	battleHUD.UpdateHPAnimation(*context->player);
-	battleHUD.UpdateHPAnimation(*context->enemy);
-	bool animDone = battleHUD.IsHPAnimDone(*context->player) && battleHUD.IsHPAnimDone(*context->enemy);
-
-	if (monsDying && animDone) return PhaseState::CHECK_FAINT;
-	if (turnEnd && animDone) return PhaseState::COMMAND;
-
+	if (monsDying) return PhaseState::CHECK_FAINT;
+	if (turnEnd) return PhaseState::COMMAND;
 	return PhaseState::NONE;
 }
 
@@ -104,7 +98,7 @@ void ActionPhase::Sound()
 /// </summary>
 void ActionPhase::ProcessTurn()
 {
-	if (monsDying || turnEnd) return;		// 既に決着がついていたら処理しない
+	if (monsDying || turnEnd) return;
 
 	if (showingStatusResult)
 	{
@@ -117,47 +111,76 @@ void ActionPhase::ProcessTurn()
 		return;
 	}
 
+	// ダメージ演出待ち:終わるまでは、今の実況(turnに対応するもの)を表示し続けたまま足踏みする
+	if (waitingForHPAnim)
+	{
+		battleHUD.UpdateHPAnimation(*context->player);
+		battleHUD.UpdateHPAnimation(*context->enemy);
+
+		if (!battleHUD.IsHPAnimDone(*context->player) || !battleHUD.IsHPAnimDone(*context->enemy))
+		{
+			return; // まだアニメーション中
+		}
+		waitingForHPAnim = false;
+		AdvanceAfterAction();
+		return;
+	}
+
 	time--;
 
 	if (turn == Earlyer)
 	{
-		if (time <= 0)
-		{
-			if (!turnOrder.isSwitchAction[Earlyer] && turnOrder.canAct[Earlyer] && turnOrder.willHit[Earlyer])
-			{
-				moveExecutor.Execute(turnOrder.mons[Earlyer], turnOrder.mons[Later], turnOrder.moveID[Earlyer]);
-			}
-			monsDying = aftermath.CheckFaint(turnOrder.mons[Later], context);
-			time = 120;
-			turn = Later;
-		}
-	}
-	else // turn == Later
-	{
-		if (time <= 0)
-		{
-			if (!turnOrder.isSwitchAction[Later] && turnOrder.canAct[Later] && turnOrder.willHit[Later])
-			{
-				moveExecutor.Execute(turnOrder.mons[Later], turnOrder.mons[Earlyer], turnOrder.moveID[Later]);
-			}
-			monsDying = aftermath.CheckFaint(turnOrder.mons[Earlyer], context);
+		if (time > 0) return;
 
-			if (!monsDying)
+		if (!turnOrder.isSwitchAction[Earlyer] && turnOrder.canAct[Earlyer] && turnOrder.willHit[Earlyer])
+		{
+			moveExecutor.Execute(turnOrder.mons[Earlyer], turnOrder.mons[Later], turnOrder.moveID[Earlyer]);
+			waitingForHPAnim = true; // ダメージが発生したので、アニメーション待ちへ(turnはまだ切り替えない)
+			return;
+		}
+		AdvanceAfterAction(); // 交代/まひ/外れの場合はダメージが無いので、そのまま進む
+	}
+	else // Later
+	{
+		if (time > 0) return;
+
+		if (!turnOrder.isSwitchAction[Later] && turnOrder.canAct[Later] && turnOrder.willHit[Later])
+		{
+			moveExecutor.Execute(turnOrder.mons[Later], turnOrder.mons[Earlyer], turnOrder.moveID[Later]);
+			waitingForHPAnim = true;
+			return;
+		}
+		AdvanceAfterAction();
+	}
+}
+
+// 瀕死判定・状態異常処理をまとめる(アニメーション待ちが終わった後、またはダメージが無かった場合に呼ばれる)
+void ActionPhase::AdvanceAfterAction()
+{
+	if (turn == Earlyer)
+	{
+		monsDying = aftermath.CheckFaint(turnOrder.mons[Later], context);
+		time = 120;
+		turn = Later; // ここで初めてturnを進める
+	}
+	else
+	{
+		monsDying = aftermath.CheckFaint(turnOrder.mons[Earlyer], context);
+		if (!monsDying)
+		{
+			statusResult = aftermath.ProcessEndOfTurn(turnOrder.mons, context);
+			if (statusResult.causedFaint)
 			{
-				statusResult = aftermath.ProcessEndOfTurn(turnOrder.mons, context);
-				if (statusResult.causedFaint)
-				{
-					monsDying = true;
-				}
-				else if (statusResult.name[Earlyer] != nullptr || statusResult.name[Later] != nullptr)
-				{
-					showingStatusResult = true;
-					statusTime = 60;
-				}
-				else
-				{
-					turnEnd = true;
-				}
+				monsDying = true;
+			}
+			else if (statusResult.name[Earlyer] != nullptr || statusResult.name[Later] != nullptr)
+			{
+				showingStatusResult = true;
+				statusTime = 60;
+			}
+			else
+			{
+				turnEnd = true;
 			}
 		}
 	}
