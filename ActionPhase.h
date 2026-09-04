@@ -37,10 +37,14 @@ private:
 	BattleHUD battleHUD;
 
 	bool waitingForHPAnim = false;
+	bool pendingStatusTickResolution = false;
 
 	void ProcessTurn();
 
 	void AdvanceAfterAction();
+
+	// ó‘ÔˆÙíŒã‚Ì•m€”»’è‹y‚ÑØ‚è‘Ö‚¦
+	void ResolveStatusTick();
 
 public:
 

@@ -13,6 +13,13 @@ public:
 
 	int time;
 
+	bool showingSurvivorStatusTick = false; 
+	int survivorStatusTime = 0;            
+	const char* survivorStatusName = nullptr; 
+	int survivorStatusDamage = 0;     
+
+	PhaseState ResolveOutcome(); // ‚±‚ê‚Ü‚Å‚Ì”»’èˆ—‚ğ‚Ü‚Æ‚ß‚é
+
 public:
 
 	PHASE_CLASS(CheckFaintPhase);

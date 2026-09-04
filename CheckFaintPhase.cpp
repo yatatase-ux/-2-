@@ -13,14 +13,49 @@ PhaseState CheckFaintPhase::Input()
 
 PhaseState CheckFaintPhase::Update()
 {
+    // 生存側の状態異常ダメージを表示中なら、それが終わるまで待つ
+    if (showingSurvivorStatusTick)
+    {
+        // 状態異常ダメージのアニメーションを、この表示時間中に進める
+        battleHUD.UpdateHPAnimation(*context->player);
+        battleHUD.UpdateHPAnimation(*context->enemy);
+
+        survivorStatusTime--;
+        bool animDone = battleHUD.IsHPAnimDone(*context->player) && battleHUD.IsHPAnimDone(*context->enemy);
+
+        // 表示時間が残っているか、アニメーションがまだ終わっていなければ待つ
+        if (survivorStatusTime > 0 || !animDone) return PhaseState::NONE;
+
+        showingSurvivorStatusTick = false;
+        return ResolveOutcome();
+    }
     time--;
     if (time >= 0) return PhaseState::NONE;
-    
+
     context->faintedMonster->isFainted = true;
 
+    // 倒れていない方(まだ場に残っている方)の状態異常を処理する
+    BattleMonster* survivor = (context->faintedMonster == context->player) ? context->enemy : context->player;
+    if (survivor->condition == StatusCondition::Poison || survivor->condition == StatusCondition::Burn)
+    {
+        int dmg = effect.ApplyStatusDamage(*survivor);
+        if (dmg > 0)
+        {
+            survivorStatusName = survivor->data->Name;
+            survivorStatusDamage = dmg;
+            showingSurvivorStatusTick = true;
+            survivorStatusTime = 90; // 表示時間(仮)。読む時間を考慮して調整してください
+            return PhaseState::NONE;
+        }
+    }
+
+    return ResolveOutcome(); // 状態異常が無ければ、これまで通りすぐに判定
+}
+
+PhaseState CheckFaintPhase::ResolveOutcome()
+{
     bool isPlayerFainted = (context->faintedMonster == context->player);
     Members* target = isPlayerFainted ? pMembers : eMembers;
-
     int aliveCount = 0;
     int aliveIndex = -1;
     for (int i = 0; i < MEMBER_MAX; i++)
@@ -34,36 +69,44 @@ PhaseState CheckFaintPhase::Update()
 
     if (aliveCount == 0)
     {
-        context->isPlayerWin = !isPlayerFainted; // 勝敗をcontextに記録
+        context->isPlayerWin = !isPlayerFainted;
         return PhaseState::GAME_END;
     }
 
-	// もしプレイヤーのモンスターが瀕死になった場合、強制交代フラグを立てる
     if (isPlayerFainted)
     {
         context->isForcedSwitch = true;
         return PhaseState::CHANGE_MONS;
     }
-	// もしCPUのモンスターが瀕死になった場合、次の生存モンスターを自動で選出する
     else
     {
-        // 暫定:生存先頭を出す。将来的にCPU選出ロジックに差し替え
-		context->enemy = eMembers->mons[aliveIndex];    // 次の生存モンスターを選出する
-        effect.ResetBattleRanks(*context->enemy);	    // ランクをリセットする
-		context->enemy->isRevealed = true;              // 場に出たことにする
+        context->enemy = eMembers->mons[aliveIndex];
+        effect.ResetBattleRanks(*context->enemy);
+        context->enemy->isRevealed = true;
         return PhaseState::COMMAND;
     }
-
 }
 
 void CheckFaintPhase::Draw()
 {
+    // 背景を暗くして文字を見やすくする
+    DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
+
     battleHUD.Draw(*context->player, *context->enemy);
 
-    DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
-    DrawCenterFormatText(WINDOW_W / 2, WINDOW_H - 60, GetColor(255, 255, 0), 30,
-        "%s、戦闘不能！", context->faintedMonster->data->Name);
-//	DrawString(500, 250, "Dead Monster", GetColor(255, 255, 255));
+    if (showingSurvivorStatusTick)
+    {
+        // 生存側の状態異常ダメージメッセージ
+        DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
+        DrawCenterFormatText(WINDOW_W / 2, WINDOW_H - 60, GetColor(255, 255, 0), 30,
+            "%s は状態異常のダメージ：%d", survivorStatusName, survivorStatusDamage);
+    }
+    else
+    {
+        DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
+        DrawCenterFormatText(WINDOW_W / 2, WINDOW_H - 60, GetColor(255, 255, 0), 30,
+            "%s、戦闘不能！", context->faintedMonster->data->Name);
+    }
 }
 
 void CheckFaintPhase::Sound()

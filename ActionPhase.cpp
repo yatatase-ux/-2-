@@ -122,10 +122,18 @@ void ActionPhase::ProcessTurn()
 			return; // まだアニメーション中
 		}
 		waitingForHPAnim = false;
-		AdvanceAfterAction();
+
+		if (pendingStatusTickResolution)
+		{
+			pendingStatusTickResolution = false;
+			ResolveStatusTick(); // 状態異常のダメージだった場合はこちら
+		}
+		else
+		{
+			AdvanceAfterAction(); // 技のダメージだった場合はこれまで通り
+		}
 		return;
 	}
-
 	time--;
 
 	if (turn == Earlyer)
@@ -161,7 +169,7 @@ void ActionPhase::AdvanceAfterAction()
 	{
 		monsDying = aftermath.CheckFaint(turnOrder.mons[Later], context);
 		time = 120;
-		turn = Later; // ここで初めてturnを進める
+		turn = Later;
 	}
 	else
 	{
@@ -169,19 +177,30 @@ void ActionPhase::AdvanceAfterAction()
 		if (!monsDying)
 		{
 			statusResult = aftermath.ProcessEndOfTurn(turnOrder.mons, context);
-			if (statusResult.causedFaint)
+
+			if (statusResult.name[Earlyer] != nullptr || statusResult.name[Later] != nullptr)
 			{
-				monsDying = true;
-			}
-			else if (statusResult.name[Earlyer] != nullptr || statusResult.name[Later] != nullptr)
-			{
-				showingStatusResult = true;
-				statusTime = 60;
+				// 状態異常のダメージが発生したので、瀕死判定・表示切り替えはアニメーション後に持ち越す
+				pendingStatusTickResolution = true;
+				waitingForHPAnim = true;
 			}
 			else
 			{
-				turnEnd = true;
+				turnEnd = true; // 状態異常のダメージが無ければ、そのままターン終了
 			}
 		}
+	}
+}
+
+void ActionPhase::ResolveStatusTick()
+{
+	if (statusResult.causedFaint)
+	{
+		monsDying = true; // バーが0まで減りきってから、瀕死と判定する
+	}
+	else
+	{
+		showingStatusResult = true; // ここからは純粋にメッセージを読む時間
+		statusTime = 60;
 	}
 }
