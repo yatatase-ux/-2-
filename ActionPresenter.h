@@ -16,5 +16,5 @@ public:
 	void DrawTurnPreview(int slot, const TurnOrderResult& turnOrder, MoveExecutor& moveExecutor,
 		const char* baseLine, const char* reasoningOnlyLine, const char* followUpLine);
 	void DrawStatusTick(const StatusTickResult& tick);
-
+	void DrawStatusAnnounce(const char* name, bool isBurn);
 };

@@ -3,6 +3,7 @@
 
 #include "Commentator.h"
 #include "BattleHUD.h"
+#include "EffectApplier.h"
 
 #include "ActionSlot.h"
 #include "TurnOrderResolver.h"
@@ -37,14 +38,19 @@ private:
 	BattleHUD battleHUD;
 
 	bool waitingForHPAnim = false;
-	bool pendingStatusTickResolution = false;
 
 	void ProcessTurn();
 
 	void AdvanceAfterAction();
 
-	// 状態異常後の瀕死判定及び切り替え
-	void ResolveStatusTick();
+	EffectApplier effect;				// 状態異常ダメージを直接扱うため
+
+	int statusTickIndex = -1;			// Earlyer=0/Later=1、今どちらを処理中か(-1で未処理)
+	bool showingStatusAnnounce = false; // 「どくだ！」のような告知中かどうか
+	int statusAnnounceTime = 0;         // アナウンス時間
+
+	void AdvanceStatusTick(); // 次に処理すべき対象を探して告知を始める
+	void ResolveStatusTick(); // ダメージ処理が終わったら次の対象へ
 
 public:
 

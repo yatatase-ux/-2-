@@ -7,7 +7,7 @@ void ActionPresenter::DrawTurnPreview(int slot, const TurnOrderResult& turnOrder
 	const char* baseLine, const char* reasoningOnlyLine, const char* followUpLine)
 {
 	// 背景を暗くして文字を見やすくする
-	DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
+//	DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
 	// デバッグ用の文字列を画面上に表示する
 //	DrawString(500, 220, turnOrder.debugText[slot], GetColor(255, 255, 255));
 
@@ -75,4 +75,10 @@ void ActionPresenter::DrawStatusTick(const StatusTickResult& tick)
 		DrawCenterFormatText(text.x, text.y + textSize, GetColor(255, 255, 0), textSize,
 			"%s は状態異常のダメージ：%d", tick.name[Later], tick.damage[Later]);
 	}
+}
+
+void ActionPresenter::DrawStatusAnnounce(const char* name, bool isBurn)
+{
+	DrawCenterFormatText(text.x, text.y, GetColor(255, 200, 0), textSize,
+		"%s は%sで苦しんでいる…！", name, isBurn ? "やけど" : "どく");
 }

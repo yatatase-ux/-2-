@@ -73,12 +73,22 @@ void ActionPhase::Draw()
 {
 	battleHUD.Draw(*context->player, *context->enemy);
 
+	DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
+
+	if (showingStatusAnnounce)
+	{
+		BattleMonster* mon = turnOrder.mons[statusTickIndex];
+		bool isBurn = (mon->condition == StatusCondition::Burn);
+		presenter.DrawStatusAnnounce(mon->data->Name, isBurn);
+		return;
+	}
+
 	if (showingStatusResult)
 	{
-		if (statusTime > 0)
-		{
-			presenter.DrawStatusTick(statusResult);
-		}
+		//if (statusTime > 0)
+		//{
+		//	presenter.DrawStatusTick(statusResult);
+		//}
 		return;
 	}
 
@@ -100,14 +110,39 @@ void ActionPhase::ProcessTurn()
 {
 	if (monsDying || turnEnd) return;
 
+	if (showingStatusAnnounce)
+	{
+		statusAnnounceTime--;
+		if (statusAnnounceTime > 0) return;
+
+		showingStatusAnnounce = false;
+
+		// 告知が終わったので、実際にダメージを与える
+		BattleMonster* mon = turnOrder.mons[statusTickIndex];
+		int dmg = effect.ApplyStatusDamage(*mon);
+
+		statusResult.name[Earlyer] = nullptr;
+		statusResult.name[Later] = nullptr;
+		statusResult.name[statusTickIndex] = mon->data->Name;
+		statusResult.damage[statusTickIndex] = dmg;
+
+		showingStatusResult = true;
+		statusTime = 60;
+		return;
+	}
+
+	// ダメージ数値の表示+アニメーション待ち(既存のshowingStatusResultを、CheckFaintPhaseと同じ「最低表示時間+アニメ完了待ち」の形に書き換え)
 	if (showingStatusResult)
 	{
+		battleHUD.UpdateHPAnimation(*context->player);
+		battleHUD.UpdateHPAnimation(*context->enemy);
+
 		statusTime--;
-		if (statusTime <= 0)
-		{
-			showingStatusResult = false;
-			turnEnd = true;
-		}
+		bool animDone = battleHUD.IsHPAnimDone(*context->player) && battleHUD.IsHPAnimDone(*context->enemy);
+		if (statusTime > 0 || !animDone) return;
+
+		showingStatusResult = false;
+		ResolveStatusTick(); // 終わったので、次の対象があれば続ける
 		return;
 	}
 
@@ -121,19 +156,13 @@ void ActionPhase::ProcessTurn()
 		{
 			return; // まだアニメーション中
 		}
-		waitingForHPAnim = false;
 
-		if (pendingStatusTickResolution)
-		{
-			pendingStatusTickResolution = false;
-			ResolveStatusTick(); // 状態異常のダメージだった場合はこちら
-		}
-		else
-		{
-			AdvanceAfterAction(); // 技のダメージだった場合はこれまで通り
-		}
+		waitingForHPAnim = false;
+		AdvanceAfterAction();
+
 		return;
 	}
+
 	time--;
 
 	if (turn == Earlyer)
@@ -176,31 +205,42 @@ void ActionPhase::AdvanceAfterAction()
 		monsDying = aftermath.CheckFaint(turnOrder.mons[Earlyer], context);
 		if (!monsDying)
 		{
-			statusResult = aftermath.ProcessEndOfTurn(turnOrder.mons, context);
-
-			if (statusResult.name[Earlyer] != nullptr || statusResult.name[Later] != nullptr)
-			{
-				// 状態異常のダメージが発生したので、瀕死判定・表示切り替えはアニメーション後に持ち越す
-				pendingStatusTickResolution = true;
-				waitingForHPAnim = true;
-			}
-			else
-			{
-				turnEnd = true; // 状態異常のダメージが無ければ、そのままターン終了
-			}
+			statusTickIndex = Earlyer; // 状態異常チェックを先行から開始
+			AdvanceStatusTick();
 		}
 	}
 }
 
+// 次に状態異常を処理すべき対象を探し、あれば告知を始める
+void ActionPhase::AdvanceStatusTick()
+{
+	while (statusTickIndex < ActionMax)
+	{
+		BattleMonster* mon = turnOrder.mons[statusTickIndex];
+		if (mon->condition == StatusCondition::Poison || mon->condition == StatusCondition::Burn)
+		{
+			showingStatusAnnounce = true;
+			statusAnnounceTime = 60; // 「どくだ！」を見せる時間
+			return;
+		}
+		statusTickIndex++; // この対象は対象外、次へ
+	}
+
+	// 両方チェックし終えた
+	statusTickIndex = -1;
+	turnEnd = true;
+}
+
+// ダメージのアニメーションが終わった後、次の対象があれば続ける
 void ActionPhase::ResolveStatusTick()
 {
-	if (statusResult.causedFaint)
+	BattleMonster* mon = turnOrder.mons[statusTickIndex];
+	if (mon->CurrentHP <= 0)
 	{
-		monsDying = true; // バーが0まで減りきってから、瀕死と判定する
+		monsDying = true;
+		context->faintedMonster = mon;
 	}
-	else
-	{
-		showingStatusResult = true; // ここからは純粋にメッセージを読む時間
-		statusTime = 60;
-	}
+
+	statusTickIndex++;
+	AdvanceStatusTick();
 }
