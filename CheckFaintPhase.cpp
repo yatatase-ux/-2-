@@ -29,22 +29,26 @@ PhaseState CheckFaintPhase::Update()
         showingSurvivorStatusTick = false;
         return ResolveOutcome();
     }
+
+    // 2秒間表示させておく
     time--;
     if (time >= 0) return PhaseState::NONE;
 
+    // 怪獣が倒れたフラッグをTRUEにする
     context->faintedMonster->isFainted = true;
 
     // 倒れていない方(まだ場に残っている方)の状態異常を処理する
     BattleMonster* survivor = (context->faintedMonster == context->player) ? context->enemy : context->player;
     if (survivor->condition == StatusCondition::Poison || survivor->condition == StatusCondition::Burn)
     {
+        // 片方が瀕死になったときのもう片方の状態異常処理
         int dmg = effect.ApplyStatusDamage(*survivor);
         if (dmg > 0)
         {
             survivorStatusName = survivor->data->Name;
             survivorStatusDamage = dmg;
             showingSurvivorStatusTick = true;
-            survivorStatusTime = 90; // 表示時間(仮)。読む時間を考慮して調整してください
+            survivorStatusTime = 90; // 表示時間（秒）
             return PhaseState::NONE;
         }
     }
@@ -52,9 +56,13 @@ PhaseState CheckFaintPhase::Update()
     return ResolveOutcome(); // 状態異常が無ければ、これまで通りすぐに判定
 }
 
+/// <summary>
+/// 通常の瀕死後処理
+/// </summary>
+/// <returns>次のフェーズ</returns>
 PhaseState CheckFaintPhase::ResolveOutcome()
 {
-    bool isPlayerFainted = (context->faintedMonster == context->player);
+    bool isPlayerFainted = (context->faintedMonster == context->player);    // プレイヤーが瀕死になったら
     Members* target = isPlayerFainted ? pMembers : eMembers;
     int aliveCount = 0;
     int aliveIndex = -1;
