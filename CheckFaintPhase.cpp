@@ -37,19 +37,62 @@ PhaseState CheckFaintPhase::Update()
     // 怪獣が倒れたフラッグをTRUEにする
     context->faintedMonster->isFainted = true;
 
-    // 倒れていない方(まだ場に残っている方)の状態異常を処理する
-    BattleMonster* survivor = (context->faintedMonster == context->player) ? context->enemy : context->player;
-    if (survivor->condition == StatusCondition::Poison || survivor->condition == StatusCondition::Burn)
+    // 瀕死になった側のパーティに、まだ他の生存がいるか先に確認する
+    bool isPlayerFainted = (context->faintedMonster == context->player);    // 先に瀕死になったのがプレイヤーか
+    Members* target = isPlayerFainted ? pMembers : eMembers;                // 該当するメンバーを代入
+    bool sideStillAlive = false;
+    for (int i = 0; i < MEMBER_MAX; i++)
     {
-        // 片方が瀕死になったときのもう片方の状態異常処理
-        int dmg = effect.ApplyStatusDamage(*survivor);
-        if (dmg > 0)
+        if (!target->mons[i]->isFainted) { sideStillAlive = true; break; }  // 1体でも生存してたらフラグを立ててループを抜ける
+    }
+
+    // 試合がここで終わる場合は、生存側の状態異常処理は行わない
+    // 終了：False　続行：True
+    if (sideStillAlive)
+    {
+        // 倒れていない方(まだ場に残っている方)の状態異常を処理する
+        // 倒れたのがプレイヤーならCPU、逆ならプレイヤーをsurvivor(サバイバー:生存者)へ
+        BattleMonster* survivor = (context->faintedMonster == context->player) ? context->enemy : context->player;
+        
+        // 生存側が毒か火傷なら
+        if (survivor->condition == StatusCondition::Poison || survivor->condition == StatusCondition::Burn)
         {
-            survivorStatusName = survivor->data->Name;
-            survivorStatusDamage = dmg;
-            showingSurvivorStatusTick = true;
-            survivorStatusTime = 90; // 表示時間（秒）
-            return PhaseState::NONE;
+            // 片方が瀕死になったときのもう片方の状態異常処理
+            int dmg = effect.ApplyStatusDamage(*survivor);
+            if (dmg > 0)
+            {
+                survivorStatusName = survivor->data->Name;
+                survivorStatusDamage = dmg;
+                showingSurvivorStatusTick = true;
+                survivorStatusTime = 90; // 表示時間（秒）
+
+                // もし状態異常ダメージによって倒れたら
+                if (survivor->CurrentHP <= 0)
+                {
+                    survivor->isFainted = true;
+
+                    if (isPlayerFainted)
+                    {
+                        // 生存していたCPU側も倒れた場合:プレイヤーの新しい選択を待たず、
+                        // 公平性のためこの時点で先にCPU側の交代先を決めてしまう
+                        for (int i = 0; i < MEMBER_MAX; i++)
+                        {
+                            if (!eMembers->mons[i]->isFainted)
+                            {
+                                context->pendingEnemyNext = eMembers->mons[i];  // 代入先が変わっただけ
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // 生存していたプレイヤー側が倒れた場合、プレイヤーの選択(UI操作)が必要なので予約する
+                        context->secondFaintedMonster = survivor;
+                    }
+                }
+
+                return PhaseState::NONE;
+            }
         }
     }
 
@@ -88,7 +131,21 @@ PhaseState CheckFaintPhase::ResolveOutcome()
     }
     else
     {
-        context->enemy = eMembers->mons[aliveIndex];
+        BattleMonster* nextEnemy = eMembers->mons[aliveIndex];
+
+        // CPU側の選出が終わった直後に、予約されている瀕死が無いか確認する
+        if (context->secondFaintedMonster != nullptr)
+        {
+            // 連鎖している場合、公開はプレイヤーの選択が終わるタイミングまで待つ
+            context->pendingEnemyNext = nextEnemy;
+
+            context->faintedMonster = context->secondFaintedMonster;
+            context->secondFaintedMonster = nullptr;
+            return PhaseState::CHECK_FAINT;
+        }
+
+        // 連鎖が無い、通常の単独瀕死ならこれまで通り即座に公開する
+        context->enemy = nextEnemy;
         effect.ResetBattleRanks(*context->enemy);
         context->enemy->isRevealed = true;
         return PhaseState::COMMAND;

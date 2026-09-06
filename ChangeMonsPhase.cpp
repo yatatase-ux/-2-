@@ -85,6 +85,16 @@ PhaseState ChangeMonsPhase::Input()
 				context->player = pMembers->mons[i];		// 強制交代の場合、選択したモンスターを即座に場に出す
 				effect.ResetBattleRanks(*context->player);	// 強制交代の場合、ランクをリセットする
 				context->isForcedSwitch = false;			// 強制交代フラグを解除する
+
+				// 保留中のCPU側交代先があれば、ここで同じタイミングで公開する
+				if (context->pendingEnemyNext != nullptr)
+				{
+					context->enemy = context->pendingEnemyNext;
+					context->pendingEnemyNext = nullptr;
+					effect.ResetBattleRanks(*context->enemy);
+					context->enemy->isRevealed = true;
+				}
+
 				return PhaseState::COMMAND;					// 強制交代の場合、交代後の行動選択に戻る
 			}
 			context->player->changeMonster = i;				// 通常交代の場合、選択したモンスターをchangeMonsterにセットする

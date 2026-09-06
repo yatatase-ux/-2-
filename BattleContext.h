@@ -30,4 +30,5 @@ struct BattleContext
 	char cpuReasoningLine[128] = "";								// CPU行動理由の文字列変数
 
 	BattleMonster* secondFaintedMonster = nullptr;					// 予約中の「もう1体の瀕死」(無ければnullptr)
+	BattleMonster* pendingEnemyNext = nullptr;						// 決定済みだが、まだ公開していないCPU側の次の出場怪獣
 };
