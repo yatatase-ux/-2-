@@ -102,16 +102,34 @@ PhaseState ChangeMonsPhase::Input()
 		}
 	}
 
+	// 既に場に出ている怪獣をクリックしようとした場合の警告
+	for (int i = 0; i < MEMBER_MAX; i++)
+	{
+		bool isActive = (pMembers->mons[i] == context->player);
+		if (isActive && buttons[i].IsHovered(cursor) && input->Mouse().Push(MOUSE_LEFT))
+		{
+			showWarning = true;
+			warningTimer = 120;
+			return PhaseState::NONE;
+		}
+	}
 
 	return PhaseState::NONE;
 }
 
 PhaseState ChangeMonsPhase::Update()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < MEMBER_MAX; i++)
 	{
-		buttons[i].SetDisabled(pMembers->mons[i]->isFainted);
+		bool isActive = (pMembers->mons[i] == context->player);
+		buttons[i].SetDisabled(pMembers->mons[i]->isFainted || isActive); // 瀕死 or 場に出ている本人なら無効化
 		buttons[i].Update(cursor);
+	}
+
+	if (warningTimer > 0)
+	{
+		warningTimer--;
+		if (warningTimer <= 0) showWarning = false;
 	}
 	return PhaseState::NONE;
 }
@@ -137,6 +155,11 @@ void ChangeMonsPhase::Draw()
 //			DrawFillBox(150, 150, 800, 450, GetColor(220, 220, 220)); // 仮座標
 			moveDetail.Draw(MoveTable[detailMoveID], 150.0f, 150.0f, 800.0f, 450.0f); // 技詳細を描画
 		}
+	}
+
+	if (showWarning)
+	{
+		DrawCenterFormatText(WINDOW_W / 2.0f, 400.0f, GetColor(255, 50, 50), 24.0f, "既に場に出ています！");
 	}
 }
 

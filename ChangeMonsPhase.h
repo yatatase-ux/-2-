@@ -25,6 +25,9 @@ protected:
 
 	EffectApplier effect;
 
+	bool showWarning = false; // 警告文表示
+	int warningTimer = 0;     // 表示時間
+
 public:
 
 	PHASE_CLASS(ChangeMonsPhase);
