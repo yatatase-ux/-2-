@@ -79,6 +79,12 @@
     <Filter Include="ソース ファイル\実況">
       <UniqueIdentifier>{68bc6fc0-1043-42ec-939c-9591d0c9ece3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\詳細表示">
+      <UniqueIdentifier>{85a22e64-c123-428b-82cb-738e5f390f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\詳細表示">
+      <UniqueIdentifier>{0ee82adf-be6d-44d3-a05b-bc5807b8d2d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
@@ -192,17 +198,17 @@
     <ClCompile Include="BattleHUD.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MemberDetail.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterDetail.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveDetail.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CommentaryData.cpp">
       <Filter>ソース ファイル\実況</Filter>
+    </ClCompile>
+    <ClCompile Include="MemberDetail.cpp">
+      <Filter>ソース ファイル\詳細表示</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDetail.cpp">
+      <Filter>ソース ファイル\詳細表示</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveDetail.cpp">
+      <Filter>ソース ファイル\詳細表示</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -362,20 +368,20 @@
     <ClInclude Include="BattleHUD.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MemberDetail.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterDetail.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveDetail.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CommentaryData.h">
       <Filter>ヘッダー ファイル\実況</Filter>
     </ClInclude>
     <ClInclude Include="CommentaryBase.h">
       <Filter>ヘッダー ファイル\実況</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDetail.h">
+      <Filter>ヘッダー ファイル\詳細表示</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveDetail.h">
+      <Filter>ヘッダー ファイル\詳細表示</Filter>
+    </ClInclude>
+    <ClInclude Include="MemberDetail.h">
+      <Filter>ヘッダー ファイル\詳細表示</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
