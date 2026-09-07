@@ -17,7 +17,7 @@ void Cursor::Update()
 
 void Cursor::Draw()
 {
-	DrawCircleAA(pos.x, pos.y, 10.0f, 100, GetColor(255, 255, 0), 1);
+	DrawExtendGraphF(pos.x, pos.y, pos.x + size, pos.y + size, image, TRUE);
 }
 
 void Cursor::Sound()
