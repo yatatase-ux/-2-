@@ -10,12 +10,13 @@ void MemberDetail::Draw(const MonsterBaseData& data, float x, float y)
 	DrawFormatString((int)(x + 20), (int)(y + 20), GetColor(0, 0, 0), "%s", data.Name);
 
 	// 画像(仮の円、名前の下)
-	DrawCircleAA((int)(x + 90), (int)(y + 150), 70, 100, GetColor(150, 150, 200), 1);
+//	DrawCircleAA((int)(x + 90), (int)(y + 150), 70, 100, GetColor(150, 150, 200), 1);
+	DrawRotaGraphF((int)(x + 90), (int)(y + 150), 1.0, 0.0, data.eImage, 1);
 
 	// ステータス6項目(画像の右)
 	const char* statNames[] = { "HP", "物理攻撃", "物理防御", "魔法攻撃", "魔法防御", "素早さ" };
 	int statValues[] = { data.HP, data.PATK, data.PDEF, data.MATK, data.MDEF, data.SPD };
-	const int barMaxValue = 150; // 仮。プレイテストしながら調整
+	const int barMaxValue = 150; // プレイテストしながら調整
 
 	for (int i = 0; i < 6; i++)
 	{

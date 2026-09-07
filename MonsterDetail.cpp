@@ -43,7 +43,7 @@ void MonsterDetail::Draw(const MonsterBaseData& data, float x, float y, float wi
 	// 画像(左下寄りの円、仮)
 	FloatXY cPos = { x + (bSize.x * 0.25f), y + (bSize.y * 0.6f) };
 	float imgRadius = bSize.y * 0.25f;
-	DrawCircleAA(cPos.x, cPos.y, (int)imgRadius, 100, GetColor(150, 150, 200), 1);
+	DrawRotaGraphF(cPos.x, cPos.y, 0.35f, 0.0, data.eImage, TRUE);
 
 	// ステータス6項目(中央〜右寄り)
 	const char* statNames[] = { "HP", "物理攻撃", "物理防御", "魔法攻撃", "魔法防御", "素早さ" };
