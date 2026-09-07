@@ -4,9 +4,9 @@
 /// <summary>
 /// ボタンのコンストラクタ(円形)
 /// </summary>
-Button::Button(float x, float y, float r, const char* label,
+Button::Button(float x, float y, float r, float s, const char* imagePath, const char* label,
 	unsigned int normalColor, unsigned int hoverColor)
-	: pos{ x, y }, radius(r), isCircle(true), label(label),
+	: pos{ x, y }, radius(r), size(s), image(LoadGraph(imagePath)), isCircle(true), label(label),
 	normalColor(normalColor), hoverColor(hoverColor), currentColor(normalColor)
 {
 }
@@ -14,9 +14,9 @@ Button::Button(float x, float y, float r, const char* label,
 /// <summary>
 /// ボタンのコンストラクタ(四角形)
 /// </summary>
-Button::Button(float x, float y, float w, float h, const char* label,
+Button::Button(FloatXY p, FloatXY s, const char* imagePath, const char* label,
 	unsigned int normalColor, unsigned int hoverColor)
-	: pos{ x, y }, width(w), height(h), isCircle(false), label(label),
+	: pos(p),boxSize(s), image(LoadGraph(imagePath)), isCircle(false), label(label),
 	normalColor(normalColor), hoverColor(hoverColor), currentColor(normalColor)
 {
 }
@@ -39,7 +39,7 @@ bool Button::IsHovered(Cursor* cursor)
 	{
 		return CheckCircleHit(pos, radius, cursor->GetPos(), 10.0f);
 	}
-	return CheckPointBoxHit(cursor->GetPos(), pos, { width, height });
+	return CheckPointBoxHit(cursor->GetPos(), pos, boxSize);
 }
 
 /// <summary>
@@ -87,19 +87,27 @@ void Button::Draw()
 
 	if (isCircle)
 	{
+
+		DrawRotaGraphF(pos.x, pos.y, size, 0.0, image, 1);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
 		DrawCircleAA(pos.x, pos.y, radius, 100, currentColor, 1);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		centerX = pos.x;
 		centerY = pos.y;
 	}
 	else
 	{
-		DrawFillBox(pos.x, pos.y, pos.x + width, pos.y + height, currentColor);
-		centerX = pos.x + width / 2.0f;
-		centerY = pos.y + height / 2.0f;
+
+		DrawExtendGraphF(pos.x, pos.y, pos.x + boxSize.x, pos.y + boxSize.y, image, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+		DrawFillBox(pos.x, pos.y, pos.x + boxSize.x, pos.y + boxSize.y, currentColor);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		centerX = pos.x + boxSize.x / 2.0f;
+		centerY = pos.y + boxSize.y / 2.0f;
 	}
 
 	if (label[0] != '\0')
 	{
-		DrawCenterText(centerX, centerY, label, GetColor(0, 0, 0), 20.0f); // フォントサイズは仮
+		DrawCenterText(centerX, centerY, label, GetColor(0, 0, 0), 20.0f);
 	}
 }

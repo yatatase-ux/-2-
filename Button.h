@@ -7,10 +7,13 @@
 class Button
 {
 private:
-	FloatXY pos;       // Vector2 Ç≈ÇÕÇ»Ç≠ FloatXY Ç™ê≥ÇµÇ¢å^ñº
+	FloatXY pos;
 	float radius = 0.0f;
-	float width = 0.0f;
-	float height = 0.0f;
+	float size = 1.0f;
+	FloatXY boxSize;
+	const char* image_path = "";
+	int image = -1;
+
 	bool isCircle;
 	const char* label;
 	unsigned int normalColor;
@@ -24,9 +27,9 @@ private:
 
 public:
 	Button() = default;
-	Button(float x, float y, float r, const char* label,
+	Button(float x, float y, float r, float s, const char* imagePath, const char* label,
 		unsigned int normalColor, unsigned int hoverColor);
-	Button(float x, float y, float w, float h, const char* label,
+	Button(FloatXY p, FloatXY s, const char* imagePath, const char* label,
 		unsigned int normalColor, unsigned int hoverColor);
 
 	void SetDisabled(bool value, unsigned int disabledColorArg = GetColor(100, 100, 100));

@@ -2,8 +2,8 @@
 #include "MonsterBaseData.h"
 
 PHASE_CONSTRUCTOR(CommandPhase),
-fightButton(1150.0f, 425.0f, 75.0f, "たたかう", GetColor(175, 0, 0), GetColor(255, 0, 0)),
-changeButton(1150.0f, 600.0f, 75.0f, "交代", GetColor(0, 175, 0), GetColor(0, 255, 0))
+fightButton(1150.0f, 425.0f, 75.0f, 1.0f, "data/Button/Fight.png", "たたかう", GetColor(175, 0, 0), GetColor(255, 0, 0)),
+changeButton(1150.0f, 600.0f, 75.0f,1.0f, "data/Button/ChangeMons.png", "交代", GetColor(0, 175, 0), GetColor(0, 255, 0))
 {
 	// プレイヤーの技選択状態を初期化(このターンまだ何も選んでいない状態にする)
 	context->player->selectedMoveID = -1;

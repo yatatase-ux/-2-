@@ -1,8 +1,8 @@
 #include "PrepHomeStage.h"
 
 PREP_CONSTRUCTOR(PrepHomeStage),
-	partyButton(WINDOW_W / 4,	   WINDOW_H / 2, 150.0f, "パーティ", GetColor(175, 0, 0), GetColor(255, 255, 0)),
-	memberButton(WINDOW_W / 4 * 3, WINDOW_H / 2, 150.0f, "戦闘", GetColor(0, 175, 0), GetColor(255, 255, 0))
+	partyButton(WINDOW_W / 4,	   WINDOW_H / 2, 130.0f, 2.0f, "data/button/Party.png", "パーティ", GetColor(175, 0, 0), GetColor(255, 255, 0)),
+	memberButton(WINDOW_W / 4 * 3, WINDOW_H / 2, 130.0f, 2.0f, "data/button/BattleStart.png", "戦闘", GetColor(0, 175, 0), GetColor(255, 255, 0))
 {
 	memberButton.SetDisabled(!IsPartyFull()); // コンストラクタ時点でも反映(1フレーム目対策)
 }

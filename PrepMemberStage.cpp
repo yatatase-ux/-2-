@@ -4,22 +4,22 @@
 
 PREP_CONSTRUCTOR(PrepMemberStage),
 partyButtons{
-	Button(150.0f, 520.0f, 60.0f, context->playerParty->mons[0].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(310.0f, 520.0f, 60.0f, context->playerParty->mons[1].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(470.0f, 520.0f, 60.0f, context->playerParty->mons[2].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(630.0f, 520.0f, 60.0f, context->playerParty->mons[3].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(790.0f, 520.0f, 60.0f, context->playerParty->mons[4].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(950.0f, 520.0f, 60.0f, context->playerParty->mons[5].data->Name, GetColor(100,100,100), GetColor(200,200,0))
+	Button(150.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png", context->playerParty->mons[0].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(310.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[1].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(470.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[2].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(630.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[3].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(790.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[4].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
+	Button(950.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[5].data->Name, GetColor(100,100,100), GetColor(200,200,0))
 },
 enemyButtons{
-	Button(150.0f, 150.0f, 50.0f, context->enemyParty.mons[0].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(310.0f, 150.0f, 50.0f, context->enemyParty.mons[1].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(470.0f, 150.0f, 50.0f, context->enemyParty.mons[2].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(630.0f, 150.0f, 50.0f, context->enemyParty.mons[3].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(790.0f, 150.0f, 50.0f, context->enemyParty.mons[4].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(950.0f, 150.0f, 50.0f, context->enemyParty.mons[5].data->Name, GetColor(200,0,0), GetColor(200,0,0))
+	Button(150.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[0].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
+	Button(310.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[1].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
+	Button(470.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[2].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
+	Button(630.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[3].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
+	Button(790.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[4].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
+	Button(950.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[5].data->Name, GetColor(200,0,0), GetColor(200,0,0))
 },
-confirmButton(WINDOW_W / 2.0f, 650.0f, 50.0f, "戦闘開始", GetColor(100, 100, 100), GetColor(0, 200, 0))
+confirmButton(WINDOW_W / 2.0f, 650.0f, 50.0f, 2.0f,"data/button/start.png", "戦闘開始", GetColor(100, 100, 100), GetColor(0, 200, 0))
 {
 	for (int i = 0; i < PARTY_MAX; i++) memberOrder[i] = -1;
 

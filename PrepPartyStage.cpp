@@ -9,7 +9,7 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 		float y = 620.0f;
 		const MonsterBaseData* d = context->playerParty->mons[i].data;
 		const char* label = (d != nullptr) ? d->Name : "ãÛ";
-		slotButtons[i] = Button(x, y, 60.0f, label, GetColor(100, 100, 100), GetColor(200, 200, 0));
+		slotButtons[i] = Button(x, y, 60.0f, 2.0f, "data/button/pMon.png", label, GetColor(100, 100, 100), GetColor(200, 200, 0));
 	}
 
 	// è„íi:ëIëâ¬î\Ç»âˆèbàÍóó
@@ -21,7 +21,7 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 		int col = i % columns;
 		float x = 150.0f + col * 160.0f;
 		float y = 100.0f + row * 130.0f;
-		rosterButtons.emplace_back(x, y, 50.0f, MonsterData::GetByIndex(i).Name, GetColor(150, 150, 150), GetColor(200, 200, 0));
+		rosterButtons.emplace_back(x, y, 50.0f, 2.0f, "data/button/pMon.png", MonsterData::GetByIndex(i).Name, GetColor(150, 150, 150), GetColor(200, 200, 0));
 	}
 }
 

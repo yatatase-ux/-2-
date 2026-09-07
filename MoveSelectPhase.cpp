@@ -3,14 +3,20 @@
 
 PHASE_CONSTRUCTOR(MoveSelectPhase)
 {
+
 	for (int i = 0; i < MOVE_SLOT_MAX; i++)
 	{
 		float x = 1000.0f;
 		float y = 350.0f + i * 85.0f;
+		FloatXY pos = { 1000.0f , 350.0f + i * 85.0f };
 		int moveID = context->player->data->MoveID[i];
+		const char* imagePath = (MoveTable[moveID].element == Type::Fire) ? "data/button/MoveFire.png" :
+							   (MoveTable[moveID].element == Type::Water) ? "data/button/MoveWater.png":
+							   (MoveTable[moveID].element == Type::Grass) ? "data/button/MoveGrass.png":
+																		   "data/button/MoveNormal.png";
 
 		const char* label = (moveID >= 0) ? MoveTable[moveID].Name : "";
-		moveButtons[i] = Button(x, y, 250.0f, 75.0f, label, GetColor(0, 200, 255), GetColor(0, 255, 255));
+		moveButtons[i] = Button(pos, { 250.0f, 75.0f }, imagePath, label, GetColor(50, 50, 50), GetColor(200, 200, 200));
 
 		if (moveID < 0)
 		{

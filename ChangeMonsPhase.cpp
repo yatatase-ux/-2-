@@ -2,9 +2,9 @@
 
 PHASE_CONSTRUCTOR(ChangeMonsPhase),
 buttons{
-	Button(1000.0f, 350.0f, 250.0f, 75.0f, pMembers->mons[0]->data->Name, GetColor(200,200,200), GetColor(255,255,255)),
-	Button(1000.0f, 435.0f, 250.0f, 75.0f, pMembers->mons[1]->data->Name, GetColor(200,200,200), GetColor(255,255,255)),
-	Button(1000.0f, 520.0f, 250.0f, 75.0f, pMembers->mons[2]->data->Name, GetColor(200,200,200), GetColor(255,255,255))
+	Button({ 1000.0f, 350.0f }, { 250.0f, 75.0f },"data/Button/cMon.png", pMembers->mons[0]->data->Name, GetColor(200,200,200), GetColor(255,255,255)),
+	Button({ 1000.0f, 435.0f }, { 250.0f, 75.0f },"data/Button/cMon.png", pMembers->mons[1]->data->Name, GetColor(200,200,200), GetColor(255,255,255)),
+	Button({ 1000.0f, 520.0f }, { 250.0f, 75.0f },"data/Button/cMon.png", pMembers->mons[2]->data->Name, GetColor(200,200,200), GetColor(255,255,255))
 }
 {
 	// コンストラクタの時点でも瀕死状態を反映しておく(1フレーム目の入力判定のため)
