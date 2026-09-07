@@ -154,7 +154,6 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MonstaerData.cpp" />
     <ClCompile Include="MoveData.cpp" />
     <ClCompile Include="MoveSelectPhase.cpp" />

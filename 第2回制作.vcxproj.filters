@@ -13,38 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\シーン管理">
-      <UniqueIdentifier>{0b0aa213-94f4-4cac-91dc-98e81e420347}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Main＆Game">
-      <UniqueIdentifier>{bc75f800-fd3e-46ab-bdc0-0d9eec166c00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\シーン管理">
-      <UniqueIdentifier>{61b11537-ec96-41f1-8e57-8f9ed3ccd869}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\怪獣データ">
-      <UniqueIdentifier>{93cb69e8-08a9-4ad9-ba15-c333ae5d9748}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Main＆Game">
       <UniqueIdentifier>{64b281b6-200e-4936-ac6e-ce5f74235beb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\怪獣データ">
-      <UniqueIdentifier>{59c563fb-7175-46b0-beee-a3d59f70cd3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\プレイヤー">
-      <UniqueIdentifier>{36f152d3-1887-4e6e-8fa2-f8a33422bc78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\プレイヤー">
-      <UniqueIdentifier>{1ea023c3-80ce-4706-ae67-9f0474699f58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\バトル">
-      <UniqueIdentifier>{2d573594-5693-47fb-801f-429ba4c24879}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\フェーズ">
-      <UniqueIdentifier>{51fbd763-33a0-4aa7-8e4c-cbbf556e0a00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\フェーズ">
-      <UniqueIdentifier>{ccf59725-fc90-41ed-ba21-18f578eb3bb9}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\CPU">
       <UniqueIdentifier>{518ce562-6d82-4d93-af11-681f8c52bd21}</UniqueIdentifier>
@@ -52,82 +22,109 @@
     <Filter Include="ソース ファイル\CPU">
       <UniqueIdentifier>{c69c501b-dadb-4b41-b55d-bfa6445c2e89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\フェーズ\戦闘">
-      <UniqueIdentifier>{d4953007-3872-4cf5-a3f6-9fe28f0d69b1}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{0b0aa213-94f4-4cac-91dc-98e81e420347}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\フェーズ\準備">
-      <UniqueIdentifier>{292e0afe-c8c7-410b-b658-97f041fa31a4}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{1ea023c3-80ce-4706-ae67-9f0474699f58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\フェーズ\戦闘">
-      <UniqueIdentifier>{07394229-300b-400e-925d-7c22e7d373c8}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Monster">
+      <UniqueIdentifier>{59c563fb-7175-46b0-beee-a3d59f70cd3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\フェーズ\準備">
-      <UniqueIdentifier>{ee9edb54-109b-4844-8d07-74740fe28bc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\フェーズ\戦闘\Action">
-      <UniqueIdentifier>{7acc57f9-eced-489e-aa6f-7b724fc3a98c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\バトル">
-      <UniqueIdentifier>{e98a7163-64a5-4aff-9ff9-5bcc66358682}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\フェーズ\戦闘\Action">
-      <UniqueIdentifier>{c4f4adad-cc62-4b82-8d1a-dd24b874016d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\実況">
-      <UniqueIdentifier>{491b7c24-5ca7-4a2a-8d6a-2e3eb27c8843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\実況">
+    <Filter Include="ソース ファイル\Commentator">
       <UniqueIdentifier>{68bc6fc0-1043-42ec-939c-9591d0c9ece3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\詳細表示">
+    <Filter Include="ソース ファイル\Detail">
       <UniqueIdentifier>{85a22e64-c123-428b-82cb-738e5f390f23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\詳細表示">
+    <Filter Include="ソース ファイル\Phase">
+      <UniqueIdentifier>{ccf59725-fc90-41ed-ba21-18f578eb3bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Phase\Battle">
+      <UniqueIdentifier>{07394229-300b-400e-925d-7c22e7d373c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Phase\Battle\Action">
+      <UniqueIdentifier>{7acc57f9-eced-489e-aa6f-7b724fc3a98c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Phase\Prep">
+      <UniqueIdentifier>{ee9edb54-109b-4844-8d07-74740fe28bc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Main&amp;Game">
+      <UniqueIdentifier>{bc75f800-fd3e-46ab-bdc0-0d9eec166c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{61b11537-ec96-41f1-8e57-8f9ed3ccd869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Phase">
+      <UniqueIdentifier>{51fbd763-33a0-4aa7-8e4c-cbbf556e0a00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Phase\戦闘">
+      <UniqueIdentifier>{d4953007-3872-4cf5-a3f6-9fe28f0d69b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Phase\戦闘\Action">
+      <UniqueIdentifier>{c4f4adad-cc62-4b82-8d1a-dd24b874016d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Phase\準備">
+      <UniqueIdentifier>{292e0afe-c8c7-410b-b658-97f041fa31a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{36f152d3-1887-4e6e-8fa2-f8a33422bc78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Monster">
+      <UniqueIdentifier>{93cb69e8-08a9-4ad9-ba15-c333ae5d9748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Commentator">
+      <UniqueIdentifier>{491b7c24-5ca7-4a2a-8d6a-2e3eb27c8843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Detail">
       <UniqueIdentifier>{0ee82adf-be6d-44d3-a05b-bc5807b8d2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\BattleEffect">
+      <UniqueIdentifier>{e98a7163-64a5-4aff-9ff9-5bcc66358682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BattleEffect">
+      <UniqueIdentifier>{2d573594-5693-47fb-801f-429ba4c24879}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneEnd.cpp">
-      <Filter>ソース ファイル\シーン管理</Filter>
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneOP.cpp">
-      <Filter>ソース ファイル\シーン管理</Filter>
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="ScenePlay.cpp">
-      <Filter>ソース ファイル\シーン管理</Filter>
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル\シーン管理</Filter>
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="WinMain.cpp">
-      <Filter>ソース ファイル\Main＆Game</Filter>
+      <Filter>ソース ファイル\Main&amp;Game</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル\Main＆Game</Filter>
+      <Filter>ソース ファイル\Main&amp;Game</Filter>
     </ClCompile>
     <ClCompile Include="MonstaerData.cpp">
-      <Filter>ソース ファイル\怪獣データ</Filter>
+      <Filter>ソース ファイル\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\プレイヤー</Filter>
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
     <ClCompile Include="Function.cpp">
-      <Filter>ソース ファイル\Main＆Game</Filter>
+      <Filter>ソース ファイル\Main&amp;Game</Filter>
     </ClCompile>
     <ClCompile Include="MoveData.cpp">
-      <Filter>ソース ファイル\怪獣データ</Filter>
+      <Filter>ソース ファイル\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
-      <Filter>ソース ファイル\プレイヤー</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>ソース ファイル\プレイヤー</Filter>
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
     <ClCompile Include="DamageCalculator.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+      <Filter>ソース ファイル\BattleEffect</Filter>
     </ClCompile>
     <ClCompile Include="EffectApplier.cpp">
-      <Filter>ソース ファイル\バトル</Filter>
+      <Filter>ソース ファイル\BattleEffect</Filter>
     </ClCompile>
     <ClCompile Include="CpuAttackScorer.cpp">
       <Filter>ソース ファイル\CPU</Filter>
@@ -145,96 +142,96 @@
       <Filter>ソース ファイル\CPU</Filter>
     </ClCompile>
     <ClCompile Include="ChangeMonsPhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+      <Filter>ソース ファイル\Phase\Battle</Filter>
     </ClCompile>
     <ClCompile Include="CheckFaintPhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+      <Filter>ソース ファイル\Phase\Battle</Filter>
     </ClCompile>
     <ClCompile Include="CommandPhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+      <Filter>ソース ファイル\Phase\Battle</Filter>
     </ClCompile>
     <ClCompile Include="EndGamePhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+      <Filter>ソース ファイル\Phase\Battle</Filter>
     </ClCompile>
     <ClCompile Include="MoveSelectPhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+      <Filter>ソース ファイル\Phase\Battle</Filter>
     </ClCompile>
     <ClCompile Include="PhaseManager.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘</Filter>
+      <Filter>ソース ファイル\Phase\Battle</Filter>
     </ClCompile>
     <ClCompile Include="PrepStageManager.cpp">
-      <Filter>ソース ファイル\フェーズ\準備</Filter>
+      <Filter>ソース ファイル\Phase\Prep</Filter>
     </ClCompile>
     <ClCompile Include="PrepPartyStage.cpp">
-      <Filter>ソース ファイル\フェーズ\準備</Filter>
+      <Filter>ソース ファイル\Phase\Prep</Filter>
     </ClCompile>
     <ClCompile Include="PrepMemberStage.cpp">
-      <Filter>ソース ファイル\フェーズ\準備</Filter>
+      <Filter>ソース ファイル\Phase\Prep</Filter>
     </ClCompile>
     <ClCompile Include="PrepHomeStage.cpp">
-      <Filter>ソース ファイル\フェーズ\準備</Filter>
+      <Filter>ソース ファイル\Phase\Prep</Filter>
     </ClCompile>
     <ClCompile Include="ActionPhase.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ソース ファイル\Phase\Battle\Action</Filter>
     </ClCompile>
     <ClCompile Include="TurnOrderResolver.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ソース ファイル\Phase\Battle\Action</Filter>
     </ClCompile>
     <ClCompile Include="MoveExecutor.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ソース ファイル\Phase\Battle\Action</Filter>
     </ClCompile>
     <ClCompile Include="TurnAftermathProcessor.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ソース ファイル\Phase\Battle\Action</Filter>
     </ClCompile>
     <ClCompile Include="ActionPresenter.cpp">
-      <Filter>ソース ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ソース ファイル\Phase\Battle\Action</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>ソース ファイル\フェーズ</Filter>
+      <Filter>ソース ファイル\Phase</Filter>
     </ClCompile>
     <ClCompile Include="Commentator.cpp">
-      <Filter>ソース ファイル\実況</Filter>
-    </ClCompile>
-    <ClCompile Include="BattleHUD.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Commentator</Filter>
     </ClCompile>
     <ClCompile Include="CommentaryData.cpp">
-      <Filter>ソース ファイル\実況</Filter>
+      <Filter>ソース ファイル\Commentator</Filter>
     </ClCompile>
     <ClCompile Include="MemberDetail.cpp">
-      <Filter>ソース ファイル\詳細表示</Filter>
+      <Filter>ソース ファイル\Detail</Filter>
     </ClCompile>
     <ClCompile Include="MonsterDetail.cpp">
-      <Filter>ソース ファイル\詳細表示</Filter>
+      <Filter>ソース ファイル\Detail</Filter>
     </ClCompile>
     <ClCompile Include="MoveDetail.cpp">
-      <Filter>ソース ファイル\詳細表示</Filter>
+      <Filter>ソース ファイル\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleHUD.cpp">
+      <Filter>ソース ファイル\BattleEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
-      <Filter>ヘッダー ファイル\シーン管理</Filter>
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneOP.h">
-      <Filter>ヘッダー ファイル\シーン管理</Filter>
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="ScenePlay.h">
-      <Filter>ヘッダー ファイル\シーン管理</Filter>
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneEnd.h">
-      <Filter>ヘッダー ファイル\シーン管理</Filter>
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>ヘッダー ファイル\シーン管理</Filter>
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="MonsterBaseData.h">
-      <Filter>ヘッダー ファイル\怪獣データ</Filter>
+      <Filter>ヘッダー ファイル\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Element.h">
-      <Filter>ヘッダー ファイル\怪獣データ</Filter>
+      <Filter>ヘッダー ファイル\Monster</Filter>
     </ClInclude>
     <ClInclude Include="MonsterData.h">
-      <Filter>ヘッダー ファイル\怪獣データ</Filter>
+      <Filter>ヘッダー ファイル\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
@@ -249,31 +246,31 @@
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル\プレイヤー</Filter>
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
     <ClInclude Include="MoveData.h">
-      <Filter>ヘッダー ファイル\怪獣データ</Filter>
+      <Filter>ヘッダー ファイル\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
-      <Filter>ヘッダー ファイル\プレイヤー</Filter>
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>ヘッダー ファイル\プレイヤー</Filter>
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
     <ClInclude Include="BattleContext.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\BattleEffect</Filter>
     </ClInclude>
     <ClInclude Include="BattleMonster.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\BattleEffect</Filter>
     </ClInclude>
     <ClInclude Include="DamageCalculator.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\BattleEffect</Filter>
     </ClInclude>
     <ClInclude Include="Party.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\BattleEffect</Filter>
     </ClInclude>
     <ClInclude Include="EffectApplier.h">
-      <Filter>ヘッダー ファイル\バトル</Filter>
+      <Filter>ヘッダー ファイル\BattleEffect</Filter>
     </ClInclude>
     <ClInclude Include="CpuAttackScorer.h">
       <Filter>ヘッダー ファイル\CPU</Filter>
@@ -294,40 +291,40 @@
       <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
     <ClInclude Include="ChangeMonsPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="CheckFaintPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="CommandPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="EndBattlePhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="MoveSelectPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="PhaseBase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="PhaseManager.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘</Filter>
     </ClInclude>
     <ClInclude Include="PrepStageBase.h">
-      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+      <Filter>ヘッダー ファイル\Phase\準備</Filter>
     </ClInclude>
     <ClInclude Include="PrepStageManager.h">
-      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+      <Filter>ヘッダー ファイル\Phase\準備</Filter>
     </ClInclude>
     <ClInclude Include="PrepPartyStage.h">
-      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+      <Filter>ヘッダー ファイル\Phase\準備</Filter>
     </ClInclude>
     <ClInclude Include="PrepMemberStage.h">
-      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+      <Filter>ヘッダー ファイル\Phase\準備</Filter>
     </ClInclude>
     <ClInclude Include="PrepHomeStage.h">
-      <Filter>ヘッダー ファイル\フェーズ\準備</Filter>
+      <Filter>ヘッダー ファイル\Phase\準備</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>ヘッダー ファイル\Main＆Game</Filter>
@@ -339,49 +336,49 @@
       <Filter>ヘッダー ファイル\CPU</Filter>
     </ClInclude>
     <ClInclude Include="ActionPhase.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="ActionSlot.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="TurnOrderResolver.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="MoveExecutor.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="TurnAftermathProcessor.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="ActionPresenter.h">
-      <Filter>ヘッダー ファイル\フェーズ\戦闘\Action</Filter>
+      <Filter>ヘッダー ファイル\Phase\戦闘\Action</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>ヘッダー ファイル\フェーズ</Filter>
+      <Filter>ヘッダー ファイル\Phase</Filter>
     </ClInclude>
     <ClInclude Include="CommentarySituation.h">
-      <Filter>ヘッダー ファイル\実況</Filter>
+      <Filter>ヘッダー ファイル\Commentator</Filter>
     </ClInclude>
     <ClInclude Include="Commentator.h">
-      <Filter>ヘッダー ファイル\実況</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleHUD.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Commentator</Filter>
     </ClInclude>
     <ClInclude Include="CommentaryData.h">
-      <Filter>ヘッダー ファイル\実況</Filter>
+      <Filter>ヘッダー ファイル\Commentator</Filter>
     </ClInclude>
     <ClInclude Include="CommentaryBase.h">
-      <Filter>ヘッダー ファイル\実況</Filter>
+      <Filter>ヘッダー ファイル\Commentator</Filter>
     </ClInclude>
     <ClInclude Include="MonsterDetail.h">
-      <Filter>ヘッダー ファイル\詳細表示</Filter>
+      <Filter>ヘッダー ファイル\Detail</Filter>
     </ClInclude>
     <ClInclude Include="MoveDetail.h">
-      <Filter>ヘッダー ファイル\詳細表示</Filter>
+      <Filter>ヘッダー ファイル\Detail</Filter>
     </ClInclude>
     <ClInclude Include="MemberDetail.h">
-      <Filter>ヘッダー ファイル\詳細表示</Filter>
+      <Filter>ヘッダー ファイル\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleHUD.h">
+      <Filter>ヘッダー ファイル\BattleEffect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
