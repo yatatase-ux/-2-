@@ -22,6 +22,12 @@ struct MonsterBaseData
 	const char* pImage_path;
 	const char* eImage_path;
 
-	int pImage = LoadGraph(pImage_path);
-	int eImage = LoadGraph(eImage_path);
+	mutable int pImage = -1;
+	mutable int eImage = -1;
+
+	void ImageLoad() const
+	{
+		if (pImage_path != nullptr) pImage = LoadGraph(pImage_path);
+		if (eImage_path != nullptr) eImage = LoadGraph(eImage_path);
+	}
 };

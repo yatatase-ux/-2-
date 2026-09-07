@@ -19,9 +19,12 @@ SCENE_CONSTRUCTOR(ScenePlay)
 	GenerateRandomEnemyParty();			// CPUの6体をここで確定させる
 
 	stage = PlayStage::Preparing;
+
 	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
 
 	// CPU側の初期化は PrepMemberStage のコンストラクタで行うため、ここでは不要
+
+	image = LoadGraph("data/Monster/1-1.png");
 }
 
 /// <summary>
@@ -87,14 +90,6 @@ void ScenePlay::Draw()
 		// プレイシーンの描画処理
 		m_Battle->Draw();
 
-		////CPU
-		//DrawFormatString(
-		//	1100,
-		//	100,
-		//	GetColor(255, 255, 255),
-		//	"HP : %d",
-		//	context.enemy->CurrentHP);
-		//DrawString(900, 70, context.enemy->data->Name, GetColor(255, 255, 255));
 		//for (int i = 0; i < MOVE_SLOT_MAX; i++)
 		//{
 		//	int moveID = context.enemyMoveScore[i].moveID;
@@ -115,21 +110,6 @@ void ScenePlay::Draw()
 		//}
 		//DrawFormatString(850, 400, GetColor(0, 255, 255), "予測:プレイヤーは%s",
 		//	context.predictedPlayerDecision.switchToIndex >= 0 ? "交代してくる" : "技を使う");
-
-		////Player
-		//DrawFormatString(
-		//	100,
-		//	400,
-		//	GetColor(255, 255, 255),
-		//	"HP : %d",
-		//	context.player->CurrentHP);
-		//DrawString(100, 430, context.player->data->Name, GetColor(255, 255, 255));
-		//DrawFormatString(
-		//	100,
-		//	500,
-		//	GetColor(255, 255, 255),
-		//	"物理攻撃ランク : %d",
-		//	context.player->PATKRank);
 	}
 }
 

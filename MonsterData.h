@@ -13,7 +13,8 @@ public:
 
 	static const MonsterBaseData* FindByID(int id);
 
-	static int GetCount();                             // ’Ç‰Á:‘”‚ğæ“¾
-	static const MonsterBaseData& GetByIndex(int index); // ’Ç‰Á:indexw’è‚Å1‘Ìæ“¾
+	static int GetCount();									// ‘”‚ğæ“¾
+	static const MonsterBaseData& GetByIndex(int index);	// indexw’è‚Å1‘Ìæ“¾
+	static void LoadImages();								// ‰æ‘œ‚ğ“Ç‚İ‚Şê—pŠÖ”
 
 };

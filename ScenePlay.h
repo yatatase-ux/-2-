@@ -37,6 +37,8 @@ private:
 	/// </summary>
 	void GenerateRandomEnemyParty();
 
+	int image;
+
 public:
 
 	/// <summary>
