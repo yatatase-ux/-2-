@@ -5,6 +5,11 @@ SCENE_CONSTRUCTOR(SceneEnd)
 	// エンディングシーンの初期化処理
 }
 
+SceneEnd::~SceneEnd()
+{
+
+}
+
 SCENE_INPUT(SceneEnd)
 {
 	// エンディングシーンの入力処理

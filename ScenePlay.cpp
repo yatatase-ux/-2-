@@ -27,6 +27,11 @@ SCENE_CONSTRUCTOR(ScenePlay)
 	image = LoadGraph("data/Monster/1-1.png");
 }
 
+ScenePlay::~ScenePlay()
+{
+
+}
+
 /// <summary>
 /// “ü—Íˆ—
 /// </summary>

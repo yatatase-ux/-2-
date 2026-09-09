@@ -162,6 +162,7 @@
     <ClCompile Include="PrepMemberStage.cpp" />
     <ClCompile Include="PrepPartyStage.cpp" />
     <ClCompile Include="PrepStageManager.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneOP.cpp" />

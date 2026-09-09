@@ -5,6 +5,11 @@ SCENE_CONSTRUCTOR(SceneOP)
 	// OPシーンの初期化処理
 }
 
+SceneOP::~SceneOP()
+{
+
+}
+
 SCENE_INPUT(SceneOP)
 {
 	// OPシーンの入力処理

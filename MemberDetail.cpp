@@ -11,7 +11,7 @@ void MemberDetail::Draw(const MonsterBaseData& data, float x, float y)
 
 	// 画像(仮の円、名前の下)
 //	DrawCircleAA((int)(x + 90), (int)(y + 150), 70, 100, GetColor(150, 150, 200), 1);
-	DrawRotaGraphF((int)(x + 90), (int)(y + 150), 1.0, 0.0, data.eImage, 1);
+	DrawRotaGraphF((int)(x + 120), (int)(y + 150), 0.15, 0.0, data.eImage, 1);
 
 	// ステータス6項目(画像の右)
 	const char* statNames[] = { "HP", "物理攻撃", "物理防御", "魔法攻撃", "魔法防御", "素早さ" };

@@ -26,14 +26,16 @@ public:
 
 	SceneBase(Cursor* arg_cursor, InputManager* arg_input, Party* arg_playerParty)
 		:cursor(arg_cursor), input(arg_input), playerParty(arg_playerParty) {};
-	virtual SceneState Input() = 0;	// 純粋仮想関数
+	virtual ~SceneBase() = 0;			// 純粋仮想関数
+	virtual SceneState Input() = 0;		// 純粋仮想関数
 	virtual SceneState Update() = 0;	// 純粋仮想関数
-	virtual void Draw() = 0;	// 純粋仮想関数
-	virtual void Sound() = 0;	// 純粋仮想関数
+	virtual void Draw() = 0;			// 純粋仮想関数
+	virtual void Sound() = 0;			// 純粋仮想関数
 };
 
 #define SCENE_CLASS(className)\
 	className(Cursor* arg_cursor, InputManager* arg_input, Party* arg_playerParty);\
+	~className() override;\
 	SceneState Input() override;\
 	SceneState Update() override;\
 	void Draw() override;\

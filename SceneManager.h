@@ -33,6 +33,7 @@ protected:
 public:
 
 	SceneManager();
+	~SceneManager();
 
 	void Input();
 	void Update();

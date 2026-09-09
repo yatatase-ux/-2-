@@ -9,6 +9,11 @@ SceneManager::SceneManager()
 	scene = Scene::OP;
 }
 
+SceneManager::~SceneManager()
+{
+	nowScene->~SceneBase();
+}
+
 void SceneManager::Input()
 {
 	SceneState now_scene = nowScene->Input();	// Œ»İ‚ÌƒV[ƒ“‚Ì“ü—Íˆ—‚ğŒÄ‚Ño‚·

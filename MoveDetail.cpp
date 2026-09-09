@@ -25,7 +25,7 @@ void MoveDetail::Draw(const MoveData& move, float x1, float y1, float x2, float 
 	// 物理・特殊・補助のカテゴリーを表示
 	FloatXY cPos = { x1 + (bSize.x * 0.29f), y1 + (bSize.y * 0.30f) };
 	const char* categoryText = (move.category == MoveCategory::Physical) ? "物理" :
-								(move.category == MoveCategory::Special) ? "特殊" :
+								(move.category == MoveCategory::Special) ? "魔法" :
 																		   "補助" ;
 
 	int categoryColor = (move.category == MoveCategory::Physical) ? GetColor(100, 0, 0) :

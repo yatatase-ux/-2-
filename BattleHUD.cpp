@@ -63,18 +63,22 @@ void BattleHUD::DrawConditionMark(BattleMonster& mon, float x, float y)
 
 	const char* label = "";
 	unsigned int color = 0;
+	int image = -1;
 
 	switch (mon.condition)
 	{
 	case StatusCondition::Poison:
+		image = poison_image;
 		label = "ì≈";
 		color = GetColor(150, 50, 200); // éá
 		break;
 	case StatusCondition::Paralysis:
+		image = paralysis_image;
 		label = "·É";
 		color = GetColor(220, 200, 30); // â©
 		break;
 	case StatusCondition::Burn:
+		image = burn_image;
 		label = "âŒ";
 		color = GetColor(230, 120, 30); // ûÚ
 		break;
@@ -82,9 +86,10 @@ void BattleHUD::DrawConditionMark(BattleMonster& mon, float x, float y)
 		return;
 	}
 
-	float radius = 18.0f;
-	DrawCircleAA((int)x, (int)y, (int)radius, 100, color, TRUE);
-	DrawCenterFormatText(x, y, GetColor(255, 255, 255), 20.0f, "%s", label);
+	double size = 0.1;
+	DrawRotaGraphF(x, y, size, 0.0, image, TRUE);
+//	DrawCircleAA((int)x, (int)y, (int)radius, 100, color, TRUE);
+//	DrawCenterFormatText(x, y, GetColor(255, 255, 255), 20.0f, "%s", label);
 }
 
 void BattleHUD::UpdateHPAnimation(BattleMonster& mon)
@@ -127,4 +132,11 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 		DrawConditionMark(enemy, 1110.0f, 40.0f);
 		DrawRankIcons(enemy, 965.0f, 110.0f); // HPÉoÅ[ÇÃÇ∑ÇÆâ∫
 	}
+}
+
+void BattleHUD::DeleteData()
+{
+	DeleteGraph(poison_image);
+	DeleteGraph(paralysis_image);
+	DeleteGraph(burn_image);
 }

@@ -207,6 +207,9 @@
     <ClCompile Include="BattleHUD.cpp">
       <Filter>ソース ファイル\BattleEffect</Filter>
     </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">

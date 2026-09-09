@@ -15,10 +15,16 @@ private:
 	// 状態異常マークを指定位置に描画する
 	void DrawConditionMark(BattleMonster& mon, float x, float y);
 
+	int poison_image = LoadGraph("data/UI/poison.png");
+	int paralysis_image = LoadGraph("data/UI/paralysis.png");
+	int burn_image = LoadGraph("data/UI/burn.png");
+
 public:
 
 	void UpdateHPAnimation(BattleMonster& mon);		// 表示HPをCurrentHPに近づける
 	bool IsHPAnimDone(BattleMonster& mon);			// アニメーションが終わっているか
 	void Draw(BattleMonster& player, BattleMonster& enemy);
+
+	void DeleteData();
 
 };
