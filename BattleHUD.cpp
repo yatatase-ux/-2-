@@ -92,8 +92,6 @@ void BattleHUD::DrawConditionMark(BattleMonster& mon, float x, float y)
 
 	double size = 0.1;
 	DrawRotaGraphF(x, y, size, 0.0, image, TRUE);
-//	DrawCircleAA((int)x, (int)y, (int)radius, 100, color, TRUE);
-//	DrawCenterFormatText(x, y, GetColor(255, 255, 255), 20.0f, "%s", label);
 }
 
 void BattleHUD::UpdateHPAnimation(BattleMonster& mon)
@@ -122,10 +120,10 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 	// プレイヤー側:実況欄の上端近くにHPバー、その右上あたりに怪獣
 	if(!player.isFainted)
 	{
-		DrawMonsterImage(player.data->pImage, 400.0f, 400.0f, 0.45f);
-		DrawHPBar(player, 60.0f, 500.0f, 250.0f);
-		DrawConditionMark(player, 220.0f, 500.0f);
-		DrawRankIcons(player, 75.0f, 570.0f); // HPバーのすぐ下
+		DrawMonsterImage(player.data->pImage, 400.0f, 400.0f, 0.45f);	// 怪獣画像
+		DrawHPBar(player, 60.0f, 500.0f, 250.0f);						// HPバー
+		DrawConditionMark(player, 250.0f, 500.0f);						// 状態異常
+		DrawRankIcons(player, 75.0f, 570.0f);							// 能力ランクアイコン
 	}
 
 	if (!enemy.isFainted)
@@ -133,7 +131,7 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 		// CPU側:右上隅にHPバー、その左下あたりに怪獣
 		DrawMonsterImage(enemy.data->eImage, 900.0f, 170.0f, 0.3f);
 		DrawHPBar(enemy, 950.0f, 40.0f, 250.0f);
-		DrawConditionMark(enemy, 1110.0f, 40.0f);
+		DrawConditionMark(enemy, 1155.0f, 35.0f);
 		DrawRankIcons(enemy, 965.0f, 110.0f); // HPバーのすぐ下
 	}
 }
