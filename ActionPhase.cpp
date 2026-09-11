@@ -1,5 +1,6 @@
 #include "ActionPhase.h"
 #include <cstdio>
+#include "Function.h"
 
 PHASE_CONSTRUCTOR(ActionPhase)
 {
@@ -71,6 +72,7 @@ PhaseState ActionPhase::Update()
 
 void ActionPhase::Draw()
 {
+
 	battleHUD.Draw(*context->player, *context->enemy);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 220);

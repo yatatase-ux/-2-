@@ -1,4 +1,4 @@
-#include "Function.h"
+ï»¿#include "Function.h"
 
 int GetMouseIntX()
 {
@@ -47,13 +47,13 @@ bool CheckCircleHit(FloatXY circle1, float radius1, FloatXY circle2, float radiu
 }
 
 /// <summary>
-/// ’†‰›‘µ‚¦‚Å•¶š—ñ‚ğ•`‰æ‚·‚éŠÖ”
+/// ä¸­å¤®æƒãˆã§æ–‡å­—åˆ—ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
-/// <param name="x">XÀ•W</param>
-/// <param name="y">YÀ•W</param>
-/// <param name="text">•`‰æ‚·‚é•¶š—ñ</param>
-/// <param name="color">•¶šF</param>
-/// <param name="size">•¶šƒTƒCƒY</param>
+/// <param name="x">Xåº§æ¨™</param>
+/// <param name="y">Yåº§æ¨™</param>
+/// <param name="text">æç”»ã™ã‚‹æ–‡å­—åˆ—</param>
+/// <param name="color">æ–‡å­—è‰²</param>
+/// <param name="size">æ–‡å­—ã‚µã‚¤ã‚º</param>
 void DrawCenterText(float x, float y, const char* text, unsigned int color, float size)
 {
 	SetFontSize(size);
@@ -69,7 +69,7 @@ void DrawCenterText(float x, float y, const char* text, unsigned int color, floa
 }
 
 /// <summary>
-/// ’†‰›‘µ‚¦‚Å•¶š—ñ‚Æ•Ï”‚ğ•`‰æ‚·‚éŠÖ”
+/// ä¸­å¤®æƒãˆã§æ–‡å­—åˆ—ã¨å¤‰æ•°ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
 /// <param name="x"></param>
 /// <param name="y"></param>
@@ -79,11 +79,11 @@ void DrawCenterText(float x, float y, const char* text, unsigned int color, floa
 /// <param name=""></param>
 void DrawCenterFormatText(float x, float y, unsigned int color, float size, const char* format, ...)
 {
-	char buffer[256]; // •`‰æ‚·‚é•¶š—ñ‚Ìˆêƒoƒbƒtƒ@
+	char buffer[256]; // æç”»ã™ã‚‹æ–‡å­—åˆ—ã®ä¸€æ™‚ãƒãƒƒãƒ•ã‚¡
 
 	va_list args;
 	va_start(args, format);
-	vsprintf_s(buffer, sizeof(buffer), format, args); // format‚Æ‰Â•Ï’·ˆø”‚©‚ç•¶š—ñ‚ğ‘g‚İ—§‚Ä‚é
+	vsprintf_s(buffer, sizeof(buffer), format, args); // formatã¨å¯å¤‰é•·å¼•æ•°ã‹ã‚‰æ–‡å­—åˆ—ã‚’çµ„ã¿ç«‹ã¦ã‚‹
 	va_end(args);
 
 	SetFontSize(size);
@@ -95,13 +95,13 @@ void DrawCenterFormatText(float x, float y, unsigned int color, float size, cons
 }
 
 /// <summary>
-/// ¶‘µ‚¦‚Å•¶š—ñ‚ğ•`‰æ‚·‚éŠÖ”
+/// å·¦æƒãˆã§æ–‡å­—åˆ—ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
-/// <param name="x">XÀ•W(•¶š—ñ‚Ì¶’[)</param>
-/// <param name="y">YÀ•W(•¶š—ñ‚Ì‚’¼•ûŒü‚Ì’†SBDrawCenterText‚Æ‡‚í‚¹‚Ä‚ ‚é)</param>
-/// <param name="text">•`‰æ‚·‚é•¶š—ñ</param>
-/// <param name="color">•¶šF</param>
-/// <param name="size">•¶šƒTƒCƒY</param>
+/// <param name="x">Xåº§æ¨™(æ–‡å­—åˆ—ã®å·¦ç«¯)</param>
+/// <param name="y">Yåº§æ¨™(æ–‡å­—åˆ—ã®å‚ç›´æ–¹å‘ã®ä¸­å¿ƒã€‚DrawCenterTextã¨åˆã‚ã›ã¦ã‚ã‚‹)</param>
+/// <param name="text">æç”»ã™ã‚‹æ–‡å­—åˆ—</param>
+/// <param name="color">æ–‡å­—è‰²</param>
+/// <param name="size">æ–‡å­—ã‚µã‚¤ã‚º</param>
 void DrawLeftText(float x, float y, const char* text, unsigned int color, float size)
 {
 	SetFontSize(size);
@@ -110,13 +110,13 @@ void DrawLeftText(float x, float y, const char* text, unsigned int color, float 
 }
 
 /// <summary>
-/// ¶‘µ‚¦‚Å•¶š—ñ‚Æ•Ï”‚ğ•`‰æ‚·‚éŠÖ”
+/// å·¦æƒãˆã§æ–‡å­—åˆ—ã¨å¤‰æ•°ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
-/// <param name="x">XÀ•W(•¶š—ñ‚Ì¶’[)</param>
-/// <param name="y">YÀ•W(•¶š—ñ‚Ì‚’¼•ûŒü‚Ì’†S)</param>
-/// <param name="color">•¶šF</param>
-/// <param name="size">•¶šƒTƒCƒY</param>
-/// <param name="format">‘®w’è•¶š—ñ</param>
+/// <param name="x">Xåº§æ¨™(æ–‡å­—åˆ—ã®å·¦ç«¯)</param>
+/// <param name="y">Yåº§æ¨™(æ–‡å­—åˆ—ã®å‚ç›´æ–¹å‘ã®ä¸­å¿ƒ)</param>
+/// <param name="color">æ–‡å­—è‰²</param>
+/// <param name="size">æ–‡å­—ã‚µã‚¤ã‚º</param>
+/// <param name="format">æ›¸å¼æŒ‡å®šæ–‡å­—åˆ—</param>
 void DrawLeftFormatText(float x, float y, unsigned int color, float size, const char* format, ...)
 {
 	char buffer[256];
@@ -131,31 +131,31 @@ void DrawLeftFormatText(float x, float y, unsigned int color, float size, const 
 }
 
 /// <summary>
-/// ‰E‘µ‚¦‚Å•¶š—ñ‚ğ•`‰æ‚·‚éŠÖ”
+/// å³æƒãˆã§æ–‡å­—åˆ—ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
-/// <param name="x">XÀ•W(•¶š—ñ‚Ì‰E’[)</param>
-/// <param name="y">YÀ•W(•¶š—ñ‚Ì‚’¼•ûŒü‚Ì’†SBDrawCenterText‚Æ‡‚í‚¹‚Ä‚ ‚é)</param>
-/// <param name="text">•`‰æ‚·‚é•¶š—ñ</param>
-/// <param name="color">•¶šF</param>
-/// <param name="size">•¶šƒTƒCƒY</param>
+/// <param name="x">Xåº§æ¨™(æ–‡å­—åˆ—ã®å³ç«¯)</param>
+/// <param name="y">Yåº§æ¨™(æ–‡å­—åˆ—ã®å‚ç›´æ–¹å‘ã®ä¸­å¿ƒã€‚DrawCenterTextã¨åˆã‚ã›ã¦ã‚ã‚‹)</param>
+/// <param name="text">æç”»ã™ã‚‹æ–‡å­—åˆ—</param>
+/// <param name="color">æ–‡å­—è‰²</param>
+/// <param name="size">æ–‡å­—ã‚µã‚¤ã‚º</param>
 void DrawRightText(float x, float y, const char* text, unsigned int color, float size)
 {
 	SetFontSize(size);
 	int GT_s = strlen(text);
 	int GT_w = GetDrawStringWidth(text, GT_s);
-	float draw_x = x - (float)GT_w; // ‰E’[‚ªx‚É—ˆ‚é‚æ‚¤A•¶š—ñ‚Ì•‚Ô‚ñ¶‚É‚¸‚ç‚·
+	float draw_x = x - (float)GT_w; // å³ç«¯ãŒxã«æ¥ã‚‹ã‚ˆã†ã€æ–‡å­—åˆ—ã®å¹…ã¶ã‚“å·¦ã«ãšã‚‰ã™
 	float draw_y = y - size / 2.0f;
 	DrawStringF(draw_x, draw_y, text, color);
 }
 
 /// <summary>
-/// ‰E‘µ‚¦‚Å•¶š—ñ‚Æ•Ï”‚ğ•`‰æ‚·‚éŠÖ”
+/// å³æƒãˆã§æ–‡å­—åˆ—ã¨å¤‰æ•°ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
-/// <param name="x">XÀ•W(•¶š—ñ‚Ì‰E’[)</param>
-/// <param name="y">YÀ•W(•¶š—ñ‚Ì‚’¼•ûŒü‚Ì’†S)</param>
-/// <param name="color">•¶šF</param>
-/// <param name="size">•¶šƒTƒCƒY</param>
-/// <param name="format">‘®w’è•¶š—ñ</param>
+/// <param name="x">Xåº§æ¨™(æ–‡å­—åˆ—ã®å³ç«¯)</param>
+/// <param name="y">Yåº§æ¨™(æ–‡å­—åˆ—ã®å‚ç›´æ–¹å‘ã®ä¸­å¿ƒ)</param>
+/// <param name="color">æ–‡å­—è‰²</param>
+/// <param name="size">æ–‡å­—ã‚µã‚¤ã‚º</param>
+/// <param name="format">æ›¸å¼æŒ‡å®šæ–‡å­—åˆ—</param>
 void DrawRightFormatText(float x, float y, unsigned int color, float size, const char* format, ...)
 {
 	char buffer[256];
@@ -173,7 +173,7 @@ void DrawRightFormatText(float x, float y, unsigned int color, float size, const
 }
 
 //---------------------------------------------------------------------------------
-//	“_‚Æ‰~‚Ì“–‚½‚è”»’èiÀ•W‚É Float2 ‚ğ“n‚·ƒo[ƒWƒ‡ƒ“j
+//	ç‚¹ã¨å††ã®å½“ãŸã‚Šåˆ¤å®šï¼ˆåº§æ¨™ã« Float2 ã‚’æ¸¡ã™ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼‰
 //---------------------------------------------------------------------------------
 bool CheckPointCircleHit(FloatXY point, FloatXY circle, float radius)
 {
@@ -184,7 +184,7 @@ bool CheckPointCircleHit(FloatXY point, FloatXY circle, float radius)
 	return false;
 }
 //---------------------------------------------------------------------------------
-//	“_‚ÆlŠp‚Ì“–‚½‚è”»’èiÀ•W‚Æ‘å‚«‚³‚É Float2 ‚ğ“n‚·ƒo[ƒWƒ‡ƒ“j
+//	ç‚¹ã¨å››è§’ã®å½“ãŸã‚Šåˆ¤å®šï¼ˆåº§æ¨™ã¨å¤§ãã•ã« Float2 ã‚’æ¸¡ã™ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼‰
 //---------------------------------------------------------------------------------
 bool CheckPointBoxHit(FloatXY point, FloatXY box_pos, FloatXY box_size)
 {
@@ -196,7 +196,7 @@ bool CheckPointBoxHit(FloatXY point, FloatXY box_pos, FloatXY box_size)
 	return false;
 }
 //---------------------------------------------------------------------------------
-//	‰~‚ÆlŠp‚Ì“–‚½‚è”»’èiÀ•W‚Æ‘å‚«‚³‚É Float2 ‚ğ“n‚·ƒo[ƒWƒ‡ƒ“j
+//	å††ã¨å››è§’ã®å½“ãŸã‚Šåˆ¤å®šï¼ˆåº§æ¨™ã¨å¤§ãã•ã« Float2 ã‚’æ¸¡ã™ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼‰
 //---------------------------------------------------------------------------------
 bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY box_size)
 {
@@ -218,14 +218,14 @@ bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY bo
 }
 
 /// <summary>
-/// ’l‚ğŠ„‡‚É•ÏŠ·‚µAƒXƒe[ƒ^ƒXƒo[(‰©F‚Ì‹éŒ`)‚ğ•`‰æ‚·‚éŠÖ”
+/// å€¤ã‚’å‰²åˆã«å¤‰æ›ã—ã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼(é»„è‰²ã®çŸ©å½¢)ã‚’æç”»ã™ã‚‹é–¢æ•°
 /// </summary>
-/// <param name="x">ƒo[¶’[‚ÌXÀ•W</param>
-/// <param name="y">ƒo[ã’[‚ÌYÀ•W</param>
-/// <param name="maxWidth">ƒo[‚ÌÅ‘å•</param>
-/// <param name="value">Œ»İ‚Ì’l</param>
-/// <param name="maxValue">Šî€‚Æ‚È‚éÅ‘å’l</param>
-/// <param name="color">F</param>
+/// <param name="x">ãƒãƒ¼å·¦ç«¯ã®Xåº§æ¨™</param>
+/// <param name="y">ãƒãƒ¼ä¸Šç«¯ã®Yåº§æ¨™</param>
+/// <param name="maxWidth">ãƒãƒ¼ã®æœ€å¤§å¹…</param>
+/// <param name="value">ç¾åœ¨ã®å€¤</param>
+/// <param name="maxValue">åŸºæº–ã¨ãªã‚‹æœ€å¤§å€¤</param>
+/// <param name="color">è‰²</param>
 void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue, unsigned int color)
 {
 	float ratio = (float)value / maxValue;
@@ -244,4 +244,40 @@ void DrawCenterBox(FloatXY pos, FloatXY size, unsigned int color, bool flag, flo
 
 	DrawBoxAA((int)sX, (int)sY, (int)eX, (int)eY, color, flag, LineSize);
 
+}
+
+/// <summary>
+/// æŒ‡å®šã—ãŸç¸¦ã®ç¯„å›²ã«ã€åŸºæº–è‰²ã‚’è»¸ã«ã—ãŸä¸Šä¸‹ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã€æ®µéšçš„ãªå¸¯ã§æã
+/// </summary>
+/// <param name="yStart">ç¯„å›²ã®é–‹å§‹Yåº§æ¨™</param>
+/// <param name="yEnd">ç¯„å›²ã®çµ‚äº†Yåº§æ¨™</param>
+/// <param name="baseR">åŸºæº–è‰²ã®èµ¤æˆåˆ†(0~255)</param>
+/// <param name="baseG">åŸºæº–è‰²ã®ç·‘æˆåˆ†(0~255)</param>
+/// <param name="baseB">åŸºæº–è‰²ã®é’æˆåˆ†(0~255)</param>
+/// <param name="steps">å¸¯ã®æ•°(å¤šã„ã»ã©æ»‘ã‚‰ã‹ã«ã€å°‘ãªã„ã»ã©ãƒ‰ãƒƒãƒˆçµµã‚‰ã—ã„æ®µå·®ã«)</param>
+void DrawGradientRegion(int yStart, int yEnd, int baseR, int baseG, int baseB, int steps)
+{
+	int height = yEnd - yStart;
+	if (height <= 0 || steps <= 0) return;
+
+	int bandHeight = height / steps;
+	if (bandHeight <= 0) bandHeight = 1;
+
+	for (int i = 0; i < steps; i++)
+	{
+		float t = (steps > 1) ? (float)i / (steps - 1) : 0.0f; // 0.0(æœ€åˆã®å¸¯)ã€œ1.0(æœ€å¾Œã®å¸¯)
+		float factor = 1.3f - 0.6f * t;
+
+		int r = (int)(baseR * factor);
+		int g = (int)(baseG * factor);
+		int b = (int)(baseB * factor);
+		if (r > 255) r = 255; if (r < 0) r = 0;
+		if (g > 255) g = 255; if (g < 0) g = 0;
+		if (b > 255) b = 255; if (b < 0) b = 0;
+
+		int bandStart = yStart + i * bandHeight;
+		int bandEnd = (i == steps - 1) ? yEnd : bandStart + bandHeight; // æœ€å¾Œã®å¸¯ã¯ç«¯æ•°ã‚‚å«ã‚ã¦ç«¯ã¾ã§åŸ‹ã‚ã‚‹
+
+		DrawFillBox(0, bandStart, WINDOW_W, bandEnd, GetColor(r, g, b));
+	}
 }

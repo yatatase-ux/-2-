@@ -56,3 +56,6 @@ void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue, unsi
 
 // 中心を受け取ってBoxを描画する関数
 void DrawCenterBox(FloatXY pos, FloatXY size, unsigned int color, bool flag, float LineSize = 1.0f);
+
+// 指定した縦の範囲に、基準色を軸にした上下グラデーションを描く
+void DrawGradientRegion(int yStart, int yEnd, int baseR, int baseG, int baseB, int steps = 5);

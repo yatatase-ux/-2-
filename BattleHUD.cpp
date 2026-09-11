@@ -115,6 +115,20 @@ bool BattleHUD::IsHPAnimDone(BattleMonster& mon)
 	return mon.displayedHP <= (float)mon.CurrentHP;
 }
 
+void BattleHUD::LoadIcons()
+{
+	poison_image = LoadGraph("data/UI/poison.png");
+	paralysis_image = LoadGraph("data/UI/paralysis.png");
+	burn_image = LoadGraph("data/UI/burn.png");
+}
+
+void BattleHUD::DeleteIcons()
+{
+	DeleteGraph(poison_image);
+	DeleteGraph(paralysis_image);
+	DeleteGraph(burn_image);
+}
+
 void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 {
 	// プレイヤー側:実況欄の上端近くにHPバー、その右上あたりに怪獣
@@ -130,22 +144,8 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 	{
 		// CPU側:右上隅にHPバー、その左下あたりに怪獣
 		DrawMonsterImage(enemy.data->eImage, 900.0f, 170.0f, 0.3f);
-		DrawHPBar(enemy, 950.0f, 40.0f, 250.0f);
-		DrawConditionMark(enemy, 1155.0f, 35.0f);
-		DrawRankIcons(enemy, 965.0f, 110.0f); // HPバーのすぐ下
+		DrawHPBar(enemy, 1000.0f, 40.0f, 250.0f);
+		DrawConditionMark(enemy, 1205.0f, 35.0f);
+		DrawRankIcons(enemy, 1015.0f, 110.0f); // HPバーのすぐ下
 	}
-}
-
-void BattleHUD::LoadIcons()
-{
-	poison_image = LoadGraph("data/UI/poison.png");
-	paralysis_image = LoadGraph("data/UI/paralysis.png");
-	burn_image = LoadGraph("data/UI/burn.png");
-}
-
-void BattleHUD::DeleteIcons()
-{
-	DeleteGraph(poison_image);
-	DeleteGraph(paralysis_image);
-	DeleteGraph(burn_image);
 }

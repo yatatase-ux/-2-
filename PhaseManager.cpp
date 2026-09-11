@@ -41,6 +41,10 @@ bool PhaseManager::Update()
 /// </summary>
 void PhaseManager::Draw()
 {
+	// ”wŒi
+	DrawGradientRegion(0, 130, 120, 160, 210);		// ‹ó(…FŒn)
+	DrawGradientRegion(130, WINDOW_H, 90, 150, 90, 10); // ’n–Ê(‘‚Ì—ÎŒn)
+
 	phase->Draw();
 }
 

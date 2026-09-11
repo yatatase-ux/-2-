@@ -83,8 +83,6 @@ SCENE_UPDATE(ScenePlay)
 /// </summary>
 void ScenePlay::Draw()
 {
-	//FloatXY p = cursor->GetPos();
-	//DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
 
 	// 準備ステージの描画
 	if (stage == PlayStage::Preparing)
@@ -118,6 +116,8 @@ void ScenePlay::Draw()
 		//DrawFormatString(850, 400, GetColor(0, 255, 255), "予測:プレイヤーは%s",
 		//	context.predictedPlayerDecision.switchToIndex >= 0 ? "交代してくる" : "技を使う");
 	}
+	FloatXY p = cursor->GetPos();
+	DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
 }
 
 /// <summary>
