@@ -164,7 +164,7 @@ void CheckFaintPhase::Draw()
         // 生存側の状態異常ダメージメッセージ
         DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
         DrawCenterFormatText(WINDOW_W / 2, WINDOW_H - 60, GetColor(255, 255, 0), 30,
-            "%s は状態異常のダメージ：%d", survivorStatusName, survivorStatusDamage);
+            "%s は状態異常のダメージ", survivorStatusName);
     }
     else
     {

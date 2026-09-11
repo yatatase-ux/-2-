@@ -20,6 +20,7 @@ private:
 	int warningTimer = 0;
 
 	bool IsPartyFull();
+	int BG;
 
 public:
 

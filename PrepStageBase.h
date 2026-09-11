@@ -32,6 +32,7 @@ public:
 
 #define PREP_CLASS(className)\
 	className(Cursor* arg_cursor, InputManager* arg_input, BattleContext* arg_context);\
+	~className() override;\
 	PrepState Input() override;\
 	PrepState  Update() override;\
 	void Draw() override;\

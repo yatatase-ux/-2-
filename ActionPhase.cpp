@@ -73,7 +73,10 @@ void ActionPhase::Draw()
 {
 	battleHUD.Draw(*context->player, *context->enemy);
 
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 220);
 	DrawFillBox(0, 600, WINDOW_W, WINDOW_H, GetColor(75, 75, 75));
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 
 	if (showingStatusAnnounce)
 	{

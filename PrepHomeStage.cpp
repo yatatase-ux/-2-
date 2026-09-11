@@ -5,6 +5,13 @@ PREP_CONSTRUCTOR(PrepHomeStage),
 	memberButton(WINDOW_W / 4 * 3, WINDOW_H / 2, 130.0f, 2.0f, "data/button/BattleStart.png", "戦闘", GetColor(0, 175, 0), GetColor(255, 255, 0))
 {
 	memberButton.SetDisabled(!IsPartyFull()); // コンストラクタ時点でも反映(1フレーム目対策)
+
+	BG = LoadGraph("data/BG/PrepHomeBG.png");
+}
+
+PrepHomeStage::~PrepHomeStage()
+{
+	DeleteGraph(BG);
 }
 
 PREP_INPUT(PrepHomeStage)
@@ -39,6 +46,8 @@ PREP_UPDATE(PrepHomeStage)
 
 void PrepHomeStage::Draw()
 {
+	DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, BG, TRUE);
+
 	partyButton.Draw();
 	memberButton.Draw();
 

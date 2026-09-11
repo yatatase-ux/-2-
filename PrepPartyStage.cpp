@@ -9,8 +9,8 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 		float y = 620.0f;
 		const MonsterBaseData* d = context->playerParty->mons[i].data;
 		const char* label = "";
-		slotButtons[i] = Button(FloatXY{ x, y }, FloatXY{ 120.0f, 120.0f }, "", "",
-			GetColor(100, 100, 100), GetColor(200, 200, 0), true);
+		slotButtons[i] = Button(FloatXY{ x, y }, FloatXY{ 140.0f, 140.0f }, "", "",
+			GetColor(0, 0, 0), GetColor(200, 200, 0), true);
 	}
 
 	// è„íi:ëIëâ¬î\Ç»âˆèbàÍóó
@@ -24,8 +24,15 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 		float y = 100.0f + row * 150.0f;
 		monImagePos[i] = { x, y };
 		rosterButtons.emplace_back(FloatXY{ x, y }, FloatXY{ 140.0f, 140.0f }, "data/button/pMon.png",
-			"", GetColor(150, 150, 150), GetColor(200, 200, 0), TRUE);
+			"", GetColor(0, 0, 0), GetColor(200, 200, 0), TRUE);
 	}
+
+	BG = LoadGraph("data/BG/PrepPartyBG.jpg");
+}
+
+PrepPartyStage::~PrepPartyStage()
+{
+	DeleteGraph(BG);
 }
 
 PREP_INPUT(PrepPartyStage)
@@ -68,6 +75,8 @@ PREP_UPDATE(PrepPartyStage)
 
 void PrepPartyStage::Draw()
 {
+	DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, BG, TRUE);
+
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		slotButtons[i].Draw();

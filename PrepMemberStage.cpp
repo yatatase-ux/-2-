@@ -43,6 +43,13 @@ confirmButton(WINDOW_W / 2.0f, 650.0f, 50.0f, 2.0f,"data/button/start.png", "êÌì
 	}
 
 	confirmButton.SetDisabled(true); // 3ëÃëµÇ§Ç‹Ç≈ÇÕâüÇπÇ»Ç¢
+
+	BG = LoadGraph("data/BG/PrepMenberBG.jpg");
+}
+
+PrepMemberStage::~PrepMemberStage()
+{
+	DeleteGraph(BG);
 }
 
 PREP_INPUT(PrepMemberStage)
@@ -110,6 +117,8 @@ PREP_UPDATE(PrepMemberStage)
 
 void PrepMemberStage::Draw()
 {
+	DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, BG, TRUE);
+
 	if (detailTarget != nullptr)
 	{
 		DrawFillBox(100, 210, WINDOW_W - 100, 452, GetColor(50, 100, 180));

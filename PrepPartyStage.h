@@ -10,6 +10,8 @@
 class PrepPartyStage : public PrepStageBase
 {
 private:
+	int BG;
+
 	int selectedSlot = -1;					// 選択中のパーティ枠(-1:未選択)
 	int selectedRosterIndex = -1;			// 選択中の怪獣(-1:未選択)
 	Button slotButtons[PARTY_MAX];			// 下段:パーティ6枠
