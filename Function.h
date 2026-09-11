@@ -53,3 +53,6 @@ bool CheckCircleBoxHit(FloatXY circle, float radius, FloatXY box_pos, FloatXY bo
 
 // ステータスバーの表示
 void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue, unsigned int color = GetColor(255, 255, 0));
+
+// 中心を受け取ってBoxを描画する関数
+void DrawCenterBox(FloatXY pos, FloatXY size, unsigned int color, bool flag, float LineSize = 1.0f);

@@ -21,16 +21,20 @@ private:
 	unsigned int disabledColor = 0;
 	unsigned int currentColor;
 	bool disabled = false;
+	bool centerFlag = false;
 
 	unsigned int selectedColor = 0;
 	bool selected = false;
 
 public:
+	// デフォルト
 	Button() = default;
+	// 円
 	Button(float x, float y, float r, float s, const char* imagePath, const char* label,
 		unsigned int normalColor, unsigned int hoverColor);
+	// 四角
 	Button(FloatXY p, FloatXY s, const char* imagePath, const char* label,
-		unsigned int normalColor, unsigned int hoverColor);
+		unsigned int normalColor, unsigned int hoverColor, bool Flag = false);
 
 	void SetDisabled(bool value, unsigned int disabledColorArg = GetColor(100, 100, 100));
 	bool IsHovered(Cursor* cursor);

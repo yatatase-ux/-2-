@@ -234,3 +234,14 @@ void DrawStatBar(float x, float y, float maxWidth, int value, int maxValue, unsi
 	float width = maxWidth * ratio;
 	DrawFillBox((int)x, (int)y, (int)(x + width), (int)(y + 20.0f), color);
 }
+
+void DrawCenterBox(FloatXY pos, FloatXY size, unsigned int color, bool flag, float LineSize)
+{
+	float sX = pos.x - size.x / 2.0f;
+	float sY = pos.y - size.y / 2.0f;
+	float eX = sX + size.x;
+	float eY = sY + size.y;
+
+	DrawBoxAA((int)sX, (int)sY, (int)eX, (int)eY, color, flag, LineSize);
+
+}

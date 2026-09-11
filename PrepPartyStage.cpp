@@ -8,8 +8,9 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 		float x = 150.0f + i * 160.0f;
 		float y = 620.0f;
 		const MonsterBaseData* d = context->playerParty->mons[i].data;
-		const char* label = (d != nullptr) ? d->Name : "空";
-		slotButtons[i] = Button(x, y, 60.0f, 2.0f, "data/button/pMon.png", label, GetColor(100, 100, 100), GetColor(200, 200, 0));
+		const char* label = "";
+		slotButtons[i] = Button(FloatXY{ x, y }, FloatXY{ 120.0f, 120.0f }, "", "",
+			GetColor(100, 100, 100), GetColor(200, 200, 0), true);
 	}
 
 	// 上段:選択可能な怪獣一覧
@@ -20,8 +21,10 @@ PREP_CONSTRUCTOR(PrepPartyStage)
 		int row = i / columns;
 		int col = i % columns;
 		float x = 150.0f + col * 160.0f;
-		float y = 100.0f + row * 130.0f;
-		rosterButtons.emplace_back(x, y, 50.0f, 2.0f, "data/button/pMon.png", MonsterData::GetByIndex(i).Name, GetColor(150, 150, 150), GetColor(200, 200, 0));
+		float y = 100.0f + row * 150.0f;
+		monImagePos[i] = { x, y };
+		rosterButtons.emplace_back(FloatXY{ x, y }, FloatXY{ 140.0f, 140.0f }, "data/button/pMon.png",
+			"", GetColor(150, 150, 150), GetColor(200, 200, 0), TRUE);
 	}
 }
 
@@ -55,6 +58,7 @@ PREP_UPDATE(PrepPartyStage)
 	{
 		slotButtons[i].Update(cursor);
 	}
+
 	for (int i = 0; i < (int)rosterButtons.size(); i++)
 	{
 		rosterButtons[i].Update(cursor);
@@ -64,15 +68,21 @@ PREP_UPDATE(PrepPartyStage)
 
 void PrepPartyStage::Draw()
 {
-	DrawCenterText(WINDOW_W / 2, 40, "Party", GetColor(255, 255, 255), 40.0f);
-
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		slotButtons[i].Draw();
+		const MonsterBaseData* d = context->playerParty->mons[i].data;
+		if (d != nullptr)
+		{
+			int image = d->eImage;
+			DrawRotaGraphF(slotButtons[i].GetPos().x, slotButtons[i].GetPos().y, 0.1, 0.0, image, TRUE);
+		}
 	}
 	for (int i = 0; i < (int)rosterButtons.size(); i++)
 	{
 		rosterButtons[i].Draw();
+		int image = MonsterData::GetByIndex(i).eImage;;
+		DrawRotaGraphF(monImagePos[i].x, monImagePos[i].y, 0.1, 0.0, image, TRUE);
 	}
 
 	// 詳細表示中は、最後に上書きするように描画する(常に一番手前に見えるように)
@@ -120,7 +130,7 @@ void PrepPartyStage::TrySwap(int slotIndex, int rosterIndex)
 		context->playerParty->mons[slotIndex].data = chosen;
 		context->playerParty->mons[slotIndex].CurrentHP = chosen->HP;
 		context->playerParty->mons[slotIndex].displayedHP = (float)chosen->HP;
-		slotButtons[slotIndex].SetLabel(chosen->Name); // ラベルを更新
+	//	slotButtons[slotIndex].SetLabel(chosen->Name); // ラベルを更新
 	}
 
 	slotButtons[slotIndex].SetSelected(false);

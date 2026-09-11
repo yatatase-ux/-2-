@@ -4,20 +4,20 @@
 
 PREP_CONSTRUCTOR(PrepMemberStage),
 partyButtons{
-	Button(150.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png", context->playerParty->mons[0].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(310.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[1].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(470.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[2].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(630.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[3].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(790.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[4].data->Name, GetColor(100,100,100), GetColor(200,200,0)),
-	Button(950.0f, 520.0f, 60.0f, 2.0f, "data/button/pMon.png",context->playerParty->mons[5].data->Name, GetColor(100,100,100), GetColor(200,200,0))
+	Button({ 150.0f, 520.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(100,100,100), GetColor(200,200,0), TRUE),
+	Button({ 310.0f, 520.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(100,100,100), GetColor(200,200,0), TRUE),
+	Button({ 470.0f, 520.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(100,100,100), GetColor(200,200,0), TRUE),
+	Button({ 630.0f, 520.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(100,100,100), GetColor(200,200,0), TRUE),
+	Button({ 790.0f, 520.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(100,100,100), GetColor(200,200,0), TRUE),
+	Button({ 950.0f, 520.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(100,100,100), GetColor(200,200,0), TRUE)
 },
 enemyButtons{
-	Button(150.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[0].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(310.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[1].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(470.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[2].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(630.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[3].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(790.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[4].data->Name, GetColor(200,0,0), GetColor(200,0,0)),
-	Button(950.0f, 150.0f, 50.0f, 2.0f, "data/button/pMon.png", context->enemyParty.mons[5].data->Name, GetColor(200,0,0), GetColor(200,0,0))
+	Button({ 150.0f, 150.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(200,0,0), GetColor(200,0,0), TRUE),
+	Button({ 310.0f, 150.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(200,0,0), GetColor(200,0,0), TRUE),
+	Button({ 470.0f, 150.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(200,0,0), GetColor(200,0,0), TRUE),
+	Button({ 630.0f, 150.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(200,0,0), GetColor(200,0,0), TRUE),
+	Button({ 790.0f, 150.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(200,0,0), GetColor(200,0,0), TRUE),
+	Button({ 950.0f, 150.0f }, { 130.0f, 130.0f }, "data/button/pMon.png", "", GetColor(200,0,0), GetColor(200,0,0), TRUE)
 },
 confirmButton(WINDOW_W / 2.0f, 650.0f, 50.0f, 2.0f,"data/button/start.png", "戦闘開始", GetColor(100, 100, 100), GetColor(0, 200, 0))
 {
@@ -110,11 +110,21 @@ PREP_UPDATE(PrepMemberStage)
 
 void PrepMemberStage::Draw()
 {
-	DrawCenterText(WINDOW_W / 2, 40, "Member", GetColor(255, 255, 255), 40.0f);
+	if (detailTarget != nullptr)
+	{
+		DrawFillBox(100, 210, WINDOW_W - 100, 452, GetColor(50, 100, 180));
+		memberDetail.Draw(*detailTarget, 100.0f, 210.0f); // 座標は仮
+	}
 
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		partyButtons[i].Draw();
+		const MonsterBaseData* d = context->playerParty->mons[i].data;
+		if (d != nullptr)
+		{
+			int image = d->eImage;
+			DrawRotaGraphF(ImagePos[0][i].x, ImagePos[0][i].y, 0.1, 0.0, image, TRUE);
+		}
 	}
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
@@ -129,13 +139,10 @@ void PrepMemberStage::Draw()
 	for (int i = 0; i < PARTY_MAX; i++)
 	{
 		enemyButtons[i].Draw();
+		DrawRotaGraphF(ImagePos[1][i].x, ImagePos[1][i].y, 0.1, 0.0, context->enemyParty.mons[i].data->eImage, TRUE);
+		
 	}
 
-	if (detailTarget != nullptr)
-	{
-		DrawFillBox(100, 210, WINDOW_W - 100, 452, GetColor(50, 100, 180));
-		memberDetail.Draw(*detailTarget, 100.0f, 210.0f); // 座標は仮
-	}
 	confirmButton.Draw();
 }
 

@@ -1,5 +1,5 @@
-// Button.cpp
 #include "Button.h"
+#include "Function.h"
 
 /// <summary>
 /// ボタンのコンストラクタ(円形)
@@ -15,9 +15,9 @@ Button::Button(float x, float y, float r, float s, const char* imagePath, const 
 /// ボタンのコンストラクタ(四角形)
 /// </summary>
 Button::Button(FloatXY p, FloatXY s, const char* imagePath, const char* label,
-	unsigned int normalColor, unsigned int hoverColor)
+	unsigned int normalColor, unsigned int hoverColor, bool Flag)
 	: pos(p),boxSize(s), image(LoadGraph(imagePath)), isCircle(false), label(label),
-	normalColor(normalColor), hoverColor(hoverColor), currentColor(normalColor)
+	normalColor(normalColor), hoverColor(hoverColor), currentColor(normalColor), centerFlag(Flag)
 {
 }
 
@@ -38,6 +38,12 @@ bool Button::IsHovered(Cursor* cursor)
 	if (isCircle)
 	{
 		return CheckCircleHit(pos, radius, cursor->GetPos(), 10.0f);
+	}	
+	if (centerFlag)
+	{
+		// posは中心なので、左上を逆算してから判定する
+		FloatXY topLeft = { pos.x - boxSize.x / 2.0f, pos.y - boxSize.y / 2.0f };
+		return CheckPointBoxHit(cursor->GetPos(), topLeft, boxSize);
 	}
 	return CheckPointBoxHit(cursor->GetPos(), pos, boxSize);
 }
@@ -97,13 +103,24 @@ void Button::Draw()
 	}
 	else
 	{
-
-		DrawExtendGraphF(pos.x, pos.y, pos.x + boxSize.x, pos.y + boxSize.y, image, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
-		DrawFillBox(pos.x, pos.y, pos.x + boxSize.x, pos.y + boxSize.y, currentColor);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-		centerX = pos.x + boxSize.x / 2.0f;
-		centerY = pos.y + boxSize.y / 2.0f;
+		if (centerFlag)
+		{
+			DrawCenterBox(pos, boxSize, currentColor, FALSE, 3.0f);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+			DrawCenterBox(pos , boxSize, currentColor, FALSE, 3.0f);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			centerX = pos.x;
+			centerY = pos.y;
+		}
+		else 
+		{
+			DrawExtendGraphF(pos.x, pos.y, pos.x + boxSize.x, pos.y + boxSize.y, image, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+			DrawFillBox(pos.x, pos.y, pos.x + boxSize.x, pos.y + boxSize.y, currentColor);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			centerX = pos.x + boxSize.x / 2.0f;
+			centerY = pos.y + boxSize.y / 2.0f;
+		}
 	}
 
 	if (label[0] != '\0')

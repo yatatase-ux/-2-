@@ -83,8 +83,8 @@ SCENE_UPDATE(ScenePlay)
 /// </summary>
 void ScenePlay::Draw()
 {
-	FloatXY p = cursor->GetPos();
-	DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
+	//FloatXY p = cursor->GetPos();
+	//DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
 
 	// 準備ステージの描画
 	if (stage == PlayStage::Preparing)
