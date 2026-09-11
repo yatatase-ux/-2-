@@ -3,11 +3,16 @@
 SCENE_CONSTRUCTOR(SceneOP)
 {
 	// OPシーンの初期化処理
+	BG = LoadGraph("data/BG/OP.jpg");
+	clickMessa = LoadGraph("data/BG/LCtS.png");
+
+	timer = 50;
 }
 
 SceneOP::~SceneOP()
 {
-
+	DeleteGraph(BG);
+	DeleteGraph(clickMessa);
 }
 
 SCENE_INPUT(SceneOP)
@@ -20,6 +25,12 @@ SCENE_INPUT(SceneOP)
 		return SceneState::Play;	// クリックされたらプレイシーンに遷移
 	}
 
+	timer--;
+	if (timer < 0)
+	{
+		timer = 40;
+	}
+
 	return SceneState::None;
 }
 
@@ -27,13 +38,18 @@ SCENE_UPDATE(SceneOP)
 {
 	// OPシーンの更新処理
 
+
 	return SceneState::None;
 }
 
 void SceneOP::Draw()
 {
 	// OPシーンの描画処理
-	DrawCenterText(WINDOW_W / 2, WINDOW_H / 2, "Click to Start", GetColor(255,255,255), 50.0f);
+	DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, BG, TRUE);
+	if(timer > 10)
+	{
+		DrawRotaGraph(WINDOW_W / 2, WINDOW_H / 2 + 125, 0.4f, 0.0, clickMessa, TRUE);
+	}
 }
 
 void SceneOP::Sound()
