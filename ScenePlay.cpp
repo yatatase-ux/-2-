@@ -73,11 +73,13 @@ SCENE_UPDATE(ScenePlay)
 	}
 	else
 	{
-		if (m_Battle->Update() == NextScene::ToPrep) 
+		NextScene next = m_Battle->Update(); // 1‰ñ‚¾‚¯ŒÄ‚Ô
+
+		if (next == NextScene::ToPrep)
 		{
 			ReturnPrep();
 		}
-		else if (m_Battle->Update() == NextScene::ToEnding) 
+		else if (next == NextScene::ToEnding)
 		{
 			return SceneState::End;
 		}
