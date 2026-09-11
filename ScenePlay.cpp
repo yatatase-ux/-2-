@@ -8,6 +8,8 @@
 /// <param name=""></param>
 SCENE_CONSTRUCTOR(ScenePlay)
 {
+	BattleHUD::LoadIcons();
+
 	// プレイシーンの初期化処理
 	context.playerParty = playerParty;	// SceneBaseが持つポインタをcontextにも渡す(コピーではなく同じ実体を指す)
 	EffectApplier effect;
@@ -29,7 +31,7 @@ SCENE_CONSTRUCTOR(ScenePlay)
 
 ScenePlay::~ScenePlay()
 {
-
+	BattleHUD::LoadIcons();
 }
 
 /// <summary>

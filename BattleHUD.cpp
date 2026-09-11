@@ -2,6 +2,10 @@
 #include "DxLib.h"
 #include "Function.h"
 
+int BattleHUD::poison_image = -1;
+int BattleHUD::paralysis_image = -1;
+int BattleHUD::burn_image = -1;
+
 void BattleHUD::DrawHPBar(BattleMonster& mon, float x, float y, float width)
 {
 	DrawLeftFormatText(x, y, GetColor(0, 0, 0), 30, "%s", mon.data->Name);
@@ -134,7 +138,14 @@ void BattleHUD::Draw(BattleMonster& player, BattleMonster& enemy)
 	}
 }
 
-void BattleHUD::DeleteData()
+void BattleHUD::LoadIcons()
+{
+	poison_image = LoadGraph("data/UI/poison.png");
+	paralysis_image = LoadGraph("data/UI/paralysis.png");
+	burn_image = LoadGraph("data/UI/burn.png");
+}
+
+void BattleHUD::DeleteIcons()
 {
 	DeleteGraph(poison_image);
 	DeleteGraph(paralysis_image);

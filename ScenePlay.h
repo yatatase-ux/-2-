@@ -9,6 +9,7 @@
 #include "Party.h"
 #include "CpuAttackScorer.h"
 #include "PrepStageManager.h"
+#include "BattleHUD.h"
 
 enum class PlayStage
 {

@@ -11,7 +11,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	nowScene->~SceneBase();
+
 }
 
 void SceneManager::Input()
