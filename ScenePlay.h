@@ -47,4 +47,5 @@ public:
 	/// </summary>
 	SCENE_CLASS(ScenePlay);
 
+	void ReturnPrep();
 };

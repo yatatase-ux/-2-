@@ -21,19 +21,22 @@ void PhaseManager::Input()
 /// <summary>
 /// XVˆ—
 /// </summary>
-bool PhaseManager::Update()
+NextScene PhaseManager::Update()
 {
-	//phase->Update();
-
 	PhaseState change_phase = phase->Update();
-	if(change_phase == PhaseState::GAME_END)
+
+	if (change_phase == PhaseState::ToPrep)
 	{
-		return true;
+		return NextScene::ToPrep;
+	}
+	else if(change_phase == PhaseState::ToEnd)
+	{
+		return NextScene::ToEnding;
 	}
 
 	ChangePhase(change_phase);
 
-	return false;
+	return NextScene::None;
 }
 
 /// <summary>
@@ -42,7 +45,7 @@ bool PhaseManager::Update()
 void PhaseManager::Draw()
 {
 	// ”wŒi
-	DrawGradientRegion(0, 130, 120, 160, 210);		// ‹ó(…FŒn)
+	DrawGradientRegion(0, 130, 120, 160, 210);			// ‹ó(…FŒn)
 	DrawGradientRegion(130, WINDOW_H, 90, 150, 90, 10); // ’n–Ê(‘‚Ì—ÎŒn)
 
 	phase->Draw();

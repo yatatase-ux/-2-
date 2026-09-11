@@ -73,7 +73,15 @@ SCENE_UPDATE(ScenePlay)
 	}
 	else
 	{
-		if (m_Battle->Update()) return SceneState::End;
+		if (m_Battle->Update() == NextScene::ToPrep) 
+		{
+			ReturnPrep();
+		}
+		else if (m_Battle->Update() == NextScene::ToEnding) 
+		{
+			return SceneState::End;
+		}
+
 		return SceneState::None;
 	}
 }
@@ -151,4 +159,21 @@ void ScenePlay::GenerateRandomEnemyParty()
 		context.enemyParty.mons[i].CurrentHP = mons->HP;
 		context.enemyParty.mons[i].displayedHP = (float)context.enemyParty.mons[i].CurrentHP;
 	}
+}
+
+void ScenePlay::ReturnPrep()
+{
+	context.playerParty = playerParty;
+
+	EffectApplier effect;
+	for (int i = 0; i < PARTY_MAX; i++)
+	{
+		effect.ResetForNewBattle(context.playerParty->mons[i]);
+	}
+
+	GenerateRandomEnemyParty();			// CPU‚Ì6‘Ì‚ð‚±‚±‚ÅŠm’è‚³‚¹‚é
+
+	stage = PlayStage::Preparing;
+
+	m_Prep = std::make_unique<PrepStageManager>(cursor, input, &context);
 }

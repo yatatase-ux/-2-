@@ -14,6 +14,13 @@
 #include "CheckFaintPhase.h"
 #include "EndBattlePhase.h"
 
+enum class NextScene
+{
+	None,
+	ToPrep,
+	ToEnding
+};
+
 class PhaseManager
 {
 protected:
@@ -40,7 +47,7 @@ public:
 	/// <summary>
 	/// XVˆ—
 	/// </summary>
-	bool Update();
+	NextScene Update();
 
 	/// <summary>
 	/// •`‰æˆ—
@@ -57,5 +64,6 @@ public:
 	std::unique_ptr<PhaseBase> CreatePhase(PhaseState state);
 
 	void DrawPhaseForDebug(PhaseState);
+
 };
 

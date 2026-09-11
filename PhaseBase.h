@@ -10,13 +10,15 @@
 
 enum class PhaseState
 {
-	NONE,         // 初期状態
-	COMMAND,      // 戦う・交代
-	MOVE_SELECT,  // 技選択
-	CHANGE_MONS,  // 怪獣チェンジ
-	ACTION,       // 行動実行
-	CHECK_FAINT,  // 戦闘不能判定
-	GAME_END      // 試合終了
+	NONE,			// 初期状態
+	COMMAND,		// 戦う・交代
+	MOVE_SELECT,	// 技選択
+	CHANGE_MONS,	// 怪獣チェンジ
+	ACTION,			// 行動実行
+	CHECK_FAINT,	// 戦闘不能判定
+	GAME_END,		// 試合終了
+	ToEnd,		// タイトルに戻る
+	ToPrep			// 準備フェーズに戻る
 };
 
 class PhaseBase

@@ -18,6 +18,8 @@ SCENE_INPUT(SceneEnd)
 	{
 		return SceneState::OP;	// クリックされたらOPシーンに遷移
 	}
+
+
 	return SceneState::None;
 }
 

@@ -12,6 +12,14 @@ PhaseState EndBattlePhase::Input()
 
 PhaseState EndBattlePhase::Update()
 {
+	if (input->Mouse().Push(MOUSE_LEFT))
+	{
+		return PhaseState::ToPrep;
+	}
+	if (input->Mouse().Push(MOUSE_RIGHT))
+	{
+		return PhaseState::ToEnd;
+	}
 	return PhaseState::NONE;
 }
 
