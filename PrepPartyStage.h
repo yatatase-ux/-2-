@@ -17,7 +17,7 @@ private:
 	Button slotButtons[PARTY_MAX];			// 下段:パーティ6枠
 	std::vector<Button> rosterButtons;		// 上段:選択可能な怪獣一覧
 
-	FloatXY monImagePos[16];
+	FloatXY monImagePos[17];
 
 	bool IsAlreadyInParty(const MonsterBaseData* mons);
 	void TrySwap(int slotIndex, int rosterIndex);
