@@ -4,6 +4,7 @@
 
 class SceneEnd : public SceneBase
 {
+	int BG;
 
 public:
 

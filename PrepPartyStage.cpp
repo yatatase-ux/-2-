@@ -114,8 +114,8 @@ void PrepPartyStage::Draw()
 		}
 	}
 
-	DrawFormatString(20, 60, GetColor(255, 255, 0), "start:(%.1f, %.1f) end:(%.1f, %.1f)",
-		detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y);
+	//DrawFormatString(20, 60, GetColor(255, 255, 0), "start:(%.1f, %.1f) end:(%.1f, %.1f)",
+	//	detailBoxStart.x, detailBoxStart.y, detailBoxEnd.x, detailBoxEnd.y);
 }
 
 void PrepPartyStage::Sound()

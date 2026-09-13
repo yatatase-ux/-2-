@@ -25,7 +25,7 @@ const MonsterBaseData MonsterData::monster[] = {
 { 15, "カゲロウ",     {Type::Normal, Type::None},  75,  95,  70,  95,  70, 120, {16, 17, 18, 20 }, "data/Monster/15-2.png", "data/Monster/15-1.png"}, // 525 渾身の一撃/頭突き/闘気弾/気合い十分(先制持ちの器用万能)
 { 16, "イワジュウ",   {Type::Normal, Type::None}, 100,  70, 100,  70, 100,  60, {17, 19, 20, 30 }, "data/Monster/16-2.png", "data/Monster/16-1.png"}, // 500 頭突き/鳴き声/気合い十分/神速の一撃
 
-{ 17, "デバッグ用つよつよお爺さん", {Type::Fire, Type::Water}, 200, 250, 200, 200, 200, 200, {1, 8, 11, 0 }}, // 1250
+//{ 17, "デバッグ用", {Type::Fire, Type::Water}, 200, 250, 200, 200, 200, 200, {1, 8, 11, 0 }}, // 1250
 
 };
 const int  MonsterData::MonsterSize = sizeof(monster) / sizeof(MonsterBaseData);

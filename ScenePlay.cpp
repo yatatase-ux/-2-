@@ -126,8 +126,8 @@ void ScenePlay::Draw()
 		//DrawFormatString(850, 400, GetColor(0, 255, 255), "—\‘ª:ƒvƒŒƒCƒ„[‚Í%s",
 		//	context.predictedPlayerDecision.switchToIndex >= 0 ? "Œð‘ã‚µ‚Ä‚­‚é" : "‹Z‚ðŽg‚¤");
 	}
-	FloatXY p = cursor->GetPos();
-	DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
+	//FloatXY p = cursor->GetPos();
+	//DrawFormatString(20, 20, GetColor(255, 255, 255), "x:%f  y:%f", p.x, p.y);
 }
 
 /// <summary>
