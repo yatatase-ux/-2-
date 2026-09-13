@@ -17,7 +17,7 @@ enum class PhaseState
 	ACTION,			// 行動実行
 	CHECK_FAINT,	// 戦闘不能判定
 	GAME_END,		// 試合終了
-	ToEnd,		// タイトルに戻る
+	ToEnd,			// タイトルに戻る
 	ToPrep			// 準備フェーズに戻る
 };
 
