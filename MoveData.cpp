@@ -13,11 +13,11 @@ MoveData MoveTable[] =
 	// 物理　威力：50　命中：100　追加効果：25%の確率でやけど
 
 	{ 3, "火炎放射",   Type::Fire, MoveCategory::Special,  100, 95, 0 },
-	// 特殊　威力：100　命中：95
+	// 魔法　威力：100　命中：95
 
 	{ 4, "ひのこ",     Type::Fire, MoveCategory::Special,  40, 100, 0,
 		EffectType::Burn, 10, false },
-	// 特殊　威力：40　命中：100　追加効果：10%の確率でやけど
+	// 魔法　威力：40　命中：100　追加効果：10%の確率でやけど
 
 	{ 5, "闘志",       Type::Fire, MoveCategory::Status,   0, 100, 0,
 		EffectType::StatUp, 100, true, StatType::PhysicalAtk, 1 },
@@ -32,11 +32,11 @@ MoveData MoveTable[] =
 	// 物理　威力：50　命中：100　追加効果：20%の確率で麻痺
 
 	{ 8, "みずでっぽう", Type::Water, MoveCategory::Special, 95, 100, 0 },
-	// 特殊　威力：95　命中：100
+	// 魔法　威力：95　命中：100
 
 	{ 9, "波動水",     Type::Water, MoveCategory::Special,  45, 100, 0,
 		EffectType::StatDown, 30, false, StatType::MagicAtk, -1 },
-	// 特殊　威力：45　命中：100　追加効果：30%の確率で特殊攻撃1段階下降
+	// 魔法　威力：45　命中：100　追加効果：30%の確率で特殊攻撃1段階下降
 
 	{ 10, "守りの霧",  Type::Water, MoveCategory::Status,   0, 100, 0,
 		EffectType::StatUp, 100, true, StatType::PhysicalDef, 1 },
@@ -47,7 +47,7 @@ MoveData MoveTable[] =
 	// 物理　威力：70　命中：100
 
 	{ 12, "このは",     Type::Grass, MoveCategory::Special,  65, 100, 0 },
-	// 特殊　威力：65　命中：100
+	// 魔法　威力：65　命中：100
 
 	{ 13, "どくの花粉", Type::Grass, MoveCategory::Status,   0, 90, 0,
 		EffectType::Poison, 100, false },
@@ -70,11 +70,11 @@ MoveData MoveTable[] =
 	// 物理　威力：50　命中：100　追加効果：20%の確率で素早さ1段階下降
 
 	{ 18, "闘気弾",     Type::Normal, MoveCategory::Special,  95, 95, 0 },
-	// 特殊　威力：95　命中：95
+	// 魔法　威力：95　命中：95
 
 	{ 19, "鳴き声",     Type::Normal, MoveCategory::Special,  40, 100, 0,
 		EffectType::StatDown, 100, false, StatType::PhysicalAtk, -1 },
-	// 特殊　威力：40　命中：100　追加効果：100%の確率で物理攻撃1段階下降
+	// 魔法　威力：40　命中：100　追加効果：100%の確率で物理攻撃1段階下降
 
 	{ 20, "気合い十分", Type::Normal, MoveCategory::Status,   0, 100, 1,
 		EffectType::StatUp, 100, true, StatType::Speed, 1 },
@@ -91,13 +91,13 @@ MoveData MoveTable[] =
 	
 	{ 24, "熱湯",     Type::Fire,  MoveCategory::Special,  70,  95, 0, 
 		EffectType::Burn, 20, false }, 
-	// 特殊　威力：70　命中：95　追加効果：20%の確率でやけど
+	// 魔法　威力：70　命中：95　追加効果：20%の確率でやけど
 
 	{ 25, "樹液流し", Type::Water, MoveCategory::Physical, 75, 100, 0 }, 
-	// 物理　威力：75　命中：100
+	// 魔法　威力：75　命中：100
 
 	{ 26, "森の雫",   Type::Water, MoveCategory::Special,  75, 100, 0 }, 
-	// 特殊　威力：75　命中：100
+	// 魔法　威力：75　命中：100
 
 	{ 27, "火花",     Type::Fire,   MoveCategory::Physical, 40, 100, 1 },
 	// 物理　威力：40　命中：100　優先度+1
